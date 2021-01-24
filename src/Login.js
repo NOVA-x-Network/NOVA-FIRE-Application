@@ -58,7 +58,14 @@ class Login extends React.Component {
             <p>Sign in</p>
           )}
           {user ? (
-            <button onClick={signOut}>Sign out</button>
+            <button
+              onClick={() => {
+                signOut();
+                this.setState({ message: null });
+              }}
+            >
+              Sign out
+            </button>
           ) : (
             <div>
               <input
