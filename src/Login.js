@@ -12,9 +12,9 @@ const providers = {
 };
 
 class Login extends React.Component {
-  signInWithUsernameAndPassword = () => {
+  signInWithEmailAndPassword = () => {
     firebaseAppAuth
-      .signInWithEmailAndPassword(this.state.username, this.state.password)
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => {
         this.setState({
           message: 'Welcome!',
@@ -23,7 +23,7 @@ class Login extends React.Component {
       })
       .catch((error) =>
         this.setState({
-          message: 'Error signing in with password and username!',
+          message: 'Error signing in with password and email!',
         })
       );
   };
@@ -31,8 +31,8 @@ class Login extends React.Component {
   onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
 
-    if (name === 'username') {
-      this.setState({ username: value });
+    if (name === 'email') {
+      this.setState({ email: value });
     } else if (name === 'password') {
       this.setState({ password: value });
     }
@@ -40,7 +40,7 @@ class Login extends React.Component {
 
   state = {
     message: null,
-    username: '',
+    email: '',
     password: '',
     displayName: '',
   };
@@ -62,11 +62,11 @@ class Login extends React.Component {
           ) : (
             <div>
               <input
-                id="username"
-                value={this.state.username}
+                id="email"
+                value={this.state.email}
                 type="text"
-                name="username"
-                placeholder="Username"
+                name="email"
+                placeholder="Email"
                 onChange={(event) => this.onChangeHandler(event)}
               />
               <input
@@ -77,9 +77,7 @@ class Login extends React.Component {
                 placeholder="Password"
                 onChange={(event) => this.onChangeHandler(event)}
               />
-              <button onClick={this.signInWithUsernameAndPassword}>
-                Log in
-              </button>
+              <button onClick={this.signInWithEmailAndPassword}>Log in</button>
               <p>or</p>
               <button
                 onClick={() => {
