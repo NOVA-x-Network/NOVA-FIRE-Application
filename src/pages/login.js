@@ -12,6 +12,19 @@ const providers = {
 };
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      message: null,
+      email: "",
+      password: "",
+      displayName: "",
+    };
+
+    this.sendPasswordResetEmail = this.sendPasswordResetEmail.bind(this);
+  }
+
   signInWithEmailAndPassword = () => {
     firebaseAppAuth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
@@ -28,6 +41,17 @@ class Login extends React.Component {
       );
   };
 
+  sendPasswordResetEmail = (emailAddress) => {
+    firebaseAppAuth
+      .sendPasswordResetEmail(emailAddress)
+      .then(function () {
+        alert("Check your email for a link to reset your password.");
+      })
+      .catch(function (error) {
+        alert("Unable to send a password reset link: " + error);
+      });
+  };
+
   onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
 
@@ -36,13 +60,6 @@ class Login extends React.Component {
     } else if (name === "password") {
       this.setState({ password: value });
     }
-  };
-
-  state = {
-    message: null,
-    email: "",
-    password: "",
-    displayName: "",
   };
 
   render() {
@@ -94,6 +111,14 @@ class Login extends React.Component {
                 }}
               >
                 Sign in with Google
+              </button>
+
+              <button
+                onClick={() => {
+                  this.sendPasswordResetEmail(prompt("Email address:"));
+                }}
+              >
+                Forgot password
               </button>
             </div>
           )}
