@@ -1,201 +1,149 @@
-import React, { useState } from "react";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import index from "./index.css";
-import logo from "./logo1.png";
-import firebase from "firebase";
-import PasswordStrength from "./PasswordStrength.js";
+import React,{useState} from 'react';
 import {
-  TextField,
+  Paper,
+   makeStyles,
+  Grid,
   Button,
-  Container,
-  Avatar,
-  IconButton,
-  makeStyles,
-  InputAdornment,
-  SvgIcon,
   Divider,
   Typography,
+  Container,
+  InputLabel,
   Box,
+ Fab
 } from "@material-ui/core";
-import { Visibility, VisibilityOff, Person,Facebook,Twitter } from "@material-ui/icons";
-import{ ReactComponent as Google } from "./search.svg";
-
+import {Done} from "@material-ui/icons"
+import Signup from "./Signup.js";
+import Message from "./Message.js";
+import Review from "./Review.js";
 
 const useStyles = makeStyles(() => ({
-  default: {
-    marginTop: `${1}em`,
-    height: `${70}%`,
-    width: `${50}%`,
+  paper: {
+    width: `${75}%`,
+    height: `${90}vh`,
     background: `#fff`,
-    padding: `${1}em`,
+    marginTop: `${1.5}em`,
+    marginLeft: `${8}em`,
+    overflow:`hidden`,
   },
-  field: {
-    marginTop: `${1}em`,
+  first: {
+    width: `${10}%`,
+    height: `${90}vh`,
+    background: `#0C75FF`,
+   
   },
-  small: {
-    width: `${70}px`,
-    height: `${70}px`,
-    marginLeft: `${40}%`,
+  text: {
+
+    marginBottom:`${5}em`,
+    marginLeft:`${1}em`
   },
-}));
-
-const SignupSchema = Yup.object().shape({
-  first: Yup.string().min(2,"Required field"),
-  last: Yup.string().min(7,"Required field"),
-  email: Yup.string().email(`please input a valid email`).min(4,"Required field"),
-  password: Yup.string().required("This field must be filled"),
-});
-function App() {
-  const classes = useStyles();
-  const [visible, setVisible] = useState(false);
-  const [display, setDisplay] = useState(false);
-  const handleClick = () => {
-    setVisible(!visible);
-  };
-  const handleRequest = () => {
-    var provider = new firebase.auth.FacebookAuthProvider();
-    firebase
-  .auth()
-  .signInWithPopup(provider)
-  .then((result) => {
-    /** @type {firebase.auth.OAuthCredential} */
-    var credential = result.credential;
-
-    // The signed-in user info.
-    var user = result.user;
-
-    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-    var accessToken = credential.accessToken;
-
-    // ...
-  })
-  .catch((error) => {
-   alert(error) 
-  });
-
+  address: {
+    marginTop:`${1}em`,
+    height:`${7}em`
+ 
+  },
+  contain: {
+    marginTop:`${2}em`
+  },
+  stepper: {
+    Boxshadow:`${0}px ${0}px ${0}px #fff`,
+    borderRadius:`${5}px`,
+    height:`${20}px`,
+    width:`${40}px`,
+  },
+  stepname: {
+    marginTop:`${0.5}em`,
+    marginLeft:`${0.5}em`
   }
-  return (
-    <>
-      <Container maxWidth="sm">
-        <Avatar alt="CrystalWebPro" src={logo} className={classes.small} />
-      </Container>
-      <Formik
-        enableReininitialize
-        initialValues={{
-          email: "",
-          password: " ",
-          first: " ",
-          last: " ",
-        }}
-        validationSchema={SignupSchema}
-        onSubmit={(values) => {
-         alert(`Sucess`)
-        }}
-      >
-        {({ handleSubmit, handleBlur, values, handleChange, errors ,touched}) => (
-          <form onSubmit={handleSubmit}>
-  <Container className={classes.default} maxWidth="sm">
-              <Person style={{ fontSize: "50px" }}></Person>
-              <Button variant="contained"  fullWidth={true} disabled >
-      <SvgIcon>
-      <Google/>
-      </SvgIcon>
-      <Facebook onclick={handleRequest} style={{ fontSize: "35px",color:"#365899",marginLeft:`${2}em` }}/>
-      <Twitter style={{ fontSize: "35px",color:"#1DA1F2",marginLeft:`${2}em`  }}/>
-      </Button>
-      <Box m={1} p={1} display="flex">
-        <Box width="50%" p={1}>
-              <Divider light={true} style={{ background: "#000" }}/>
-              </Box>
-              <Box p={1}>
-              <Typography align="center" variant="body1">OR </Typography>
-              </Box>
-              <Box width="50%" p={1}>
-              <Divider light={true} style={{ background: "#000" }}/>
-              </Box>
-              </Box>
-              <TextField
-                error={errors.first }
-                type="text"
-                helperText={errors.first}
-                className={classes.field}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                name="first"
-                variant="outlined"
-                label="First Name"
-                fullWidth={true}
-              />
+}));
+const App = () => {   
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = useState(1);
+  const handleNext = () => {
+    setActiveStep(activeStep + 1)
+  }
+  const handlePrev = () => {
+    setActiveStep(activeStep - 1)
+  }
+return (
+<>
+<style>{"body {background-color: #bfbaba; overflow:hidden;}"}</style>
+<Paper className={classes.paper} elevation={10}>
+<Grid container>
+            <Grid className={classes.first} item xs={4}>
 
-              <TextField
-                error={errors.last }
-                type="text"
-                onChange={handleChange}
-                helperText={errors.last}
-                className={classes.field}
-                name="last"
-                variant="outlined"
-                onBlur={handleBlur}
-                label="Last Name"
-                fullWidth={true}
-              />
-              <TextField
-                error={errors.email}
-                type="email"
-                helperText={errors.email }
-                className={classes.field}
-                onChange={handleChange}
-                name="email"
-                variant="outlined"
-                label="Email"
-                onBlur={handleBlur}
-                fullWidth={true}
-              />
-              <TextField
-                error={errors.password && errors.touched}
-                helperText={errors.password && errors.touched}
-                onBlur={handleBlur}
-                type={visible ? "text" : "password"}
-                className={classes.field}
-                onChange={(e) => {
-                       handleChange(e);
-                     {e.target.value.length ?  setDisplay(true) : setDisplay(false)};
-                }
-                }
-                name="password"
-                variant="outlined"
-                label="Password"
-                fullWidth={true}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment onClick={handleClick} position="end">
-                      <IconButton>
-                        {visible ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
+              </Grid>
 
-              {display ? <PasswordStrength password={values.password} /> : ""}
+              <Grid item xs={8}>
+                <Container className={classes.contain} maxWidth="sm">
+  <Box style={{display:`flex`,marginLeft:`${2}em`}}>
+  <Box style={{display:`flex`,marginLeft:`${1}em`}}>
+    <Fab className={classes.stepper} style={ activeStep >= 2 ? {background:`#ECF3FE`,color:`#0C75FF`}  :{background:`#0C75FF`,color:`#fff`}} size="small" disableRipple={true}>{activeStep >= 2 ? <Done/> : '1'}</Fab>
+<Typography className={classes.stepname}>Sign Up</Typography>
+</Box>
+<Box style={{display:`flex`,marginLeft:`${1}em`}}>
+<Fab className={classes.stepper} style={activeStep >= 2 ? activeStep >= 3  ? {background:`#ECF3FE`,color:`#0C75FF`}  : {background:`#0C75FF`,color:`#fff`} :null} size="small" disableRipple={true}> {activeStep >= 3 ? <Done/> : '2'}</Fab>
+<Typography className={classes.stepname}>Message</Typography>
+</Box>
+<Box style={{display:`flex`,marginLeft:`${1}em`}}>
+<Fab className={classes.stepper} style={activeStep >= 3 ? {background:`#0C75FF`,color:`#fff`}  : null} size="small" disableRipple={true}>{activeStep >= 4? <Done/> : '3'}</Fab>
+<Typography className={classes.stepname}>Review</Typography>
+</Box>
+    </Box>
+                  <Divider style={{marginTop:`${1}em`}}/>
+                  <Container  style={{marginTop:`${2}em`}}>
+                  <InputLabel shrink={true} style={{display:`block`}}>
+       Step {activeStep}/3
+        </InputLabel>
+                <Typography variant="h5" style={{
+                  color:`#02044A`,
+                  fontWeight:900,
+                }}> { activeStep === 1 ? "Sign Up" : null}{activeStep === 2   ?   "Message" :null} {activeStep === 3  ?   "Review" :null}</Typography>
 
-              <Button
-                type="submit"
-                className={classes.field}
-                variant="contained"
-                color="primary"
-                size="large"
-                fullWidth={true}
-              >
-                Sign Up
+      { activeStep === 1 ? <Signup increment={activeStep}/> : null}
+      {  activeStep === 2    ? <Message/> : null}
+      {  activeStep === 3   ?  <Review/>  : null}
+
+     
+</Container>
+<Divider style={{marginTop:`${1}em`}}/>
+<Button variant="contained" style={{
+                background:`#0C75FF`,
+                color:`#fff`,
+                width:`${22}%`,
+                height:`${42}px`,
+                marginTop:`${1}em`,
+                marginLeft:`${34}em`,
+                fontSize:`${0.7}em`
+                }} 
+                onClick={handleNext}
+                >
+              {activeStep ===3 ? "Finish" :"Next Step"}  
               </Button>
-            </Container>
-          </form>
-        )}
-      </Formik>
-    </>
-  );
+{
+activeStep > 1
+            ?  <Button variant="contained" style={{
+                background:`black`,
+                color:`#fff`,
+                width:`${22}%`,
+                height:`${42}px`,
+                marginTop:`${-6}em`,
+
+                fontSize:`${0.7}em`
+                }} 
+                onClick={handlePrev}
+                >
+                Back
+              </Button>
+              :
+              null
+}
+              </Container>
+</Grid>
+              
+             </Grid>
+  </Paper>
+</>
+)
 }
 
 export default App;
