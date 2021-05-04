@@ -3,6 +3,7 @@ import withFirebaseAuth from "react-with-firebase-auth";
 import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "../components/firebaseConfig";
+import logo from '../images/novaLogo.png';
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const firebaseAppAuth = firebaseApp.auth();
@@ -67,12 +68,20 @@ class Login extends React.Component {
 
     return (
       <div className="main">
+      <div className="loginLeft">
+        <center><img src={logo}/></center>
+        <p>
+        NOVA FIRE (Fellowship in Innovation, Research, and Education) is a 5 month-long intensive fellowship program for high school students. Our fellows will participate in primary and secondary interdisciplinary research in 1 of our 4 topics. They will be given the opportunity to either develop a hands-on project, or a written report for publication, based on their findings and analysis. Students will have a chance to work in teams of 5-6. NOVA will be accepting a maximum of 24 students into our program. A full timeline, list of topics, and speakers can be found at <br/><br/>
+          <b><a href="https://novaxnetwork.com/fellowship/">https://novaxnetwork.com/fellowship/. </a></b>
+        </p>
+      </div>
+      <div className="loginRight"><center>
         <header className="App-header">
           {this.state.message !== null && <div>{this.state.message}</div>}
           {user ? (
             <p>Hello, {user.displayName || this.state.displayName}</p>
           ) : (
-            <p>Sign in</p>
+            <h1>Sign in</h1>
           )}
           {user ? (
             <button
@@ -120,9 +129,11 @@ class Login extends React.Component {
               >
                 Forgot password
               </button>
+              <p>Don't have an account yet? <a href="signup"><b><u>Sign up. </u></b></a></p>
             </div>
           )}
         </header>
+      </center></div>
       </div>
     );
   }
