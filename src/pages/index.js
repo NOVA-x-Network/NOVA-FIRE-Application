@@ -24,12 +24,12 @@ const IndexPage = () => {
 		cornerImageWidth="16vh"
 	}
 	else {
-		introTextFont = "1.5vh"
-		introTextWidth="180px"
-		frontBannerHeight = "20vh"
-		frontBannerImageHeight = "10vh"
+		introTextFont = "1.3vh"
+		introTextWidth="130px"
+		frontBannerHeight = "45vh"
+		frontBannerImageHeight = "12.5vh"
 		frontBannerWidth = "90vw"
-		frontBannerImageWidth = "25w"
+		frontBannerImageWidth = "30w"
 		cornerImageHeight = "4vh"
 		cornerImageWidth="8vh"
     }
