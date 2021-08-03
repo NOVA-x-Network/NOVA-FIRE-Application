@@ -26,3 +26,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 src/components/firebaseConfig.js.sample
+src/.vs/ProjectSettings.json
+src/.vs/slnx.sqlite
+src/.vs/src/v16/.suo
+src/.vs/VSWorkspaceState.json

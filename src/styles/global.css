@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap'); /*Poppins*/
 
 @media (min-width: 1025px) {
-  body {
+    body {
     background: #D6F3F2;
-  }
-  input {
+    }
+    input {
     width: 50%;
     height:50px;
     border: 0;
@@ -22,18 +22,18 @@
     line-height: 22px;
     color: #323865;
     padding:15px;
-  }
+    }
 
-  ::placeholder {
+    ::placeholder {
     font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 15px;
     line-height: 22px;
     color: rgba(50, 56, 101, 0.5);
-  }
+    }
 
-  button {
+    button {
     width: auto;
     height:50px;
     border: 0;
@@ -54,16 +54,16 @@
     font-size: 18px;
     line-height: 30px;
     transition: 0.2s ease-in-out all;
-  }
-.gradient-button-border {
+    }
+    .gradient-button-border {
     background: linear-gradient(90deg, rgba(17,8,153,1) 0%, rgba(25,180,103,1) 97%);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 15px;
     margin:30px
-}
-.gradient-button-border div {
+    }
+    .gradient-button-border div {
     display: flex;
     background-color: white;
     height: 10vh;
@@ -71,11 +71,11 @@
     border-radius: 10px;
     align-items: center;
     justify-content: center;
-}
-.gradient-button-border div p {
+    }
+    .gradient-button-border div p {
     font-size: 3.2vh
-}
-.gradient-button-border {
+    }
+    .gradient-button-border {
     display: flex;
     background-color: white;
     height: 12vh;
@@ -84,26 +84,26 @@
     align-items: center;
     justify-content: center;
     margin:20px
-}
-.gradient-button-border:hover {
+    }
+    .gradient-button-border:hover {
     cursor: pointer
-}
-  a {
+    }
+    a {
     color:inherit;
     text-decoration:none;
-  }
+    }
 
-  button:hover {
+    button:hover {
     transition: 0.2s ease-in-out all;
     cursor: pointer;
     background: #E9FEFD;
-  }
+    }
 
-  p {
+    p {
     text-align: center;
-  }
+    }
 
-  .main {
+    .main {
     position:relative;
     background: rgb(233,254,253);
     background: linear-gradient(180deg, rgba(233,254,253,1) 0%, rgba(208,244,242,1) 93%, rgba(191,237,234,1) 100%);
@@ -115,9 +115,9 @@
     width:95%;
     height:auto;
     overflow:hidden;
-  }
+    }
 
-  .loginLeft {
+    .loginLeft {
     padding:5%;
     position: relative;
     width:30%;
@@ -126,27 +126,27 @@
     padding-top:8%;
     margin-bottom:-100%;
     padding-bottom:105%;
-  }
+    }
     .loginLeft img {
-      position:relative;
-      width:100%;
-      height:auto;
-      margin:0;
+        position:relative;
+        width:100%;
+        height:auto;
+        margin:0;
     }
     .loginLeft p {
-      position:relative;
-      clear:both;
-      text-align:left;
-      font-family: 'Poppins', sans-serif;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 15px;
-      line-height: 23px;
-      margin:0;
-      color: #323865;
+        position:relative;
+        clear:both;
+        text-align:left;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 23px;
+        margin:0;
+        color: #323865;
     }
 
-  .loginRight, .App-Header {
+    .loginRight, .App-Header {
     position:relative;
     padding:5%;
     padding-top:3%;
@@ -157,37 +157,37 @@
     padding-bottom:107%;
     background: rgb(26,111,76);
     background: linear-gradient(180deg, rgba(26,111,76,1) 0%, rgba(23,98,67,1) 88%, rgba(18,78,53,1) 100%);
-  }
+    }
     .loginRight h1, .App-Header h1 {
-      margin-top:10%;
-      position:relative;
-      text-align:center;
-      font-family: 'Poppins', sans-serif;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 50px;
-      line-height: 75px;
-      color: #D6F3F2;
+        margin-top:10%;
+        position:relative;
+        text-align:center;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 50px;
+        line-height: 75px;
+        color: #D6F3F2;
     }
     .loginRight p, .App-Header p{
-      position:relative;
-      text-align:center;
-      font-family: 'Poppins', sans-serif;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 15px;
-      line-height: 5px;
-      color: #BFEDEA;
+        position:relative;
+        text-align:center;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 5px;
+        color: #BFEDEA;
     }
   }
 
 @media (min-width: 320px) and (max-width: 1024px) {
-  body {
+    body {
     width:100%;
     background: #D6F3F2;
     margin:0;
-  }
-  input {
+    }
+    input {
     width: 80%;
     height:70px;
     border: 0;
@@ -205,48 +205,48 @@
     line-height: 22px;
     color: #323865;
     padding:25px;
-  }
-  ::placeholder {
+    }
+    ::placeholder {
     font-family: 'Poppins', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 25px;
     line-height: 22px;
     color: rgba(50, 56, 101, 0.5);
-  }
+    }
     .gradient-button-border {
-        background: linear-gradient(90deg, rgba(17,8,153,1) 0%, rgba(25,180,103,1) 97%);
-        display: flex;
-        align-items: center;
-        justify-content: center; 
-        border-radius: 15px;
+    background: linear-gradient(90deg, rgba(17,8,153,1) 0%, rgba(25,180,103,1) 97%);
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    border-radius: 15px;
     }
     .gradient-button-border div {
-        display:flex;
-        background-color: white;
-        height: 10vh; 
-        width: 33vw; 
-        border-radius: 10px; 
-        align-items: center; 
-        justify-content: center;
+    display:flex;
+    background-color: white;
+    height: 10vh; 
+    width: 33vw; 
+    border-radius: 10px; 
+    align-items: center; 
+    justify-content: center;
     }
     .gradient-button-border div p{
-        font-size:2vh
+    font-size:2vh
     }
     .gradient-button-border {
-        display: flex;
-        background-color: white;
-        height: 12vh;
-        width: 38vw;
-        border-radius: 10px;
-        align-items: center;
-        justify-content: center;
-        margin: 20px
+    display: flex;
+    background-color: white;
+    height: 12vh;
+    width: 38vw;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    margin: 20px
     }
     .gradient-button-border:hover{
-        cursor:pointer
+    cursor:pointer
     }
-  button {
+    button {
     width: 80px;
     height:33px;
     border: 0;
@@ -262,24 +262,24 @@
     font-weight: 600;
     font-size: 10px;
     transition: 0.2s ease-in-out all;
-  }
+    }
 
-  a {
+    a {
     color:inherit;
     text-decoration:none;
-  }
+    }
 
-  button:hover {
+    button:hover {
     transition: 0.2s ease-in-out all;
     cursor: pointer;
     background: #E9FEFD;
-  }
+    }
 
-  p {
+    p {
     text-align: center;
-  }
+    }
 
-  .main {
+    .main {
     position:relative;
     background: rgb(26,111,76);
     background: linear-gradient(180deg, rgba(26,111,76,1) 0%, rgba(23,98,67,1) 88%, rgba(18,78,53,1) 100%);
@@ -288,32 +288,32 @@
     margin:0;
     width:100%;
     min-height:100vh;
-  }
+    }
 
-  .loginLeft {
+    .loginLeft {
     position: relative;
     width:100%;
     display:block;
     height:100%;
     margin:0;
-  }
+    }
     .loginLeft img {
-      position:relative;
-      width:40%;
-      height:auto;
-      margin:auto;
-      margin-bottom:0;
-      margin-top:60px;
+    position:relative;
+    width:40%;
+    height:auto;
+    margin:auto;
+    margin-bottom:0;
+    margin-top:60px;
     }
     .loginLeft p {
-      display:none;
-      content:none;
-      /* position:relative;
-      clear:both;
-      font-size: 0; */
+    display:none;
+    content:none;
+    /* position:relative;
+    clear:both;
+    font-size: 0; */
     }
 
-  .loginRight, .App-Header {
+    .loginRight, .App-Header {
     position:relative;
     padding:0;
     padding-top:0%;
@@ -322,26 +322,26 @@
     display:block;
     height:100%;
     padding-bottom:150px;
-  }
+    }
     .loginRight h1, .App-Header h1 {
-      position:relative;
-      text-align:center;
-      font-family: 'Poppins', sans-serif;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 60px;
-      line-height: 75px;
-      color: #D6F3F2;
+    position:relative;
+    text-align:center;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 60px;
+    line-height: 75px;
+    color: #D6F3F2;
     }
     .loginRight p, .App-Header p{
-      position:relative;
-      text-align:center;
-      font-family: 'Poppins', sans-serif;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 25px;
-      line-height: 5px;
-      color: #BFEDEA;
-      padding:20px;
+    position:relative;
+    text-align:center;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 5px;
+    color: #BFEDEA;
+    padding:20px;
     }
 }
