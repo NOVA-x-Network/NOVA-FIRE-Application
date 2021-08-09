@@ -12,9 +12,10 @@ import {
 } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import BasicInformation from "../form_parts/basicInfo.js";
-import LongResponses from "./long-answer.js"
+import LongResponses from "../form_parts/longAnswer.js"
 import Description from "../form_parts/description.js";
 import Upload from "../form_parts/uploadDocs";
+import Survey from "../form_parts/survey";
 
 const myStyles = makeStyles(() => ({
     paper: {
