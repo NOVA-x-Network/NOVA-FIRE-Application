@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import BasicInformation from "../form_parts/basicInfo.js";
+import LongResponses from "./long-answer.js"
 import Description from "../form_parts/description.js";
 import Upload from "../form_parts/uploadDocs";
 
@@ -35,7 +36,7 @@ const myStyles = makeStyles(() => ({
         cursor: `pointer`
     },
     contain: {
-        marginTop: `${2}em`
+        marginTop: `${2}em`,
     },
 
     Box: {
@@ -128,6 +129,7 @@ const App = () => {
                             <Container>
                                 {activeStep === 1 ? <Description /> : null}
                                 {activeStep === 2 ? <BasicInformation /> : null}
+                                {activeStep === 3 ? <LongResponses /> : null}
                                 {activeStep === 5 ? <Upload /> : null}
 
 
