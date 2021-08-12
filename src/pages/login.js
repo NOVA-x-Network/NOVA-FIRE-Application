@@ -1,11 +1,9 @@
 import React from "react";
 import withFirebaseAuth from "react-with-firebase-auth";
-import firebase from "firebase/app";
 import "firebase/auth";
-import firebaseConfig from "../components/firebaseConfig";
+import firebase from "firebase/app";
 import logo from '../images/novaLogo.png';
-
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+import firebaseApp from "../components/firebaseConfig.js"
 const firebaseAppAuth = firebaseApp.auth();
 
 const providers = {

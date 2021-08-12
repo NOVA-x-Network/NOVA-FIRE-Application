@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\form_parts",
+    "\\src\\images",
+    "\\src\\pages"
   ],
+  "SelectedNode": "\\src\\form_parts\\longAnswer.js",
   "PreviewInSolutionExplorer": false
 }

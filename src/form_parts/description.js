@@ -5,7 +5,7 @@ import Container from "@material-ui/core/Container";
 const Description = () => {
     return (
         <>
-            <Container maxWidth="sm" style={{ marginLeft: `${-5}em`, width: `${60}vw`, overflowY: `scroll`, height: `${75}vh` }}>
+            <Container maxWidth="md" style={{ marginLeft: `${-15}em`, width: `${60}vw`, overflowY: `scroll`, height: `${75}vh` }}>
                 <Typography
                     variant="p"
                     style={{ color: `#323865`, fontFamily: `poppins` }}

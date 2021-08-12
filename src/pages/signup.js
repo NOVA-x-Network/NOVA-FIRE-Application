@@ -2,19 +2,9 @@ import React from "react";
 import withFirebaseAuth from "react-with-firebase-auth";
 import firebase from "firebase/app";
 import "firebase/auth";
-import firebaseConfig from "../components/firebaseConfig";
+import firebaseApp from "../components/firebaseConfig";
 import logo from '../images/novaLogo.png';
-
-var firebaseApp;
-
-if (!firebase.apps.length) {
-  firebaseApp = firebase.initializeApp(firebaseConfig);
-} else {
-  firebaseApp = firebase.app();
-}
-
-const firebaseAppAuth = firebaseApp.auth();
-
+const firebaseAppAuth=firebaseApp.auth()
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
 };

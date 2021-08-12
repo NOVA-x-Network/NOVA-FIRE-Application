@@ -159,7 +159,7 @@ const BasicInformation = ({ increment }) => {
     return (
         <>
 
-            <Container>
+            <Container style={{ marginLeft: "-5vw" }}>
                 <Box style={{ marginLeft: `${-3}em`, marginBottom: `${1.5}em` }}>
                     <Typography variant="h5" style={{ color: `#1A6F4C`, fontSize: `${25}px` }}>Tell us about yourself:</Typography>
                 </Box>

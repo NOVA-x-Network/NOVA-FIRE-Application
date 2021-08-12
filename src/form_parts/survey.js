@@ -13,8 +13,13 @@ const Survey = () => {
             },
             '& input': {
                 display: "inline-block",
-                marginLeft:"-350px",
-        }
+            },
+            '& input[type=text]': {
+                display: "inline-block",
+                backgroundColor: "white",
+                color: "black",
+                border:"2px solid black"
+            },
         }
     }))
     const validate = values => {
@@ -44,101 +49,154 @@ const Survey = () => {
     })
     const classes = formStyle();
     return (
-        <Container style={{ height: "75vh", overflowY:"scroll"}}>
+        <Container style={{ height: "75vh", overflowY:"scroll", width:"50vw", marginLeft:"-8vw"}}>
             <form onSubmit={responseFields.handleSubmit} className={classes.form}>
                 <h2>Question 1: How'd you hear about the NOVA FIRE Fellowship?</h2>
                 <br />
-                <label htmlFor="school">NOVA's instagram page</label>
+                <label htmlFor="instagram">NOVA's instagram page</label>
                 <input
                     type="checkbox"
-                    id="school"
+                    id="instagram"
                     name="Q1"
                     onChange={responseFields.handleChange}
                     value="NOVA Instagram"
                 />
                 <br />
-                <label htmlFor="kool">NOVA's LinkedIn</label>
+                <label htmlFor="linkedin">NOVA's LinkedIn</label>
                 <input
                     type="checkbox"
-                    id="kool"
+                    id="linkedin"
                     name="Q1"
                     onChange={responseFields.handleChange}
                     value="NOVA LinkedIn"
                 />
                 <br />
-                <label htmlFor="kool">A friend</label>
+                <label htmlFor="friend">A friend</label>
                 <input
                     type="checkbox"
-                    id="nool"
+                    id="friend"
                     name="Q1"
                     onChange={responseFields.handleChange}
                     value="Friend"
                 />
                 <br />
-                <label htmlFor="kool">NOVA's Website</label>
+                <label htmlFor="website">NOVA's Website</label>
                 <input
                     type="checkbox"
-                    id="nool"
+                    id="website"
                     name="Q1"
                     onChange={responseFields.handleChange}
                     value="NOVA Website"
                 />
                 <br />
-                <label htmlFor="kool">A post by one of NOVA's executives</label>
+                <label htmlFor="execPost">A post by one of NOVA's executives</label>
                 <input
                     type="checkbox"
-                    id="nool"
+                    id="execPost"
                     name="Q1"
                     onChange={responseFields.handleChange}
                     value="Executive post"
                 />
                 <br />
-                <label htmlFor="kool">An instagram page that isn't NOVA's</label>
+                <label htmlFor="otherInstagram">An instagram page that isn't NOVA's</label>
                 <input
                     type="checkbox"
-                    id="nool"
+                    id="otherInstagram"
                     name="Q1"
                     onChange={responseFields.handleChange}
                     value="Other Org Instagram"
                 />
                 <br />
-                <label htmlFor="kool">Other:</label>
+                <label htmlFor="other">Other:</label>
                 <input
-                    type="checkbox"
-                    id="nool"
+                    type="text"
+                    id="other"
                     name="Q1"
                     onChange={responseFields.handleChange}
-                    value="Other"
                 />
                 <br />
                 {responseFields.touched.Q1 && responseFields.errors.Q1 ? (
                     <div>{responseFields.errors.Q1}</div>
                 ) : null}
-                <h2>Question 2:</h2>
+                <h2>Question 2: How'd you hear about the NOVA x Network?</h2>
                 <br />
+                <label htmlFor="instagram">NOVA's instagram page</label>
                 <input
                     type="checkbox"
-                    id="Q2"
-                    name="Q2"
+                    id="instagram"
+                    name="Q1"
+                    onChange={responseFields.handleChange}
+                    value="NOVA Instagram"
+                />
+                <br />
+                <label htmlFor="linkedin">NOVA's LinkedIn</label>
+                <input
+                    type="checkbox"
+                    id="linkedin"
+                    name="Q1"
+                    onChange={responseFields.handleChange}
+                    value="NOVA LinkedIn"
+                />
+                <br />
+                <label htmlFor="friend">A friend</label>
+                <input
+                    type="checkbox"
+                    id="friend"
+                    name="Q1"
+                    onChange={responseFields.handleChange}
+                    value="Friend"
+                />
+                <br />
+                <label htmlFor="website">NOVA's Website</label>
+                <input
+                    type="checkbox"
+                    id="website"
+                    name="Q1"
+                    onChange={responseFields.handleChange}
+                    value="NOVA Website"
+                />
+                <br />
+                <label htmlFor="execPost">A post by one of NOVA's executives</label>
+                <input
+                    type="checkbox"
+                    id="execPost"
+                    name="Q1"
+                    onChange={responseFields.handleChange}
+                    value="Executive post"
+                />
+                <br />
+                <label htmlFor="otherInstagram">An instagram page that isn't NOVA's</label>
+                <input
+                    type="checkbox"
+                    id="otherInstagram"
+                    name="Q1"
+                    onChange={responseFields.handleChange}
+                    value="Other Org Instagram"
+                />
+                <br />
+                <label htmlFor="other">Other:</label>
+                <input
+                    type="text"
+                    id="other"
+                    name="Q1"
                     onChange={responseFields.handleChange}
                 />
                 <br />
                 {responseFields.touched.Q2 && responseFields.errors.Q2 ? (
                     <div>{responseFields.errors.Q2}</div>
                 ) : null}
-                <h2>Question 3:</h2>
+                <h2>Question 3: Anything else you want us to know?</h2>
                 <br />
-                <input
-                    type="checkbox"
+                <textarea
                     id="Q3"
                     name="Q3"
                     onChange={responseFields.handleChange}
+                    style={{width:"40vw", height:"200px"}}
                 />
                 <br />
                 {responseFields.touched.Q3 && responseFields.errors.Q3 ? (
                     <div>{responseFields.errors.Q3}</div>
                 ) : null}
-                <button type="submit">Submit</button>
             </form>
         </Container>
     )

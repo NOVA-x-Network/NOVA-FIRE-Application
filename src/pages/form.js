@@ -16,7 +16,6 @@ import LongResponses from "../form_parts/longAnswer.js"
 import Description from "../form_parts/description.js";
 import Upload from "../form_parts/uploadDocs";
 import Survey from "../form_parts/survey";
-
 const myStyles = makeStyles(() => ({
     paper: {
         width: `${85}%`,
@@ -131,6 +130,7 @@ const App = () => {
                                 {activeStep === 1 ? <Description /> : null}
                                 {activeStep === 2 ? <BasicInformation /> : null}
                                 {activeStep === 3 ? <LongResponses /> : null}
+                                {activeStep === 4 ? <Survey /> : null}
                                 {activeStep === 5 ? <Upload /> : null}
 
 
