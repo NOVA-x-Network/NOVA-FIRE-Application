@@ -60,7 +60,9 @@ const App = () => {
     const classes = myStyles();
     const [activeStep, setActiveStep] = useState(1);
     const handleNext = () => {
-        setActiveStep(activeStep + 1)
+        setTimeout(() => {
+            setActiveStep(activeStep + 1)
+        },200)
     }
     const handlePrev = () => {
         setActiveStep(activeStep - 1)
@@ -149,6 +151,7 @@ const App = () => {
                             }}
                                 onClick={handleNext}
                                 type="submit"
+                                form={activeStep.toString()}
                             >
                                 Save and continue
               </Button>

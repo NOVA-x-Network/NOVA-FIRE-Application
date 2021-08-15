@@ -1,22 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { withFormik }  from "formik";
 import { makeStyles, Container } from "@material-ui/core";
 import firebaseApp from "../components/firebaseConfig.js"
 import "firebase/firestore"
+import "firebase/auth"
+import firebase from "firebase/app";
+import withFirebaseAuth from "react-with-firebase-auth";
 let db = firebaseApp.firestore()
+const firebaseAppAuth = firebaseApp.auth();
+
 class LongResponses extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            answers: {}
+            answers: {},
+            email:''
         }
-        db.collection("submissions").doc("IrHVrpGhkMjnNruxqo4A").get()
-            .then((snapshot) => {
-                this.setState({answers:snapshot.data()})
-            })
+        firebaseAppAuth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                db.collection("submissions").doc(user.email).get()
+                    .then((snapshot) => {
+                        if (typeof snapshot.data() !== 'undefined') {
+                            this.setState({ answers: snapshot.data() })
+                        }
+                        else {
+                            this.setState({ answers: { longQuestion1: '', longQuestion2: '', longQuestion3: '', longQuestion4: '' } })
+                        }
+                        this.setState({email:user.email})
+                    })
+                db.collection("submissions").doc("WASD").get()
+                    .then((snapshot) => {
+                        console.log()
+                    })
+                // ...
+            } else {
+                // User is signed out
+                // ...
+            }
+        });
     }
+
     render() {
-        const MyForm = props => {
+        const AnswerForm = props => {
             const {
                 values,
                 touched,
@@ -47,92 +74,91 @@ class LongResponses extends React.Component{
             })
             const classes=formStyle()
             return (
-                <form onSubmit={handleSubmit} className={classes.form}>
-                    <label htmlFor="Q1">Question 1:</label>
+                <form onSubmit={handleSubmit} className={classes.form} id="3">
+                    <label htmlFor="longQuestion1">Question 1:</label>
                     <textarea
-                        id="Q1"
-                        name="Q1"
+                        id="longQuestion1"
+                        name="longQuestion1"
                         onChange={handleChange}
-                        value={values.Q1}
+                        value={values.longQuestion1}
                     />
-                    {touched.Q1 && errors.Q1 ? (
-                        <div>{errors.Q1}</div>
+                    {touched.longQuestion1 && errors.longQuestion1 ? (
+                        <div>{errors.longQuestion1}</div>
                     ) : null}
-                    <label htmlFor="Q2">Question 2:</label>
+                    <label htmlFor="longQuestion2">Question 2:</label>
                     <textarea
-                        id="Q2"
-                        name="Q2"
+                        id="longQuestion2"
+                        name="longQuestion2"
                         onChange={handleChange}
-                        value={values.Q2}
+                        value={values.longQuestion2}
                     />
-                    {touched.Q2 && errors.Q2 ? (
-                        <div>{errors.Q2}</div>
+                    {touched.longQuestion2 && errors.longQuestion2 ? (
+                        <div>{errors.longQuestion2}</div>
                     ) : null}
-                    <label htmlFor="Q3">Question 3:</label>
+                    <label htmlFor="longQuestion3">Question 3:</label>
                     <textarea
-                        id="Q3"
-                        name="Q3"
+                        id="longQuestion3"
+                        name="longQuestion3"
                         onChange={handleChange}
-                        value={values.Q3}
+                        value={values.longQuestion3}
                     />
-                    {touched.Q3 && errors.Q3 ? (
-                        <div>{errors.Q3}</div>
+                    {touched.longQuestion3 && errors.longQuestion3 ? (
+                        <div>{errors.longQuestion3}</div>
                     ) : null}
-                    <label htmlFor="Q4">Question 4</label>
+                    <label htmlFor="longQuestion4">Question 4</label>
                     <textarea
-                        id="Q4"
-                        name="Q4"
+                        id="longQuestion4"
+                        name="longQuestion4"
                         onChange={handleChange}
-                        value={values.Q4}
+                        value={values.longQuestion4}
                     />
-                    {touched.Q4 && errors.Q4 ? (
-                        <div>{errors.Q4}</div>
+                    {touched.longQuestion4 && errors.longQuestion4 ? (
+                        <div>{errors.longQuestion4}</div>
                     ) : null}
-                    <button type="submit">Submit</button>
                 </form>
             );
         };
-        const MyEnhancedForm = withFormik({
+        const AnswerFormWithFormik = withFormik({
             mapPropsToValues: () => (this.state.answers),
 
             // Custom sync validation
             validate: values => {
                 const errors = {};
-                console.log(values.Q1.trim().split(/\s+/).length)
-                if (!values.Q1) {
-                    errors.Q1 = 'Required';
-                } else if (values.Q1.trim().split(/\s+/).length > 500) {
-                    errors.Q1 = 'Answer must be 500 words long or less';
+                console.log(values.longQuestion1.trim().split(/\s+/).length)
+                if (!values.longQuestion1) {
+                    errors.longQuestion1 = 'Required';
+                } else if (values.longQuestion1.trim().split(/\s+/).length > 500) {
+                    errors.longQuestion1 = 'Answer must be 500 words long or less';
                 }
-                if (!values.Q2) {
-                    errors.Q2 = 'Required';
-                } else if (values.Q2.trim().split(/\s+/).length > 300) {
-                    errors.Q2 = 'Answer must be 300 words long or less';
+                if (!values.longQuestion2) {
+                    errors.longQuestion2 = 'Required';
+                } else if (values.longQuestion2.trim().split(/\s+/).length > 300) {
+                    errors.longQuestion2 = 'Answer must be 300 words long or less';
                 }
-                if (!values.Q3) {
-                    errors.Q3 = 'Required';
-                } else if (values.Q3.trim().split(/\s+/).length > 300) {
-                    errors.Q3 = 'Answer must be 300 words long or less';
+                if (!values.longQuestion3) {
+                    errors.longQuestion3 = 'Required';
+                } else if (values.longQuestion3.trim().split(/\s+/).length > 300) {
+                    errors.longQuestion3 = 'Answer must be 300 words long or less';
                 }
-                if (!values.Q4) {
-                    errors.Q4 = 'Required';
-                } else if (values.Q4.trim().split(/\s+/).length > 300) {
-                    errors.Q4 = 'Answer must be 300 words long or less';
+                if (!values.longQuestion4) {
+                    errors.longQuestion4 = 'Required';
+                } else if (values.longQuestion4.trim().split(/\s+/).length > 300) {
+                    errors.longQuestion4 = 'Answer must be 300 words long or less';
                 }
 
                 return errors;
             },
 
             handleSubmit: (values, { setSubmitting }) => {
-                db.collection("submissions").doc("IrHVrpGhkMjnNruxqo4A").set(values)
+                db.collection("submissions").doc(this.state.email).set(values, { merge: true })
             },
 
             displayName: 'LongResponseForm',
-        })(MyForm);
+        })(AnswerForm);
         return (
             <Container style={{ height: "75vh", overflowY: "scroll", width: "60vw", marginLeft: "-15vw" }}>
-                <MyEnhancedForm>
-                    </MyEnhancedForm>
+                <AnswerFormWithFormik>
+                    </AnswerFormWithFormik>
                 </Container>
         )
     }

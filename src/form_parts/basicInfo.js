@@ -175,7 +175,7 @@ const BasicInformation = ({ increment }) => {
                     onSubmit={(Values) => increment + 1}
                 >
                     {({ handleSubmit, handleChange, errors }) => (
-                        <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${-0.5}em ${0}px ${0}px ${-9}em`, width: `${58}vw`, height: `${70}vh`, }} onSubmit={handleSubmit}>
+                        <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${-0.5}em ${0}px ${0}px ${-9}em`, width: `${58}vw`, height: `${70}vh`, }} onSubmit={handleSubmit} id="2">
                             <div style={{ display: `flex`, marginTop: `${1.5}em` }}>
                                 <Box>
                                     <TextField
@@ -239,11 +239,10 @@ const BasicInformation = ({ increment }) => {
                             <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em`, overflow: `hidden` }}>
                                 <Box style={{ display: `flex`, marginTop: `${1.6}em`, position: `relative` }}>
                                     <Typography style={{ position: `absolute`, bottom: `${2.2}em`, color: `#323865`, fontWeight: 600, fontFamily: `poppins` }}>Current Grade</Typography>
-                                    <Box className={classes.navigate} id="box" onClick={setValue(9)} > {value} </Box>
+                                    <Box className={classes.navigate} id="box" onClick={setValue(9)} > 9 </Box>
                                     <Box className={classes.navigate} id="box" onClick={setValue(10)} > 10 </Box>
                                     <Box className={classes.navigate} id="box" onClick={setValue(11)} >11</Box>
                                     <Box className={classes.navigate} id="box" onClick={setValue(12)} > 12</Box>
-                                    <Box className={classes.navigate} id="box" onClick={setValue(13)} >13 </Box>
                                 </Box>
                                 <Box style={{ marginLeft: `${2}em` }} >
                                     <TextField
