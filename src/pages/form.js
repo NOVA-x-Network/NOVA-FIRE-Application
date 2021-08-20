@@ -60,9 +60,7 @@ const App = () => {
     const classes = myStyles();
     const [activeStep, setActiveStep] = useState(1);
     const handleNext = () => {
-        setTimeout(() => {
-            setActiveStep(activeStep + 1)
-        },200)
+        setActiveStep(activeStep + 1)
     }
     const handlePrev = () => {
         setActiveStep(activeStep - 1)
@@ -82,12 +80,12 @@ const App = () => {
 
                                 <ListItem className={classes.item} onClick={() => setActiveStep(2)}>
                                     <Box size="small" style={activeStep === 2 ? { background: `#1A6F4C` } : { background: `#BFEDEA` }} className={classes.Box} />
-                                    <Typography className={classes.stepname}> Basic Information </Typography>
+                                    <Typography className={classes.stepname}> Personal Information </Typography>
                                 </ListItem>
 
                                 <ListItem className={classes.item} onClick={() => setActiveStep(3)}>
                                     <Box size="small" style={activeStep === 3 ? { background: `#1A6F4C` } : { background: `#BFEDEA` }} className={classes.Box} />
-                                    <Typography className={classes.stepname}  > Long form responses</Typography>
+                                    <Typography className={classes.stepname}  > Creative Responses</Typography>
                                 </ListItem >
 
                                 <ListItem className={classes.item} onClick={() => setActiveStep(4)}>
@@ -153,7 +151,7 @@ const App = () => {
                                 type="submit"
                                 form={activeStep.toString()}
                             >
-                                Save and continue
+                                Continue
               </Button>
                             {
                                 activeStep > 1
@@ -163,11 +161,13 @@ const App = () => {
                                         width: `${32}%`,
                                         height: `${30}px`,
                                         marginTop: `${-4}em`,
-                                        fontFamily: `popins`,
+                                        fontFamily: `poppins`,
                                         fontSize: `${0.8}em`,
                                         fontWeight: 900
                                     }}
                                         onClick={handlePrev}
+                                        type="submit"
+                                        form={activeStep.toString()}
                                     >
                                         Back
               </Button>

@@ -12,7 +12,7 @@ const Upload = () => {
         multiple: true,
         readAs: 'DataURL', // availible formats: "Text" | "BinaryString" | "ArrayBuffer" | "DataURL"
         // accept: '.ics,.pdf',
-        accept: ['.json', '.pdf'],
+        accept: [ '.pdf', '.png', '.jpeg'],
         limitFilesConfig: { min: 2, max: 3 },
         // minFileSize: 1, // in megabytes
         // maxFileSize: 1,
@@ -42,8 +42,7 @@ const Upload = () => {
 
             <Button onClick={() => clear()} style={{ background: `red`, height: `${6}vh`, width: `${40}%`, color: `#fff`, marginTop: `${5}em`, marginBottom: `${1}em` }}>Clear <Close /></Button>
             <br />
-            <Typography style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: 900 }}> Number of selected files:
-          {plainFiles.length}
+            <Typography style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: 900 }}> Number of selected files: {plainFiles.length}
                 {/* If readAs is set to DataURL, You can display an image */}
                 {!!filesContent.length}
             </Typography>

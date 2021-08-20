@@ -8,11 +8,15 @@ import {
 } from "@material-ui/core";
 import { Formik } from "formik";
 import * as Yup from "yup";
-
+import firebaseApp from "../components/firebaseConfig.js";
+import "firebase/firestore";
+import "firebase/auth";
+let db = firebaseApp.firestore()
+const firebaseAppAuth = firebaseApp.auth();
 const myStyles = makeStyles(() => ({
     text: {
         borderRadius: `${9}px`,
-        width: `${20}em`,
+        width: `${15}em`,
         '& label.Mui-focused': {
             color: '#1A6F4C',
         },
@@ -64,6 +68,13 @@ const myStyles = makeStyles(() => ({
         textAlign: `center`,
         cursor: `pointer`,
     },
+    heading: {
+        color: `#323865`,
+        fontWeight: 600,
+        fontFamily: `poppins`,
+        marginBottom: "10px",
+        fontSize:"25px"
+    },
     step: {
         border: `${1}px solid #1A6F4C`,
         color: `#1A6F4C`,
@@ -99,110 +110,154 @@ const SignupSchema = Yup.object().shape({
 });
 
 
-const BasicInformation = ({ increment }) => {
+const BasicInformationForm = props => {
+    const {saveOnChangeText, saveOnChangeSelect, answers, email}=props
     const classes = myStyles();
     const [value, setValue] = useState(9);
     const [internet, setInternet] = useState('Yes');
     const [indegious, setIndegious] = useState("Yes");
     const [Price, setPrice] = useState(">$35000");
     useEffect(() => {
-        const id = document.querySelectorAll("#box");
-        const price = document.querySelectorAll("#price");
-        const first = document.querySelectorAll("#first");
-        const second = document.querySelectorAll("#second");
+        const id = document.querySelectorAll("#grade");
+        const price = document.querySelectorAll("#householdIncome");
+        const first = document.querySelectorAll("#laptopAndInternetAccess");
+        const second = document.querySelectorAll("#isFirstNation");
+        console.log(email)
+        if (email) {
+            db.collection("submissions").doc(email).get()
+                .then((snapshot) => {
+                    let answers = snapshot.data()
+                    const tab = (target) => {
+                        var x = 0;
+                        while (x < target.length) {
+                            target[x].style.background = "#fff";
+                            target[x].style.color = "#1A6F4C";
+                            x++
+                        }
+                    }
+                    for (let i = 0; i < id.length; i++) {
+                        if (id[i].innerHTML == answers.grade) {
+                            id[i].style.background = "#1A6F4C";
+                            id[i].style.color = "#fff";
+                        }
+                    }
 
-        const tab = (target) => {
-            var x = 0;
-            while (x < target.length) {
-                target[x].style.background = "#fff";
-                target[x].style.color = "#1A6F4C";
-                x++
-            }
-        }
-        for (let i = 0; i < id.length; i++) {
-            id[i].addEventListener("click", (e) => {
-                tab(id)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
+                    for (let i = 0; i < price.length; i++) {
+                        if (price[i].innerHTML == answers.householdIncome) {
+                            price[i].style.background = "#1A6F4C";
+                            price[i].style.color = "#fff";
+                        }
+                    }
+                    for (let i = 0; i < first.length; i++) {
+                        if (first[i].innerHTML == answers.laptopAndInternetAccess) {
+                            first[i].style.background = "#1A6F4C";
+                            first[i].style.color = "#fff";
+                        }
+                    }
 
+                    for (let i = 0; i < second.length; i++) {
+                        if (second[i].innerHTML == answers.isFirstNation) {
+                            second[i].style.background = "#1A6F4C";
+                            second[i].style.color = "#fff";
+                        }
+                    }
+
+                    for (let i = 0; i < id.length; i++) {
+                        id[i].addEventListener("click", (e) => {
+                            tab(id)
+                            e.target.style.background = "#1A6F4C";
+                            e.target.style.color = "#fff";
+
+                        })
+                    }
+
+                    for (let i = 0; i < price.length; i++) {
+                        price[i].addEventListener("click", (e) => {
+                            tab(price)
+                            e.target.style.background = "#1A6F4C";
+                            e.target.style.color = "#fff";
+
+                        })
+                    }
+                    for (let i = 0; i < first.length; i++) {
+                        first[i].addEventListener("click", (e) => {
+                            tab(first)
+                            e.target.style.background = "#1A6F4C";
+                            e.target.style.color = "#fff";
+
+                        })
+                    }
+
+                    for (let i = 0; i < second.length; i++) {
+                        second[i].addEventListener("click", (e) => {
+                            tab(second)
+                            e.target.style.background = "#1A6F4C";
+                            e.target.style.color = "#fff";
+
+                        })
+                    }
             })
         }
+    });
 
-        for (let i = 0; i < price.length; i++) {
-            price[i].addEventListener("click", (e) => {
-                tab(price)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-
-            })
-        }
-        for (let i = 0; i < first.length; i++) {
-            first[i].addEventListener("click", (e) => {
-                tab(first)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-
-            })
-        }
-
-        for (let i = 0; i < second.length; i++) {
-            second[i].addEventListener("click", (e) => {
-                tab(second)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-
-            })
-        }
-
-    }, []);
-
+    console.log(email)
     return (
         <>
 
-            <Container style={{ marginLeft: "-5vw" }}>
-                <Box style={{ marginLeft: `${-3}em`, marginBottom: `${1.5}em` }}>
-                    <Typography variant="h5" style={{ color: `#1A6F4C`, fontSize: `${25}px` }}>Tell us about yourself:</Typography>
-                </Box>
+            <Container style={{ marginLeft: "-5vw", fontFamily:"poppins"}}>
                 <Formik
                     enableReinitialize
-                    initialValues={{
-                        name: "",
-                        email: "",
-                        address: "",
-                        date: "",
-                    }}
+                    initialValues={answers}
                     validationSchema={SignupSchema}
-                    onSubmit={(Values) => increment + 1}
                 >
-                    {({ handleSubmit, handleChange, errors }) => (
+                    {({ handleSubmit, handleChange, errors, values}) => (
                         <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${-0.5}em ${0}px ${0}px ${-9}em`, width: `${58}vw`, height: `${70}vh`, }} onSubmit={handleSubmit} id="2">
-                            <div style={{ display: `flex`, marginTop: `${1.5}em` }}>
-                                <Box>
-                                    <TextField
-                                        variant="outlined"
-                                        type="text"
-                                        size="small"
-                                        onChange={handleChange}
-                                        name="name"
-                                        id="name"
-                                        error={errors.name}
-                                        label="First Name"
-                                        className={classes.text}
-                                    />
-                                </Box>
+                            <div style={{ display: `flex`, marginTop: `${1.5}em`,  alignItems:"flex-start", flexDirection:"column" }}>
+                                <Typography className={classes.heading}>Basic Information</Typography>
+                                <Box style={{ display: `flex`, flexDirection: "row" }}>
+                                    <Box>
+                                        <TextField
+                                            variant="outlined"
+                                            type="text"
+                                            size="small"
+                                            onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                            name="firstName"
+                                            id="firstName"
+                                            error={errors.name}
+                                            label="First Name"
+                                            className={classes.text}
+                                            value={values.firstName || ''}
+                                        />
+                                    </Box>
+                                    <Box style={{ marginLeft: `${2}em` }}>
+                                        <TextField
+                                            variant="outlined"
+                                            type="text"
+                                            size="small"
+                                             onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                            name="lastName"
+                                            id="lastName"
+                                            error={errors.name}
+                                            label="Last Name"
+                                            className={classes.text}
+                                            value={values.lastName || ''}
+                                        />
+                                    </Box>
 
-                                <Box style={{ marginLeft: `${2}em` }}>
-                                    <TextField
-                                        variant="outlined"
-                                        type="text"
-                                        size="small"
-                                        onChange={handleChange}
-                                        name="name"
-                                        id="name"
-                                        label="Phone Number"
-                                        error={errors.name}
-                                        className={classes.text}
-                                    />
+                                    <Box style={{ marginLeft: `${2}em` }}>
+                                        <TextField
+                                            variant="outlined"
+                                            type="text"
+                                            size="small"
+                                             onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                            name="phoneNumber"
+                                            id="phoneNumber"
+                                            label="Phone Number (Optional)"
+                                            error={errors.name}
+                                            className={classes.text}
+                                            value={values.phoneNumber || ''}
+                                        />  
+                                    </Box>
                                 </Box>
                             </div>
 
@@ -212,75 +267,52 @@ const BasicInformation = ({ increment }) => {
                                         variant="outlined"
                                         type="text"
                                         size="small"
-                                        onChange={handleChange}
-                                        name="name"
-                                        id="name"
-                                        label="School"
+                                        onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                        name="school"
+                                        id="school"
+                                        label="School "
                                         error={errors.name}
                                         className={classes.text}
+                                        value={values.school || ''}
                                     />
-                                </Box>
-
-                                <Box style={{ marginLeft: `${2}em` }}>
-                                    <TextField
-                                        variant="outlined"
-                                        type="email"
-                                        size="small"
-                                        onChange={handleChange}
-                                        name="name"
-                                        id="name"
-                                        label="Email"
-                                        error={errors.name}
-                                        className={classes.text}
-                                    />
-                                </Box>
-                            </div>
-
-                            <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em`, overflow: `hidden` }}>
-                                <Box style={{ display: `flex`, marginTop: `${1.6}em`, position: `relative` }}>
-                                    <Typography style={{ position: `absolute`, bottom: `${2.2}em`, color: `#323865`, fontWeight: 600, fontFamily: `poppins` }}>Current Grade</Typography>
-                                    <Box className={classes.navigate} id="box" onClick={setValue(9)} > 9 </Box>
-                                    <Box className={classes.navigate} id="box" onClick={setValue(10)} > 10 </Box>
-                                    <Box className={classes.navigate} id="box" onClick={setValue(11)} >11</Box>
-                                    <Box className={classes.navigate} id="box" onClick={setValue(12)} > 12</Box>
                                 </Box>
                                 <Box style={{ marginLeft: `${2}em` }} >
                                     <TextField
                                         variant="outlined"
                                         type="text"
                                         size="small"
-                                        onChange={handleChange}
-                                        name="name"
-                                        id="name"
-                                        label="Geographic Region"
+                                         onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                        name="city"
+                                        id="city"
+                                        label="City"
                                         error={errors.name}
-                                        style={{ marginTop: `${1}em`, width: `${21}em`, marginLeft: `${2}em` }}
                                         className={classes.text}
+                                        value={values.city || ''}
                                     />
                                 </Box>
                             </div>
-                            <TextField
-                                variant="outlined"
-                                type="text"
-                                size="small"
-                                onChange={handleChange}
-                                name="address"
-                                id="address"
-                                label="List any regional program you are a part of:"
-                                placeholder="e.g IB,AP,GHSM"
-                                error={errors.address}
-                                className={classes.field}
-                            />
 
-                            <Box style={{ marginTop: `${2.5}em`, width: `${90}%` }}>
-                                <Typography style={{ color: `#323865`, fontWeight: 600, textAlign: `center` }} variant="h5">What is your household income?</Typography>
+                            <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em`, overflow: `hidden` }}>
+                                <Box style={{ display: `flex`, marginTop: `${1.6}em`, alignItems:"flex-start", flexDirection:"column" }}>
+                                    <Typography className={classes.heading}>Current Grade</Typography>
+                                    <Box style={{ display: `flex`, flexDirection: "row" }}>
+                                        <Box className={classes.navigate} id="grade" onClick={(e) => { saveOnChangeSelect(e) }} >9</Box>
+                                        <Box className={classes.navigate} id="grade" onClick={(e) => { saveOnChangeSelect(e)  }}  >10</Box>
+                                        <Box className={classes.navigate} id="grade" onClick={(e) => { saveOnChangeSelect(e)  }} >11</Box>
+                                        <Box className={classes.navigate} id="grade" onClick={(e) => { saveOnChangeSelect(e)  }} > 12</Box>
+                                    </Box>
+                                </Box>
+                            </div>
 
-                                <Typography style={{ fontSize: `${1}em`, textAlign: `center` }}>We ask for your household income to ensure that we are providing adequate opportunities to multiple students across Ontario</Typography>
-                                <Box style={{ display: `flex`, marginTop: `${1.5}em` }}>
-                                    <Box className={classes.step} id="price" onClick={setPrice(`>$35000`)} > {Price} </Box>
-                                    <Box className={classes.step} id="price" onClick={setPrice(`$35,000 - $55,000`)} > $35,000 - $55,000 </Box>
-                                    <Box className={classes.step} id="price" onClick={setPrice(`$55,000 - $75,000`)} >$55,000 - $75,000</Box>
-                                    <Box className={classes.step} id="price" onClick={setPrice(`$100,000+`)} > $100,000+</Box>
+                            <Box style={{ marginTop: `${2.5}em`, width: `${90}%`, display:"flex", alignItems: "flex-start", flexDirection:"column" }}>
+                                <Typography className={classes.heading}>What is your household income?</Typography>
+
+                                <Typography style={{ fontSize: `${1}em`}}>We ask for your household income to ensure that we are providing adequate opportunities to multiple students across Ontario</Typography>
+                                <Box style={{ display: `flex`, marginTop: `${1.5}em`, width:"100%" }}>
+                                    <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}> {Price} </Box>
+                                    <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}> $35,000 - $55,000 </Box>
+                                    <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}>$55,000 - $75,000</Box>
+                                    <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}> $100,000+</Box>
                                 </Box>
                             </Box>
 
@@ -291,8 +323,8 @@ const BasicInformation = ({ increment }) => {
 
                                 <Box style={{ marginLeft: `${2}em` }}>
                                     <Box style={{ display: `flex` }}>
-                                        <Box className={classes.option} id="first" onClick={setInternet(`Yes`)} >{internet}</Box>
-                                        <Box className={classes.option} id="first" onClick={setInternet(`Yes`)}>No</Box>
+                                        <Box className={classes.option} id="laptopAndInternetAccess" onClick={(e) => { saveOnChangeSelect(e) }} >{internet}</Box>
+                                        <Box className={classes.option} id="laptopAndInternetAccess" onClick={(e) => { saveOnChangeSelect(e) }}>No</Box>
                                     </Box>
                                 </Box>
                             </div>
@@ -305,10 +337,25 @@ First Nation, Métis or Inuit?</Typography>
 
                                 <Box style={{ marginLeft: `${1}em` }}>
                                     <Box style={{ display: `flex` }}>
-                                        <Box className={classes.option} id="second" onClick={setIndegious(`Yes`)}>{indegious}</Box>
-                                        <Box className={classes.option} id="second" onClick={setIndegious(`Yes`)}>No</Box>
+                                        <Box className={classes.option} id="isFirstNation" onClick={(e) => { saveOnChangeSelect(e) }}>{indegious}</Box>
+                                        <Box className={classes.option} id="isFirstNation" onClick={(e) => { saveOnChangeSelect(e) }}>No</Box>
                                     </Box>
                                 </Box>
+                            </div>
+                            <div style={{ display: "flex", flexDirection:"column", alignItems:"flex-start" }}>
+                                <Typography className={classes.heading}>LinkedIn or Personal Portfolio (Optional)</Typography>
+                                <TextField
+                                    variant="outlined"
+                                    type="text"
+                                    size="small"
+                                    onChange={(e) => { handleChange(e); saveOnChangeText(e) }}
+                                    name="address"
+                                    id="address"
+                                    label="Link to LinkedIn or Personal Portfolio"
+                                    placeholder="e.g IB,AP,GHSM"
+                                    error={errors.address}
+                                    className={classes.field}
+                                />
                             </div>
                         </form>
                     )}
@@ -317,5 +364,60 @@ First Nation, Métis or Inuit?</Typography>
         </>
     )
 }
-
-export default BasicInformation;
+class BasicInformation extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            answers: {
+                firstName: "",
+                lastName: "",
+                school:"",
+                phoneNumber: "",
+                city: "",
+                grade: "",
+                householdIncome: "",
+                laptopAndInternetAccess: "",
+                isFirstNation: "",
+            },
+            email:''
+        }
+        firebaseAppAuth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                db.collection("submissions").doc(user.email).get()
+                    .then((snapshot) => {
+                        if (typeof snapshot.data() !== 'undefined') {
+                            this.setState({ answers: snapshot.data() })
+                        }
+                        this.setState({ email: user.email })
+                    })
+                // ...
+            } else {
+                // User is signed out
+                // ...
+            }
+        })
+    }
+    render() {
+        return (<BasicInformationForm answers={this.state.answers} email={this.state.email}
+            saveOnChangeText={(event) => {
+                let field = event.target.id
+                let value = event.target.value
+                console.log(value)
+                console.log(event.target.id)
+                let mapValueToField = {}
+                mapValueToField[field] = value
+                db.collection("submissions").doc(this.state.email).set(mapValueToField, { merge: true })
+            }}
+            saveOnChangeSelect={(event) => {
+                let field = event.target.id
+                let value = event.target.innerHTML
+                let mapValueToField = {}
+                mapValueToField[field] = value
+                db.collection("submissions").doc(this.state.email).set(mapValueToField, { merge: true })
+                }}>
+            </BasicInformationForm>)
+     }
+}
+            export default BasicInformation;
