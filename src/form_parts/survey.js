@@ -222,24 +222,31 @@ const SurveyBody = props => {
 class Survey extends React.Component {
     constructor(props) {
         super(props)
-        const user = firebaseAppAuth.currentUser
-        console.log(user.email)
         this.state = {
-            email: user.email,
+            email: '',
             answers: { surveyQuestion1: [], surveyQuestion1Other:'', surveyQuestion2: [], surveyQuestion2Other:'', surveyQuestion3: '' }
         }
+    }
+    componentDidMount() {
+        const user = firebaseAppAuth.currentUser
         if (user) {
             console.log("hello")
             // User is signed in, see docs for a list of available properties
             // https://firebase.google.com/docs/reference/js/firebase.User
             db.collection("submissions").doc(user.email).get()
                 .then((snapshot) => {
-                    if (typeof snapshot.data().surveyQuestion1Other !== 'undefined') {
+
+                    //This checks if the user is moving to the survey page for the first time or not. 
+                    //If it is, it defines the JSON attributes for the form fields. If you don't do this
+                    //it breaks because the code (saveOnChange) that saves the data as the user inputs their responses 
+                    //is supposed to push the responses into an array and throws an error if there is no array and it is undefined.
+                    if (typeof snapshot.data().survey !== 'undefined') {
                         console.log(snapshot.data())
-                        this.setState({ answers: snapshot.data() })
+                        this.setState({ answers: snapshot.data().survey, email:user.email })
                     }
                     else {
-                        db.collection("submissions").doc(user.email).set(this.state.answers, {merge:true})
+                        db.collection("submissions").doc(user.email).set({ 'survey':this.state.answers }, { merge: true })
+                        this.setState({email:user.email})
                     }
                 })
             // ...
@@ -265,7 +272,7 @@ class Survey extends React.Component {
                 else {
                     responses[event.target.name] = event.target.value
                 }
-                db.collection("submissions").doc(this.state.email).set(responses, { merge: true })
+                db.collection("submissions").doc(this.state.email).set({survey:responses}, { merge: true })
             }}>
             </SurveyBodyWithFormik>
             )

@@ -14,25 +14,26 @@ class LongResponses extends React.Component{
             answers: { longQuestion1: '', longQuestion2: '', longQuestion3: '', longQuestion4: '' },
             email:''
         }
+    }
+    componentDidMount() {
         firebaseAppAuth.onAuthStateChanged((user) => {
             if (user) {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 db.collection("submissions").doc(user.email).get()
                     .then((snapshot) => {
-                        if (typeof snapshot.data() !== 'undefined') {
-                            this.setState({ answers: snapshot.data() })
+                        if (typeof snapshot.data().longAnswer !== 'undefined') {
+                            this.setState({ answers: snapshot.data().longAnswer })
                         }
-                        this.setState({email:user.email})
+                        this.setState({ email: user.email })
                     })
                 // ...
             } else {
                 // User is signed out
                 // ...
             }
-        });
+        })
     }
-
     render() {
         const AnswerForm = props => {
             const {
@@ -140,7 +141,7 @@ class LongResponses extends React.Component{
                     let value = event.target.value
                     let mapValueToField = {}
                     mapValueToField[field]=value
-                    db.collection("submissions").doc(this.state.email).set( mapValueToField, { merge: true }) } }>
+                    db.collection("submissions").doc(this.state.email).set({ longAnswer:mapValueToField }, { merge: true }) } }>
                 </AnswerFormWithFormik>
                 </Container>
         )

@@ -122,80 +122,73 @@ const BasicInformationForm = props => {
         const price = document.querySelectorAll("#householdIncome");
         const first = document.querySelectorAll("#laptopAndInternetAccess");
         const second = document.querySelectorAll("#isFirstNation");
-        console.log(email)
-        if (email) {
-            db.collection("submissions").doc(email).get()
-                .then((snapshot) => {
-                    let answers = snapshot.data()
-                    const tab = (target) => {
-                        var x = 0;
-                        while (x < target.length) {
-                            target[x].style.background = "#fff";
-                            target[x].style.color = "#1A6F4C";
-                            x++
-                        }
-                    }
-                    for (let i = 0; i < id.length; i++) {
-                        if (id[i].innerHTML == answers.grade) {
-                            id[i].style.background = "#1A6F4C";
-                            id[i].style.color = "#fff";
-                        }
-                    }
+        const tab = (target) => {
+            var x = 0;
+            while (x < target.length) {
+                target[x].style.background = "#fff";
+                target[x].style.color = "#1A6F4C";
+                x++
+            }
+        }
+        for (let i = 0; i < id.length; i++) {
+            if (id[i].innerHTML == answers.grade) {
+                id[i].style.background = "#1A6F4C";
+                id[i].style.color = "#fff";
+            }
+        }
 
-                    for (let i = 0; i < price.length; i++) {
-                        if (price[i].innerHTML == answers.householdIncome) {
-                            price[i].style.background = "#1A6F4C";
-                            price[i].style.color = "#fff";
-                        }
-                    }
-                    for (let i = 0; i < first.length; i++) {
-                        if (first[i].innerHTML == answers.laptopAndInternetAccess) {
-                            first[i].style.background = "#1A6F4C";
-                            first[i].style.color = "#fff";
-                        }
-                    }
+        for (let i = 0; i < price.length; i++) {
+            if (price[i].innerHTML == answers.householdIncome) {
+                price[i].style.background = "#1A6F4C";
+                price[i].style.color = "#fff";
+            }
+        }
+        for (let i = 0; i < first.length; i++) {
+            if (first[i].innerHTML == answers.laptopAndInternetAccess) {
+                first[i].style.background = "#1A6F4C";
+                first[i].style.color = "#fff";
+            }
+        }
 
-                    for (let i = 0; i < second.length; i++) {
-                        if (second[i].innerHTML == answers.isFirstNation) {
-                            second[i].style.background = "#1A6F4C";
-                            second[i].style.color = "#fff";
-                        }
-                    }
+        for (let i = 0; i < second.length; i++) {
+            if (second[i].innerHTML == answers.isFirstNation) {
+                second[i].style.background = "#1A6F4C";
+                second[i].style.color = "#fff";
+            }
+        }
 
-                    for (let i = 0; i < id.length; i++) {
-                        id[i].addEventListener("click", (e) => {
-                            tab(id)
-                            e.target.style.background = "#1A6F4C";
-                            e.target.style.color = "#fff";
+        for (let i = 0; i < id.length; i++) {
+            id[i].addEventListener("click", (e) => {
+                tab(id)
+                e.target.style.background = "#1A6F4C";
+                e.target.style.color = "#fff";
 
-                        })
-                    }
+            })
+        }
 
-                    for (let i = 0; i < price.length; i++) {
-                        price[i].addEventListener("click", (e) => {
-                            tab(price)
-                            e.target.style.background = "#1A6F4C";
-                            e.target.style.color = "#fff";
+        for (let i = 0; i < price.length; i++) {
+            price[i].addEventListener("click", (e) => {
+                tab(price)
+                e.target.style.background = "#1A6F4C";
+                e.target.style.color = "#fff";
 
-                        })
-                    }
-                    for (let i = 0; i < first.length; i++) {
-                        first[i].addEventListener("click", (e) => {
-                            tab(first)
-                            e.target.style.background = "#1A6F4C";
-                            e.target.style.color = "#fff";
+            })
+        }
+        for (let i = 0; i < first.length; i++) {
+            first[i].addEventListener("click", (e) => {
+                tab(first)
+                e.target.style.background = "#1A6F4C";
+                e.target.style.color = "#fff";
 
-                        })
-                    }
+            })
+        }
 
-                    for (let i = 0; i < second.length; i++) {
-                        second[i].addEventListener("click", (e) => {
-                            tab(second)
-                            e.target.style.background = "#1A6F4C";
-                            e.target.style.color = "#fff";
+        for (let i = 0; i < second.length; i++) {
+            second[i].addEventListener("click", (e) => {
+                tab(second)
+                e.target.style.background = "#1A6F4C";
+                e.target.style.color = "#fff";
 
-                        })
-                    }
             })
         }
     });
@@ -381,6 +374,8 @@ class BasicInformation extends React.Component {
             },
             email:''
         }
+    }
+    componentDidMount() {
         firebaseAppAuth.onAuthStateChanged((user) => {
             if (user) {
                 // User is signed in, see docs for a list of available properties
@@ -388,7 +383,7 @@ class BasicInformation extends React.Component {
                 db.collection("submissions").doc(user.email).get()
                     .then((snapshot) => {
                         if (typeof snapshot.data() !== 'undefined') {
-                            this.setState({ answers: snapshot.data() })
+                            this.setState({ answers: snapshot.data().basicInfo })
                         }
                         this.setState({ email: user.email })
                     })
@@ -408,14 +403,14 @@ class BasicInformation extends React.Component {
                 console.log(event.target.id)
                 let mapValueToField = {}
                 mapValueToField[field] = value
-                db.collection("submissions").doc(this.state.email).set(mapValueToField, { merge: true })
+                db.collection("submissions").doc(this.state.email).set({ 'basicInfo': mapValueToField }, { merge: true })
             }}
             saveOnChangeSelect={(event) => {
                 let field = event.target.id
                 let value = event.target.innerHTML
                 let mapValueToField = {}
                 mapValueToField[field] = value
-                db.collection("submissions").doc(this.state.email).set(mapValueToField, { merge: true })
+                db.collection("submissions").doc(this.state.email).set({ 'basicInfo': mapValueToField }, { merge: true })
                 }}>
             </BasicInformationForm>)
      }

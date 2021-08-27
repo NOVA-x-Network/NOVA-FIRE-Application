@@ -1,3 +1,4 @@
+
 import React from "react";
 import withFirebaseAuth from "react-with-firebase-auth";
 import "firebase/auth";
@@ -13,12 +14,12 @@ const providers = {
 class Login extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       message: null,
       email: "",
       password: "",
-      displayName: "",
+        displayName: "",
+      gotAuthStatus:false,
     };
 
     this.sendPasswordResetEmail = this.sendPasswordResetEmail.bind(this);
@@ -30,11 +31,13 @@ class Login extends React.Component {
       .then((user) => {
         this.setState({
           message: "Welcome!",
-          displayName: user.user.displayName,
+            displayName: user.user.displayName,
+          gotAuthStatus:true
         });
       })
       .catch((error) =>
-        this.setState({
+          this.setState({
+            gotAuthStatus:true,
           message: "Error signing in with password and email!",
         })
       );
@@ -60,10 +63,19 @@ class Login extends React.Component {
       this.setState({ password: value });
     }
   };
-
+    componentDidUpdate() {
+        if (!this.state.gotAuthStatus) {
+            this.setState({ gotAuthStatus: true })
+        }
+    }
   render() {
-    const { user, signOut, signInWithGoogle } = this.props;
-
+      const { user, signOut, signInWithGoogle } = this.props;
+      if (!this.state.gotAuthStatus) {
+          return (<div></div>)
+      }
+      if (user) {
+          window.location="./form"
+      }
     return (
       <div className="main">
       <div className="loginLeft">
