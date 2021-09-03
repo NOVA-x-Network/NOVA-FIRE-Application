@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     Button,
     Container,
@@ -6,67 +6,106 @@ import {
     makeStyles
 } from "@material-ui/core";
 import { useFilePicker } from 'use-file-picker';
-import { CloudUpload, Close } from '@material-ui/icons';
+import { CloudUpload } from '@material-ui/icons';
 import firebaseApp from "../components/firebaseConfig.js"
 import "firebase/firestore"
+import "firebase/auth"
 let db = firebaseApp.firestore()
+const firebaseAppAuth = firebaseApp.auth();
 const Upload = () => {
-    const [openFileSelector, { filesContent, loading, errors, plainFiles, clear }] = useFilePicker({
+    const [allFiles, setAllFiles] = useState([])
+    const[fetchDone, setFetchDone] = useState(true)
+    const [openFileSelector, { filesContent, loading}] = useFilePicker({
         multiple: true,
-        readAs: 'DataURL', // availible formats: "Text" | "BinaryString" | "ArrayBuffer" | "DataURL"
-        // accept: '.ics,.pdf',
-        accept: [ '.pdf', '.png', '.jpeg', '.doc', '.docx'],
-        limitFilesConfig: { max: 3 },
-        // minFileSize: 1, // in megabytes
-        // maxFileSize: 1,
-        // readFilesContent: false, // ignores file content
+        readAs: 'DataURL',
+        accept: ['.pdf', '.png', '.jpeg', '.doc', '.docx'],
     });
     let uploadStyle = makeStyles(() => ({
         upload: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems:"center",
             '& *': {
                 fontFamily: `poppins`,
             },
+            '& span:hover': {
+                cursor:"pointer"
+            }
         }
     }))
-    if (errors.length) {
-        return (
-            <Container>
-                <Button onClick={() => openFileSelector()}>Something went wrong, retry! </Button>
-                {errors[0].fileSizeTooSmall && 'File size is too small!'}
-                {errors[0].fileSizeToolarge && 'File size is too large!'}
-                {errors[0].readerError && 'Problem occured while reading file!'}
-                {errors[0].maxLimitExceeded && 'Too many files'}
-                {errors[0].minLimitNotReached && 'Not enought files'}
-            </Container>
-        );
-    }
+    const[email, setEmail]=useState('')
     let classes = uploadStyle()
-    if (loading) {
-        return <div>Loading...</div>;
+    useEffect(() => {
+        firebaseAppAuth.onAuthStateChanged((user) => {
+                db.collection("submissions").doc(user.email).get()
+                    .then((snapshot) => {
+                        let allFilesTemp = [...allFiles]
+                        Object.keys(snapshot.data()['files']).forEach((file) => {
+                            let fileWithName = {}
+                            fileWithName.name = file
+                            fileWithName.content = snapshot.data()['files'][file]
+                            allFilesTemp.push(fileWithName)
+                        })
+                        if (filesContent) {
+                            filesContent.forEach((file) => {
+                                allFilesTemp.push(file)
+                            })
+                        }
+                        setAllFiles(allFilesTemp)
+                    })
+            setEmail(user.email)
+        })
+    }, [])
+    if (loading && filesContent.length>0 && !fetchDone) {
+        console.log("loading")
+        let allFilesTemp = [...allFiles]
+        allFilesTemp.forEach((file) => {
+            if (file.name == filesContent[0].name) {
+                filesContent[0].name =filesContent[0].name+" (1)"
+            }
+        })
+        allFilesTemp.push(filesContent[0])
+        let fileList = {}
+        allFilesTemp.forEach((file) => {
+            fileList[file.name] = file.content
+        })
+        db.collection("submissions").doc(email).update({ files: fileList  })
+        setAllFiles(allFilesTemp)
+        setFetchDone(true)
     }
     return (
-        <div style={{ height: `${70}vh` }} className={classes.upload }>
+        <div style={{ height: `${75}vh`}} className={classes.upload}>
             <Button onClick={() => openFileSelector()} style={{ background: `#1A6F4C`, height: `${30}vh`, width: `${80}%`, color: `#fff`, textAlign: `center` }}>
-                <CloudUpload style={{ fontSize: `${15}em`, display: `block` }} /> Select file </Button>
-
-            <Button onClick={() => clear()} style={{ background: `red`, height: `${6}vh`, width: `${40}%`, color: `#fff`, marginTop: `${5}em`, marginBottom: `${1}em` }}>Clear <Close /></Button>
+                <CloudUpload style={{ fontSize: `${15}em`, display: `block` }} onClick={() => { setFetchDone(false)} }/> Select file </Button>
             <br />
-            <Typography style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: 900 }}> Number of selected files: {plainFiles.length}
-                {/* If readAs is set to DataURL, You can display an image */}
-                {!!filesContent.length}
-            </Typography>
-            {plainFiles.map(file => (
-                <div key={file.name}>{file.name}</div>
+            <Typography>Please upload your resume and high school transcript (or most recent report card instead if you're in grade 9). Upload <span style={{ fontWeight: "bold" }}>one file</span> for your resume,
+                and <span style={{ fontWeight: "bold" }}>another file</span> for your transcript/report card.</Typography>
+            <Typography variant="h4" align="center" style={{marginTop:"30px"}}>Uploaded files</Typography>
+            {allFiles.map(file => (
+                <div>
+                    <a key={file.name} target="_blank" href={file.content} onClick={() => {
+                        window.open(file.content)
+                    }}>{file.name} </a>
+                    <span onClick={() => {
+                        console.log(allFiles);
+                        let itemIndex = allFiles.indexOf(file)
+                        console.log(itemIndex)
+                        console.log([...allFiles])
+                        let allFilesNew = [...allFiles]
+                        allFilesNew.splice(itemIndex, 1)
+                        let fileList = {}
+                        allFilesNew.forEach((file) => {
+                            fileList[file.name]=file.content
+                        })
+                        db.collection("submissions").doc(email).update({ files: fileList } )
+                        setAllFiles(allFilesNew)
+                    }}> x</span>
+                 </div>
             ))}
-            <button onClick={() => { //
-                console.log(filesContent[0].content.split(/data:.*;base64,/)[1])
-                console.log(filesContent[0])
-                let fileList = {
-                    'files': {}}
-                fileList['files'][filesContent[0].name] = filesContent[0].content.split(/data:.*;base64,/)[1]
-                db.collection("submissions").doc("arthursamson423@gmail.com").set(fileList, { merge: true })
-            }}></button>
+            <Typography variant="h6" align="left" style={{fontSize:"12px", marginTop:"25px"}}>Tip: Click on the name of the file you've uploaded. If it can be displayed in a browser, click on the
+                address bar of the blank page that pops up and press enter to preview the file. Otherwise, the file will be downloaded for preview.  </Typography>
         </div>
     );
 }
-export default Upload;
+
+export default Upload

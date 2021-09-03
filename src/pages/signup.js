@@ -39,11 +39,22 @@ class Signup extends React.Component {
     email: "",
     password: "",
     user: null,
+    gotAuthStatus: false,
   };
-
+    componentDidUpdate() {
+        if (!this.state.gotAuthStatus) {
+            this.setState({ gotAuthStatus: true })
+        }
+    }
   render() {
-    const { user, signOut, signInWithGoogle } = this.props;
-
+    const { user, signInWithGoogle } = this.props;
+      if (!this.state.gotAuthStatus) {
+          return (<div></div>)
+      }
+      if (user) {
+          window.location="./form"
+          return (<div></div>)
+      }
     return (
       <div className="main">
         {this.state.user ? (

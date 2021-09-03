@@ -17,21 +17,13 @@ class LongResponses extends React.Component{
     }
     componentDidMount() {
         firebaseAppAuth.onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in, see docs for a list of available properties
-                // https://firebase.google.com/docs/reference/js/firebase.User
                 db.collection("submissions").doc(user.email).get()
                     .then((snapshot) => {
-                        if (typeof snapshot.data().longAnswer !== 'undefined') {
+                        if (JSON.stringify(snapshot.data().longAnswer) !== '{}') {
                             this.setState({ answers: snapshot.data().longAnswer })
                         }
                         this.setState({ email: user.email })
                     })
-                // ...
-            } else {
-                // User is signed out
-                // ...
-            }
         })
     }
     render() {

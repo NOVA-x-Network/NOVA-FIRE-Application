@@ -202,7 +202,7 @@ const SurveyBody = props => {
                 {touched.surveyQuestion2 && errors.surveyQuestion2 ? (
                     <div>{errors.surveyQuestion2}</div>
                 ) : null}
-                <h2>Question 3: Anything else you want us to know?</h2>
+                <h2>Question 3: Anything else you want us to know? (Optional)</h2>
                 <br />
                 <textarea
                     id="surveyQuestion3"
@@ -229,10 +229,7 @@ class Survey extends React.Component {
     }
     componentDidMount() {
         const user = firebaseAppAuth.currentUser
-        if (user) {
             console.log("hello")
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
             db.collection("submissions").doc(user.email).get()
                 .then((snapshot) => {
 
@@ -240,7 +237,8 @@ class Survey extends React.Component {
                     //If it is, it defines the JSON attributes for the form fields. If you don't do this
                     //it breaks because the code (saveOnChange) that saves the data as the user inputs their responses 
                     //is supposed to push the responses into an array and throws an error if there is no array and it is undefined.
-                    if (typeof snapshot.data().survey !== 'undefined') {
+
+                    if (JSON.stringify(snapshot.data().survey) !== '{}') {
                         console.log(snapshot.data())
                         this.setState({ answers: snapshot.data().survey, email:user.email })
                     }
@@ -249,8 +247,6 @@ class Survey extends React.Component {
                         this.setState({email:user.email})
                     }
                 })
-            // ...
-        }
     }
     render() {
         const SurveyBodyWithFormik = withFormik({

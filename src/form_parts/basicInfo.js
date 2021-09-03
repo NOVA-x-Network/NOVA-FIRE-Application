@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
     TextField,
     Box,
     Typography,
     makeStyles,
     Container,
+    MenuItem,
 } from "@material-ui/core";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -113,10 +114,7 @@ const SignupSchema = Yup.object().shape({
 const BasicInformationForm = props => {
     const {saveOnChangeText, saveOnChangeSelect, answers, email}=props
     const classes = myStyles();
-    const [value, setValue] = useState(9);
-    const [internet, setInternet] = useState('Yes');
-    const [indegious, setIndegious] = useState("Yes");
-    const [Price, setPrice] = useState(">$35000");
+    const genders=['Male', 'Female', 'Prefer not to say', 'Other']
     useEffect(() => {
         const id = document.querySelectorAll("#grade");
         const price = document.querySelectorAll("#householdIncome");
@@ -201,10 +199,9 @@ const BasicInformationForm = props => {
                 <Formik
                     enableReinitialize
                     initialValues={answers}
-                    validationSchema={SignupSchema}
                 >
-                    {({ handleSubmit, handleChange, errors, values}) => (
-                        <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${-0.5}em ${0}px ${0}px ${-9}em`, width: `${58}vw`, height: `${70}vh`, }} onSubmit={handleSubmit} id="2">
+                    {({ handleChange, values}) => (
+                        <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${-0.5}em ${0}px ${0}px ${-9}em`, width: `${58}vw`, height: `${75}vh`, }} id="2">
                             <div style={{ display: `flex`, marginTop: `${1.5}em`,  alignItems:"flex-start", flexDirection:"column" }}>
                                 <Typography className={classes.heading}>Basic Information</Typography>
                                 <Box style={{ display: `flex`, flexDirection: "row" }}>
@@ -216,7 +213,6 @@ const BasicInformationForm = props => {
                                             onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
                                             name="firstName"
                                             id="firstName"
-                                            error={errors.name}
                                             label="First Name"
                                             className={classes.text}
                                             value={values.firstName || ''}
@@ -227,10 +223,9 @@ const BasicInformationForm = props => {
                                             variant="outlined"
                                             type="text"
                                             size="small"
-                                             onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                            onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
                                             name="lastName"
                                             id="lastName"
-                                            error={errors.name}
                                             label="Last Name"
                                             className={classes.text}
                                             value={values.lastName || ''}
@@ -246,7 +241,6 @@ const BasicInformationForm = props => {
                                             name="phoneNumber"
                                             id="phoneNumber"
                                             label="Phone Number (Optional)"
-                                            error={errors.name}
                                             className={classes.text}
                                             value={values.phoneNumber || ''}
                                         />  
@@ -264,7 +258,6 @@ const BasicInformationForm = props => {
                                         name="school"
                                         id="school"
                                         label="School "
-                                        error={errors.name}
                                         className={classes.text}
                                         value={values.school || ''}
                                     />
@@ -274,14 +267,33 @@ const BasicInformationForm = props => {
                                         variant="outlined"
                                         type="text"
                                         size="small"
-                                         onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                        onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
                                         name="city"
                                         id="city"
                                         label="City"
-                                        error={errors.name}
                                         className={classes.text}
                                         value={values.city || ''}
                                     />
+                                </Box>
+                                <Box style={{ marginLeft: `${2}em` }} >
+                                    <TextField
+                                        variant="outlined"
+                                        type="text"
+                                        select
+                                        size="small"
+                                        onChange={(e) => { handleChange(e); saveOnChangeText(e) }}
+                                        name="gender"
+                                        id="gender"
+                                        label="Gender"
+                                        className={classes.text}
+                                        value={values.gender|| ''}
+                                    >
+                                        {genders.map((gender) => (
+                                            <MenuItem key={gender} value={gender} id="gender">
+                                                {gender}
+                                            </MenuItem>
+                                            ))}
+                                    </TextField>
                                 </Box>
                             </div>
 
@@ -302,7 +314,7 @@ const BasicInformationForm = props => {
 
                                 <Typography style={{ fontSize: `${1}em`}}>We ask for your household income to ensure that we are providing adequate opportunities to multiple students across Ontario</Typography>
                                 <Box style={{ display: `flex`, marginTop: `${1.5}em`, width:"100%" }}>
-                                    <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}> {Price} </Box>
+                                    <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}> {'<$35000'} </Box>
                                     <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}> $35,000 - $55,000 </Box>
                                     <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}>$55,000 - $75,000</Box>
                                     <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}> $100,000+</Box>
@@ -316,7 +328,7 @@ const BasicInformationForm = props => {
 
                                 <Box style={{ marginLeft: `${2}em` }}>
                                     <Box style={{ display: `flex` }}>
-                                        <Box className={classes.option} id="laptopAndInternetAccess" onClick={(e) => { saveOnChangeSelect(e) }} >{internet}</Box>
+                                        <Box className={classes.option} id="laptopAndInternetAccess" onClick={(e) => { saveOnChangeSelect(e) }} >Yes</Box>
                                         <Box className={classes.option} id="laptopAndInternetAccess" onClick={(e) => { saveOnChangeSelect(e) }}>No</Box>
                                     </Box>
                                 </Box>
@@ -330,7 +342,7 @@ First Nation, Métis or Inuit?</Typography>
 
                                 <Box style={{ marginLeft: `${1}em` }}>
                                     <Box style={{ display: `flex` }}>
-                                        <Box className={classes.option} id="isFirstNation" onClick={(e) => { saveOnChangeSelect(e) }}>{indegious}</Box>
+                                        <Box className={classes.option} id="isFirstNation" onClick={(e) => { saveOnChangeSelect(e) }}>Yes</Box>
                                         <Box className={classes.option} id="isFirstNation" onClick={(e) => { saveOnChangeSelect(e) }}>No</Box>
                                     </Box>
                                 </Box>
@@ -345,8 +357,6 @@ First Nation, Métis or Inuit?</Typography>
                                     name="address"
                                     id="address"
                                     label="Link to LinkedIn or Personal Portfolio"
-                                    placeholder="e.g IB,AP,GHSM"
-                                    error={errors.address}
                                     className={classes.field}
                                 />
                             </div>
@@ -366,6 +376,7 @@ class BasicInformation extends React.Component {
                 lastName: "",
                 school:"",
                 phoneNumber: "",
+                gender:"",
                 city: "",
                 grade: "",
                 householdIncome: "",
@@ -377,33 +388,26 @@ class BasicInformation extends React.Component {
     }
     componentDidMount() {
         firebaseAppAuth.onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in, see docs for a list of available properties
-                // https://firebase.google.com/docs/reference/js/firebase.User
-                db.collection("submissions").doc(user.email).get()
-                    .then((snapshot) => {
-                        if (typeof snapshot.data() !== 'undefined') {
-                            this.setState({ answers: snapshot.data().basicInfo })
-                        }
-                        this.setState({ email: user.email })
-                    })
-                // ...
-            } else {
-                // User is signed out
-                // ...
-            }
+            db.collection("submissions").doc(user.email).get()
+                .then((snapshot) => {
+                    if (JSON.stringify(snapshot.data().basicInfo) !== '{}') {
+                        this.setState({ answers: snapshot.data().basicInfo })
+                    }
+                    this.setState({ email: user.email })
+                })
         })
     }
     render() {
         return (<BasicInformationForm answers={this.state.answers} email={this.state.email}
             saveOnChangeText={(event) => {
-                let field = event.target.id
+                let field = event.target.name
                 let value = event.target.value
                 console.log(value)
-                console.log(event.target.id)
+                console.log(event.target.name)
                 let mapValueToField = {}
                 mapValueToField[field] = value
                 db.collection("submissions").doc(this.state.email).set({ 'basicInfo': mapValueToField }, { merge: true })
+
             }}
             saveOnChangeSelect={(event) => {
                 let field = event.target.id

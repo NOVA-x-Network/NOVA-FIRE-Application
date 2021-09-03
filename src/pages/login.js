@@ -74,7 +74,8 @@ class Login extends React.Component {
           return (<div></div>)
       }
       if (user) {
-          window.location="./form"
+          window.location = "./form"
+          return ((<div></div>))
       }
     return (
       <div className="main">

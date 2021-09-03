@@ -1,32 +1,36 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-
+import { makeStyles, Container, Typography} from "@material-ui/core";
 const Description = () => {
+    let descriptionStyles = makeStyles({
+        body: {
+            color: `#323865`,
+            fontFamily: `poppins`,
+            '& h5': {
+                fontWeight: 900,
+                marginTop:"30px"
+            }
+        }
+    })
+    let classes=descriptionStyles()
     return (
         <>
-            <Container maxWidth="md" style={{ marginLeft: `${-15}em`, width: `${60}vw`, overflowY: `scroll`, height: `${75}vh` }}>
+            <Container maxWidth="md" style={{ marginLeft: `${-15}em`, width: `${60}vw`, overflowY: `scroll`, height: `${75}vh` }} className={classes.body}>
                 <Typography
                     variant="p"
-                    style={{ color: `#323865`, fontFamily: `poppins` }}
                 >
                     Thank you for applying to participate in NOVA's FIRE (Fellowship for
                     Innovation, Research, and Education) Program. This application is due
-                    Monday, October 12, 2020, and must be uploaded to our Dropbox folder
-          here: <a href="https://www.dropbox.com/request/4DSbWU1eYvTJTZWOGd6O" style={{ color: `blue` }}>https://www.dropbox.com/request/4DSbWU1eYvTJTZWOGd6O.</a> Note that
-          we also require that you submit your transcript/most recent report
-          card (for gr 9s) along with your application.
+                    Monday, October 12, 2020. All fields on each section of the application are mandatory
+                    unless they're explicitly stated to be optional. 
         </Typography>
 
                 <Typography
                     variant="h5"
-                    style={{ color: `#323865`, fontWeight: 900, fontFamily: `poppins`, }}
                 >
                     About the NOVA x Network:
         </Typography>
                 <Typography
                     variant="p"
-                    style={{ color: `#323865`, fontFamily: `poppins`, }}
                 >
                     The NOVA x Network helps youth develop a dynamic mindset towards STEM
                     through the fusion of disciplines and ethical literacy. Our goal is to
@@ -35,13 +39,11 @@ const Description = () => {
         </Typography>
                 <Typography
                     variant="h5"
-                    style={{ color: `#323865`, fontWeight: 900, fontFamily: `poppins`, }}
                 >
                     The NOVA FIRE Program:
         </Typography>
                 <Typography
                     variant="p"
-                    style={{ color: `#323865`, fontFamily: `poppins`, }}
                 >
                     The NOVA Fellowship for Innovation, Research and Education (FIRE)
                     Program is a five-month virtual fellowship for high school students.
@@ -58,7 +60,6 @@ const Description = () => {
                 </ol>
                 <Typography
                     variant="p"
-                    style={{ color: `#323865`, fontFamily: `poppins`, }}
                 >
                     Students will be working in teams of five to six from November 2020 to March 2021 to research and complete tasks related to one of the above topics. We have broken up our topics into 2 streams:
                     Research & Development
@@ -66,7 +67,6 @@ const Description = () => {
                     The former involves building a project following your research that can be technical or non technical, and includes topics 1 & 2. The latter involves writing a report that will be published on NOVA's website and includes topics 3 & 4. Each team will have 5 - 6 members for a total of 20 - 24 students accepted. As this is our pilot year of the program, we want to work with a tight-knit group of students to properly develop our program curriculum.
 <Typography
                         variant="h5"
-                        style={{ color: `#323865`, fontWeight: 900, fontFamily: `poppins`, }}
                     >
                         Who is eligible to apply:
  </Typography>

@@ -1,16 +1,19 @@
-import * as React from "react"
+import React, { useState, useEffect } from "react"
 import nova_logo_cropped from "../images/cropped-NOVA-logo-1.png"
 import nova_front_art from "../images/NovaHomepageClipArt.png"
 import withFirebaseAuth from "react-with-firebase-auth"
 import firebaseApp from "../components/firebaseConfig.js"
 import firebase from "firebase/app";
+import "firebase/firestore"
 const firebaseAppAuth = firebaseApp.auth()
+let db = firebaseApp.firestore()
 const providers = {
 	googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
 // markup
 const IndexPage = props => {
-	const {user, signOut}=props
+	const { user, signOut } = props
+	let [appStatus, setAppStatus]=useState(false)
 	let width = window.innerWidth
 	console.log(width)
 	var introTextWidth
@@ -40,12 +43,23 @@ const IndexPage = props => {
 		frontBannerImageWidth = "30w"
 		cornerImageHeight = "4vh"
 		cornerImageWidth="8vh"
-    }
+	}
+	useEffect(() => {
+		if (user) {
+			db.collection("submissions").doc(user.email).get()
+				.then((snapshot) => {
+					setAppStatus(snapshot.data().applicationStatus)
+				})
+		}
+    })
 	console.log(introTextWidth)
 	return (<div>
-				<div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"space-between"}}>
+				<div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"space-between", fontFamily:"poppins"}}>
 			<img src={nova_logo_cropped} style={{ height: cornerImageHeight, width: cornerImageWidth, marginLeft: "8px", marginTop: "8px" }} />
-			{user ? <button onClick={() => {signOut()} }>Sign out</button> : null}
+			<div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+				{appStatus ? <p>Application Status: {appStatus}</p> : null}
+				{user ? <button onClick={() => { signOut(); setAppStatus(false) }} style={{ marginTop: "10px", marginRight: "10px" }}>Sign out</button> : <button onClick={() => { window.location = "/login" }}>Login</button>}
+				</div>
 				</div>
 				<div style={{ display: "flex", flex: 9, flexDirection: "column", alignItems:"center", marginTop:"12px"}}>
 					<div style={{ background: "linear-gradient(90deg, rgba(17,8,153,1) 0%, rgba(25,180,103,1) 97%)", display:"flex",justifyContent:"left", width:frontBannerWidth, borderRadius:"20px", height:frontBannerHeight, alignItems:"center"}}>
@@ -75,7 +89,7 @@ const IndexPage = props => {
 						<div style={{display:"flex", flexDirection:"row"}}>
 							<div className="gradient-button-border" onClick={() => { window.location = "/signup" }}>
 								<div>
-									<p style={{ color: "#07024e", fontFamily: "arial", fontWeight: "bold" }}>Apply Now!</p>
+									<p style={{ color: "#07024e", fontFamily: "arial", fontWeight: "bold" }}>Sign up</p>
 								</div>
 							</div>
 					<div className="gradient-button-border" onClick={() => {
