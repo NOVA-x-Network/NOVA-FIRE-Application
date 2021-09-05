@@ -147,7 +147,7 @@ const App = ()=> {
                                     onClick={() => {
                                         window.location = "/"
                                     }}
-                                >Return to home page</Button>
+                                >Return to Home Page</Button>
                             </Container>
                         </Grid>
 

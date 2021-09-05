@@ -59,6 +59,13 @@ const Review = () => {
                                     case 'survey':
                                         section="Survey"
                                         mandatoryFields = ['surveyQuestion1', 'surveyQuestion2']
+                                        if (appSection['surveyQuestion1Other']) {
+                                            appSection['surveyQuestion1'].push(appSection['surveyQuestion1Other'])
+                                        }
+                                        if (appSection['surveyQuestion2Other']) {
+                                            appSection['surveyQuestion2'].push(appSection['surveyQuestion2Other'])
+                                        }
+                                        console.log(appSection['surveyQuestion1'])
                                         break
                                     case 'files':
                                         section = "Upload Documents"

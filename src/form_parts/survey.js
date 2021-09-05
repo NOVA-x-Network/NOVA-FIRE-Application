@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withFormik } from "formik";
 import { makeStyles, Container } from "@material-ui/core";
 import "firebase/firestore"
@@ -14,7 +14,8 @@ const SurveyBody = props => {
         handleSubmit,
         touched,
         errors,
-        saveOnChange
+        saveOnChange,
+        email
     } = props
     console.log(values)
     const formStyle = makeStyles(() => ({
@@ -50,6 +51,13 @@ const SurveyBody = props => {
             ;
         }
     }
+    useEffect(() => {
+        if (email) {
+            return () => {
+                db.collection("submissions").doc(email).set({ 'survey': values }, {merge:true})
+            }
+        }
+    })
     return (
         <Container style={{ height: "75vh", overflowY:"scroll", width:"50vw", marginLeft:"-8vw"}}>
             <form onSubmit={handleSubmit} className={classes.form} id="4">
@@ -60,7 +68,7 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="instagram"
                     name="surveyQuestion1"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="NOVA Instagram"
                     defaultChecked={isFieldChecked(1, "NOVA Instagram")}
                 />
@@ -70,7 +78,7 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="linkedin"
                     name="surveyQuestion1"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="NOVA LinkedIn"
                     defaultChecked={isFieldChecked(1, "NOVA LinkedIn")}
                 />
@@ -80,7 +88,7 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="friend"
                     name="surveyQuestion1"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="Friend"
                     defaultChecked={isFieldChecked(1, "Friend")}
                 />
@@ -90,7 +98,7 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="website"
                     name="surveyQuestion1"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="NOVA Website"
                     defaultChecked={isFieldChecked(1, "NOVA Website")}
                 />
@@ -100,7 +108,7 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="execPost"
                     name="surveyQuestion1"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="Executive Post"
                     defaultChecked={isFieldChecked(1, "Executive Post")}
                 />
@@ -110,7 +118,7 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="otherInstagram"
                     name="surveyQuestion1"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="Other Org Instagram"
                     defaultChecked={isFieldChecked(1, "Other Org Instagram")}
                 />
@@ -120,7 +128,7 @@ const SurveyBody = props => {
                     type="text"
                     id="other"
                     name="surveyQuestion1Other"
-                    onChange={(e) => { handleChange(e); saveOnChange(e, values) }}
+                    onChange={handleChange}
                     value={values.surveyQuestion1Other}
                 />
                 <br />
@@ -134,7 +142,7 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="instagram2"
                     name="surveyQuestion2"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="NOVA Instagram"
                     defaultChecked={isFieldChecked(2, "NOVA Instagram")}
                 />
@@ -144,7 +152,7 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="linkedin2"
                     name="surveyQuestion2"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="NOVA LinkedIn"
                     defaultChecked={isFieldChecked(2, "NOVA LinkedIn")}
                 />
@@ -154,7 +162,7 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="friend2"
                     name="surveyQuestion2"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="Friend"
                     defaultChecked={isFieldChecked(2, "Friend")}
                 />
@@ -164,9 +172,9 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="website2"
                     name="surveyQuestion2"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="NOVA Website"
-                    defaultChecked={isFieldChecked(2, "NOVA Website")} onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    defaultChecked={isFieldChecked(2, "NOVA Website")} onChange={handleChange}
                 />
                 <br />
                 <label htmlFor="execPost">A post by one of NOVA's executives</label>
@@ -174,7 +182,7 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="execPost2"
                     name="surveyQuestion2"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="Executive Post"
                     defaultChecked={isFieldChecked(2, "Executive Post")}
 
@@ -185,7 +193,7 @@ const SurveyBody = props => {
                     type="checkbox"
                     id="otherInstagram2"
                     name="surveyQuestion2"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value="Other Org Instagram"
                     defaultChecked={isFieldChecked(2, "Other Org Instagram")}
                 />
@@ -195,7 +203,7 @@ const SurveyBody = props => {
                     type="text"
                     id="other2"
                     name="surveyQuestion2Other"
-                    onChange={(e) => { handleChange(e); saveOnChange(e, values) }}
+                    onChange={handleChange}
                     value={values.surveyQuestion2Other}
                 />
                 <br />
@@ -207,7 +215,7 @@ const SurveyBody = props => {
                 <textarea
                     id="surveyQuestion3"
                     name="surveyQuestion3"
-                    onChange={(e)=>{handleChange(e); saveOnChange(e, values)}}
+                    onChange={handleChange}
                     value={values.surveyQuestion3}
                     style={{width:"40vw", height:"200px"}}
                 />
@@ -253,23 +261,7 @@ class Survey extends React.Component {
                 mapPropsToValues: () => (this.state.answers),
         })(SurveyBody)
         return (
-            <SurveyBodyWithFormik saveOnChange={(event, responses) => {
-                console.log("changed")
-                if (event.target.id != "other" && event.target.id != "other2" && event.target.id!="surveyQuestion3") {
-                    let checked = event.target.checked
-                    if (checked) {
-                        responses[event.target.name].push(event.target.value)
-                    }
-                    else {
-                        let index = responses[event.target.name].indexOf(event.target.value)
-                        responses[event.target.name].splice(index, 1)
-                    }
-                }
-                else {
-                    responses[event.target.name] = event.target.value
-                }
-                db.collection("submissions").doc(this.state.email).set({survey:responses}, { merge: true })
-            }}>
+            <SurveyBodyWithFormik email={this.state.email}>
             </SurveyBodyWithFormik>
             )
     }

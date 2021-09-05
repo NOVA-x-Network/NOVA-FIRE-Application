@@ -7,8 +7,7 @@ import {
     Container,
     MenuItem,
 } from "@material-ui/core";
-import { Formik } from "formik";
-import * as Yup from "yup";
+import { withFormik } from "formik";
 import firebaseApp from "../components/firebaseConfig.js";
 import "firebase/firestore";
 import "firebase/auth";
@@ -103,24 +102,17 @@ const myStyles = makeStyles(() => ({
     }
 }));
 
-const SignupSchema = Yup.object().shape({
-    email: Yup.string().email(`please input a valid email`).required("Required field"),
-    name: Yup.string().min(3, "Required field"),
-    address: Yup.string().min(5, "Required field"),
-    date: Yup.string().required("Required field"),
-});
 
-
-const BasicInformationForm = props => {
-    const {saveOnChangeText, saveOnChangeSelect, answers, email}=props
+const BasicInformationBody = props => {
+    const { values, email, handleChange } = props
     const classes = myStyles();
-    const genders=['Male', 'Female', 'Prefer not to say', 'Other']
+    const genders = ['Male', 'Female', 'Prefer not to say', 'Other']
     useEffect(() => {
-        const id = document.querySelectorAll("#grade");
-        const price = document.querySelectorAll("#householdIncome");
-        const first = document.querySelectorAll("#laptopAndInternetAccess");
-        const second = document.querySelectorAll("#isFirstNation");
-        const tab = (target) => {
+        const grade = document.querySelectorAll("#grade");
+        const householdIncome = document.querySelectorAll("#householdIncome");
+        const laptopAndInternetAccess = document.querySelectorAll("#laptopAndInternetAccess");
+        const isFirstNation = document.querySelectorAll("#isFirstNation");
+        const selectCheck = (target) => {
             var x = 0;
             while (x < target.length) {
                 target[x].style.background = "#fff";
@@ -128,79 +120,78 @@ const BasicInformationForm = props => {
                 x++
             }
         }
-        for (let i = 0; i < id.length; i++) {
-            if (id[i].innerHTML == answers.grade) {
-                id[i].style.background = "#1A6F4C";
-                id[i].style.color = "#fff";
+        for (let i = 0; i < grade.length; i++) {
+            if (grade[i].innerHTML == values.grade) {
+                grade[i].style.background = "#1A6F4C";
+                grade[i].style.color = "#fff";
             }
         }
 
-        for (let i = 0; i < price.length; i++) {
-            if (price[i].innerHTML == answers.householdIncome) {
-                price[i].style.background = "#1A6F4C";
-                price[i].style.color = "#fff";
+        for (let i = 0; i < householdIncome.length; i++) {
+            if (householdIncome[i].innerHTML == values.householdIncome) {
+                householdIncome[i].style.background = "#1A6F4C";
+                householdIncome[i].style.color = "#fff";
             }
         }
-        for (let i = 0; i < first.length; i++) {
-            if (first[i].innerHTML == answers.laptopAndInternetAccess) {
-                first[i].style.background = "#1A6F4C";
-                first[i].style.color = "#fff";
-            }
-        }
-
-        for (let i = 0; i < second.length; i++) {
-            if (second[i].innerHTML == answers.isFirstNation) {
-                second[i].style.background = "#1A6F4C";
-                second[i].style.color = "#fff";
+        for (let i = 0; i < laptopAndInternetAccess.length; i++) {
+            if (laptopAndInternetAccess[i].innerHTML == values.laptopAndInternetAccess) {
+                laptopAndInternetAccess[i].style.background = "#1A6F4C";
+                laptopAndInternetAccess[i].style.color = "#fff";
             }
         }
 
-        for (let i = 0; i < id.length; i++) {
-            id[i].addEventListener("click", (e) => {
-                tab(id)
+        for (let i = 0; i < isFirstNation.length; i++) {
+            if (isFirstNation[i].innerHTML == values.isFirstNation) {
+                isFirstNation[i].style.background = "#1A6F4C";
+                isFirstNation[i].style.color = "#fff";
+            }
+        }
+
+        for (let i = 0; i < grade.length; i++) {
+            grade[i].addEventListener("click", (e) => {
+                selectCheck(grade)
                 e.target.style.background = "#1A6F4C";
                 e.target.style.color = "#fff";
-
+                values.grade = e.target.innerHTML
             })
         }
 
-        for (let i = 0; i < price.length; i++) {
-            price[i].addEventListener("click", (e) => {
-                tab(price)
+        for (let i = 0; i < householdIncome.length; i++) {
+            householdIncome[i].addEventListener("click", (e) => {
+                selectCheck(householdIncome)
                 e.target.style.background = "#1A6F4C";
                 e.target.style.color = "#fff";
+                values.householdIncome = e.target.innerHTML
+            })
+        }
+        for (let i = 0; i < laptopAndInternetAccess.length; i++) {
+            laptopAndInternetAccess[i].addEventListener("click", (e) => {
+                selectCheck(laptopAndInternetAccess)
+                e.target.style.background = "#1A6F4C";
+                e.target.style.color = "#fff";
+                values.laptopAndInternetAccess = e.target.innerHTML
+                console.log("values")
+            })
+        }
+
+        for (let i = 0; i < isFirstNation.length; i++) {
+            isFirstNation[i].addEventListener("click", (e) => {
+                selectCheck(isFirstNation)
+                e.target.style.background = "#1A6F4C";
+                e.target.style.color = "#fff";
+                values.isFirstNation = e.target.innerHTML
 
             })
         }
-        for (let i = 0; i < first.length; i++) {
-            first[i].addEventListener("click", (e) => {
-                tab(first)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-
-            })
-        }
-
-        for (let i = 0; i < second.length; i++) {
-            second[i].addEventListener("click", (e) => {
-                tab(second)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-
-            })
+        return () => {
+            if (email) {
+                db.collection("submissions").doc(email).set({ 'basicInfo': values }, { merge: true })
+            }
         }
     });
-
-    console.log(email)
+    console.log(values)
     return (
-        <>
-
             <Container style={{ marginLeft: "-5vw", fontFamily:"poppins"}}>
-                <Formik
-                    enableReinitialize
-                    initialValues={answers}
-                >
-                    {({ handleChange, values}) => (
                         <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${-0.5}em ${0}px ${0}px ${-9}em`, width: `${58}vw`, height: `${75}vh`, }} id="2">
                             <div style={{ display: `flex`, marginTop: `${1.5}em`,  alignItems:"flex-start", flexDirection:"column" }}>
                                 <Typography className={classes.heading}>Basic Information</Typography>
@@ -210,7 +201,7 @@ const BasicInformationForm = props => {
                                             variant="outlined"
                                             type="text"
                                             size="small"
-                                            onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                            onChange={handleChange}
                                             name="firstName"
                                             id="firstName"
                                             label="First Name"
@@ -223,7 +214,7 @@ const BasicInformationForm = props => {
                                             variant="outlined"
                                             type="text"
                                             size="small"
-                                            onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                            onChange={handleChange}
                                             name="lastName"
                                             id="lastName"
                                             label="Last Name"
@@ -237,7 +228,7 @@ const BasicInformationForm = props => {
                                             variant="outlined"
                                             type="text"
                                             size="small"
-                                             onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                            onChange={handleChange}
                                             name="phoneNumber"
                                             id="phoneNumber"
                                             label="Phone Number (Optional)"
@@ -254,7 +245,7 @@ const BasicInformationForm = props => {
                                         variant="outlined"
                                         type="text"
                                         size="small"
-                                        onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                        onChange={handleChange}
                                         name="school"
                                         id="school"
                                         label="School "
@@ -267,7 +258,7 @@ const BasicInformationForm = props => {
                                         variant="outlined"
                                         type="text"
                                         size="small"
-                                        onChange={(e)=>{handleChange(e); saveOnChangeText(e)}}
+                                        onChange={handleChange}
                                         name="city"
                                         id="city"
                                         label="City"
@@ -281,7 +272,7 @@ const BasicInformationForm = props => {
                                         type="text"
                                         select
                                         size="small"
-                                        onChange={(e) => { handleChange(e); saveOnChangeText(e) }}
+                                        onChange={handleChange}
                                         name="gender"
                                         id="gender"
                                         label="Gender"
@@ -301,10 +292,10 @@ const BasicInformationForm = props => {
                                 <Box style={{ display: `flex`, marginTop: `${1.6}em`, alignItems:"flex-start", flexDirection:"column" }}>
                                     <Typography className={classes.heading}>Current Grade</Typography>
                                     <Box style={{ display: `flex`, flexDirection: "row" }}>
-                                        <Box className={classes.navigate} id="grade" onClick={(e) => { saveOnChangeSelect(e) }} >9</Box>
-                                        <Box className={classes.navigate} id="grade" onClick={(e) => { saveOnChangeSelect(e)  }}  >10</Box>
-                                        <Box className={classes.navigate} id="grade" onClick={(e) => { saveOnChangeSelect(e)  }} >11</Box>
-                                        <Box className={classes.navigate} id="grade" onClick={(e) => { saveOnChangeSelect(e)  }} > 12</Box>
+                                        <Box className={classes.navigate} id="grade">9</Box>
+                                        <Box className={classes.navigate} id="grade" >10</Box>
+                                        <Box className={classes.navigate} id="grade">11</Box>
+                                        <Box className={classes.navigate} id="grade"> 12</Box>
                                     </Box>
                                 </Box>
                             </div>
@@ -314,10 +305,10 @@ const BasicInformationForm = props => {
 
                                 <Typography style={{ fontSize: `${1}em`}}>We ask for your household income to ensure that we are providing adequate opportunities to multiple students across Ontario</Typography>
                                 <Box style={{ display: `flex`, marginTop: `${1.5}em`, width:"100%" }}>
-                                    <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}> {'<$35000'} </Box>
-                                    <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}> $35,000 - $55,000 </Box>
-                                    <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}>$55,000 - $75,000</Box>
-                                    <Box className={classes.step} id="householdIncome" onClick={(e) => { saveOnChangeSelect(e) }}> $100,000+</Box>
+                                    <Box className={classes.step} id="householdIncome"> {'<$35000'} </Box>
+                                    <Box className={classes.step} id="householdIncome"> $35,000 - $55,000 </Box>
+                                    <Box className={classes.step} id="householdIncome">$55,000 - $75,000</Box>
+                                    <Box className={classes.step} id="householdIncome"> $100,000+</Box>
                                 </Box>
                             </Box>
 
@@ -325,11 +316,14 @@ const BasicInformationForm = props => {
                                 <Box style={{ marginLeft: `${2}em` }}>
                                     <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em` }}>Do you have access to a laptop and internet  that you can complete the <br /> program at home?</Typography>
                                 </Box>
-
                                 <Box style={{ marginLeft: `${2}em` }}>
                                     <Box style={{ display: `flex` }}>
-                                        <Box className={classes.option} id="laptopAndInternetAccess" onClick={(e) => { saveOnChangeSelect(e) }} >Yes</Box>
-                                        <Box className={classes.option} id="laptopAndInternetAccess" onClick={(e) => { saveOnChangeSelect(e) }}>No</Box>
+                                <Box className={classes.option} id="laptopAndInternetAccess">
+                                    Yes
+                                </Box>
+                                <Box className={classes.option} id="laptopAndInternetAccess">
+                                    No
+                                </Box>
                                     </Box>
                                 </Box>
                             </div>
@@ -342,8 +336,8 @@ First Nation, Métis or Inuit?</Typography>
 
                                 <Box style={{ marginLeft: `${1}em` }}>
                                     <Box style={{ display: `flex` }}>
-                                        <Box className={classes.option} id="isFirstNation" onClick={(e) => { saveOnChangeSelect(e) }}>Yes</Box>
-                                        <Box className={classes.option} id="isFirstNation" onClick={(e) => { saveOnChangeSelect(e) }}>No</Box>
+                                        <Box className={classes.option} id="isFirstNation" name='isFirstNation'>Yes</Box>
+                                        <Box className={classes.option} id="isFirstNation" name='isFirstNation'>No</Box>
                                     </Box>
                                 </Box>
                             </div>
@@ -353,7 +347,7 @@ First Nation, Métis or Inuit?</Typography>
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => { handleChange(e); saveOnChangeText(e) }}
+                                    onChange={handleChange}
                                     name="address"
                                     id="address"
                                     label="Link to LinkedIn or Personal Portfolio"
@@ -361,10 +355,7 @@ First Nation, Métis or Inuit?</Typography>
                                 />
                             </div>
                         </form>
-                    )}
-                </Formik>
             </Container>
-        </>
     )
 }
 class BasicInformation extends React.Component {
@@ -374,16 +365,16 @@ class BasicInformation extends React.Component {
             answers: {
                 firstName: "",
                 lastName: "",
-                school:"",
+                school: "",
                 phoneNumber: "",
-                gender:"",
+                gender: "",
                 city: "",
                 grade: "",
                 householdIncome: "",
                 laptopAndInternetAccess: "",
                 isFirstNation: "",
             },
-            email:''
+            email: ''
         }
     }
     componentDidMount() {
@@ -398,25 +389,12 @@ class BasicInformation extends React.Component {
         })
     }
     render() {
-        return (<BasicInformationForm answers={this.state.answers} email={this.state.email}
-            saveOnChangeText={(event) => {
-                let field = event.target.name
-                let value = event.target.value
-                console.log(value)
-                console.log(event.target.name)
-                let mapValueToField = {}
-                mapValueToField[field] = value
-                db.collection("submissions").doc(this.state.email).set({ 'basicInfo': mapValueToField }, { merge: true })
-
-            }}
-            saveOnChangeSelect={(event) => {
-                let field = event.target.id
-                let value = event.target.innerHTML
-                let mapValueToField = {}
-                mapValueToField[field] = value
-                db.collection("submissions").doc(this.state.email).set({ 'basicInfo': mapValueToField }, { merge: true })
-                }}>
-            </BasicInformationForm>)
-     }
+        const BasicInformationForm = withFormik({
+            mapPropsToValues: () => (this.state.answers)
+        })(BasicInformationBody)
+        return (<BasicInformationForm
+            email={this.state.email}>
+        </BasicInformationForm>)
+    }
 }
             export default BasicInformation;
