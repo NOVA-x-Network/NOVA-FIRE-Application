@@ -1,95 +1,118 @@
 import React, { useEffect } from 'react';
 import { withFormik }  from "formik";
-import { makeStyles, Container } from "@material-ui/core";
+import { withStyles, Container } from "@material-ui/core";
 import firebaseApp from "../components/firebaseConfig.js"
 import "firebase/firestore"
 import "firebase/auth"
 let db = firebaseApp.firestore()
 const firebaseAppAuth = firebaseApp.auth();
-const AnswerForm = props => {
-    const {
-        values,
-        touched,
-        errors,
-        handleChange,
-        handleSubmit,
-        saveOnChange,
-        email,
-    } = props;
-    const formStyle = makeStyles({
-        form: {
-            '& textarea': {
-                height: "300px",
-                width: "600px",
-                display: "block",
-                marginBottom: "10px"
-            },
-            '& textarea + div': {
-                marginBottom: "50px",
-                color: "red"
-            },
-            '& *': {
-                fontFamily: `poppins`,
-            },
-            '& label': {
-                fontSize: "30px"
-            }
+class AnswerForm extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            saved: true,
         }
-    })
-    const classes = formStyle()
-    useEffect(() => {
-        return () => {
-            if (email) {
-                db.collection("submissions").doc(email).set({ 'longAnswer': values }, { merge: true })
-            }
+        this.saveCheck = this.saveCheck.bind(this)
+    }
+    saveCheck(event) {
+        if (!this.state.saved) {
+            return event.returnValue = "Are you sure you want to leave? You have unsaved data."
         }
-    })
-    return (
-        <form onSubmit={handleSubmit} className={classes.form} id="3">
-            <label htmlFor="longQuestion1">Question 1:</label>
-            <textarea
-                id="longQuestion1"
-                name="longQuestion1"
-                onChange={handleChange}
-                value={values.longQuestion1}
-            />
-            {touched.longQuestion1 && errors.longQuestion1 ? (
-                <div>{errors.longQuestion1}</div>
-            ) : null}
-            <label htmlFor="longQuestion2">Question 2:</label>
-            <textarea
-                id="longQuestion2"
-                name="longQuestion2"
-                onChange={handleChange}
-                value={values.longQuestion2}
-            />
-            {touched.longQuestion2 && errors.longQuestion2 ? (
-                <div>{errors.longQuestion2}</div>
-            ) : null}
-            <label htmlFor="longQuestion3">Question 3:</label>
-            <textarea
-                id="longQuestion3"
-                name="longQuestion3"
-                onChange={handleChange}
-                value={values.longQuestion3}
-            />
-            {touched.longQuestion3 && errors.longQuestion3 ? (
-                <div>{errors.longQuestion3}</div>
-            ) : null}
-            <label htmlFor="longQuestion4">Question 4</label>
-            <textarea
-                id="longQuestion4"
-                name="longQuestion4"
-                onChange={handleChange}
-                value={values.longQuestion4}
-            />
-            {touched.longQuestion4 && errors.longQuestion4 ? (
-                <div>{errors.longQuestion4}</div>
-            ) : null}
-        </form>
-    );
-};
+    }
+    componentDidMount() {
+        document.getElementById("exitButton").addEventListener('click', () => {
+            this.setState({ saved: true })
+            const { values, email } = this.props
+            console.log(values)
+            db.collection("submissions").doc(email).set({ 'longAnswer': values }, { merge: true })
+        })
 
+        window.addEventListener('beforeunload', this.saveCheck)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', this.saveCheck)
+        const { values, email } = this.props
+        if (email) {
+            db.collection("submissions").doc(email).set({ 'longAnswer': values }, { merge: true })
+        }
+    }
+
+    render() {
+        const {
+            values,
+            touched,
+            errors,
+            handleChange,
+            handleSubmit,
+            classes,
+        } = this.props;
+        return (
+            <form onSubmit={handleSubmit} className={classes.form} id="3">
+                <label htmlFor="longQuestion1">Question 1:</label>
+                <textarea
+                    id="longQuestion1"
+                    name="longQuestion1"
+                    onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                    value={values.longQuestion1}
+                />
+                {touched.longQuestion1 && errors.longQuestion1 ? (
+                    <div>{errors.longQuestion1}</div>
+                ) : null}
+                <label htmlFor="longQuestion2">Question 2:</label>
+                <textarea
+                    id="longQuestion2"
+                    name="longQuestion2"
+                    onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                    value={values.longQuestion2}
+                />
+                {touched.longQuestion2 && errors.longQuestion2 ? (
+                    <div>{errors.longQuestion2}</div>
+                ) : null}
+                <label htmlFor="longQuestion3">Question 3:</label>
+                <textarea
+                    id="longQuestion3"
+                    name="longQuestion3"
+                    onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                    value={values.longQuestion3}
+                />
+                {touched.longQuestion3 && errors.longQuestion3 ? (
+                    <div>{errors.longQuestion3}</div>
+                ) : null}
+                <label htmlFor="longQuestion4">Question 4</label>
+                <textarea
+                    id="longQuestion4"
+                    name="longQuestion4"
+                    onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                    value={values.longQuestion4}
+                />
+                {touched.longQuestion4 && errors.longQuestion4 ? (
+                    <div>{errors.longQuestion4}</div>
+                ) : null}
+            </form>
+        );
+    }
+};
+const formStyle = withStyles({
+    form: {
+        '& textarea': {
+            height: "300px",
+            width: "600px",
+            display: "block",
+            marginBottom: "10px"
+        },
+        '& textarea + div': {
+            marginBottom: "50px",
+            color: "red"
+        },
+        '& *': {
+            fontFamily: `poppins`,
+        },
+        '& label': {
+            fontSize: "30px"
+        }
+    }
+})(AnswerForm)
 class LongResponses extends React.Component{
     constructor(props) {
         super(props)
@@ -133,18 +156,11 @@ class LongResponses extends React.Component{
                 return errors;
             },
             displayName: 'LongResponseForm',
-        })(AnswerForm);
+        })(formStyle);
         return (
             <Container style={{ height: "75vh", overflowY: "scroll", width: "60vw", marginLeft: "-15vw" }}>
                 <AnswerFormWithFormik
-                    email={this.state.email}
-                    saveOnChange={(event) => {
-                    let field = event.target.id
-                    let value = event.target.value
-                    let answers = this.state.answers
-                    answers[field] = value
-                    this.setState({ answers: answers })
-                }}>
+                    email={this.state.email}>
                 </AnswerFormWithFormik>
                 </Container>
         )

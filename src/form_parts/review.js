@@ -22,7 +22,7 @@ const Review = () => {
     }))
     const classes=reviewStyle()
     return (
-        <div style={{ height: "82vh", display: "flex", flexDirection: "column", alignItems: "center" }} className={classes.body}>
+        <div style={{ height: "83vh", display: "flex", flexDirection: "column", alignItems: "center" }} className={classes.body}>
             <button onClick={() => {
                 let errorMsgsCopy = []
                 firebaseAppAuth.onAuthStateChanged((user) => {
@@ -45,7 +45,12 @@ const Review = () => {
                                         mandatoryFields = ['longQuestion1', 'longQuestion2', 'longQuestion3', 'longQuestion4']
                                         mandatoryFields.forEach((field) => {
                                             try {
-                                                if (appSection[field].trim().split(/\s+/).length > 500) {
+                                                if (appSection[field].trim().split(/\s+/).length > 500 && field == 'longQuestion1') {
+                                                    verified = false
+                                                    console.log("too long")
+                                                    errorMsgsCopy.push(<p>Error! Your answer for question {field[field.length - 1]} for the Creative Responses section was too long</p>)
+                                                }
+                                                else if (appSection[field].trim().split(/\s+/).length > 300) {
                                                     verified = false
                                                     console.log("too long")
                                                     errorMsgsCopy.push(<p>Error! Your answer for question {field[field.length - 1]} for the Creative Responses section was too long</p>)

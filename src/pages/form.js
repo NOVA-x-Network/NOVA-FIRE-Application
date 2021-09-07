@@ -10,6 +10,7 @@ import {
     List,
     Typography,
 } from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 import BasicInformation from "../form_parts/basicInfo.js";
 import LongResponses from "../form_parts/longAnswer.js"
 import Description from "../form_parts/description.js";
@@ -29,6 +30,7 @@ const myStyles = makeStyles(() => ({
         marginTop: `${1.5}em`,
         marginLeft: `${8}em`,
         overflow: `hidden`,
+        fontFamily:"poppins"
     },
     first: {
         width: `${10}%`,
@@ -65,16 +67,25 @@ const App = ()=> {
     const classes = myStyles();
     const [activeStep, setActiveStep] = useState(1);
     const [gotAuthStatus, setAuthStatus] = useState(false)
-    const[userStatus, setUserStatus] = useState(null)
+    const [userStatus, setUserStatus] = useState(null)
+    const [formData, setFormData] = useState({})
+    const [email, setEmail] = useState('')
     const handleNext = () => {
         setActiveStep(activeStep + 1)
     }
+
     const handlePrev = () => {
         setActiveStep(activeStep - 1)
     }
+
+    const getFormSectionData = (data) => {
+        setFormData(data)
+    }
+
     useEffect(() => {
         firebaseAppAuth.onAuthStateChanged((user) => {
             if (user) {
+                setEmail(user.email)
                 db.collection("submissions").doc(user.email).get()
                     .then((snapshot)=> {
                         if (typeof snapshot.data() === 'undefined') {
@@ -132,6 +143,7 @@ const App = ()=> {
                                 </List>
 
                                 <Button
+                                    id="exitButton"
                                     style={{
                                         background: `#fff`,
                                         color: `#1A6F4C`,
@@ -145,9 +157,12 @@ const App = ()=> {
                                         fontWeight: 900,
                                     }}
                                     onClick={() => {
-                                        window.location = "/"
+                                        setTimeout(() => {
+                                            window.location = "/"
+                                        },300)
                                     }}
-                                >Return to Home Page</Button>
+                                >Save and Exit <CloseIcon /></Button>
+                                <Typography style={{ marginTop: "50px" }}>Tip: Clicking "Back", "Continue", or each of the above section labels automatically saves your work. </Typography>
                             </Container>
                         </Grid>
 
@@ -157,7 +172,7 @@ const App = ()=> {
 
                                 <Container>
                                     {activeStep === 1 ? <Description /> : null}
-                                    {activeStep === 2 ? <BasicInformation /> : null}
+                                    {activeStep === 2 ? <BasicInformation sendDataToFormParent={getFormSectionData}/> : null}
                                     {activeStep === 3 ? <LongResponses /> : null}
                                     {activeStep === 4 ? <Survey /> : null}
                                     {activeStep === 5 ? <Upload /> : null}
