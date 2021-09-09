@@ -162,7 +162,8 @@ const App = ()=> {
                                         },300)
                                     }}
                                 >Save and Exit <CloseIcon /></Button>
-                                <Typography style={{ marginTop: "50px" }}>Tip: Clicking "Back", "Continue", or each of the above section labels automatically saves your work. </Typography>
+                                <Typography style={{ marginTop: "30px" }}>Tip: Clicking "Back", "Continue", or each of the above section labels automatically saves your work. </Typography>
+                                <Typography style={{ marginTop: "30px" }}>Note: Every time you change your answers after submitting, you will have to reverify and resubmit them. </Typography>
                             </Container>
                         </Grid>
 

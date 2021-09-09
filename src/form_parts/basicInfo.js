@@ -9,7 +9,6 @@ import {
     Input
 } from "@material-ui/core";
 import { withFormik } from "formik";
-import * as Yup from "yup";
 import firebaseApp from "../components/firebaseConfig.js";
 import "firebase/firestore";
 import "firebase/auth";
@@ -37,9 +36,12 @@ class BasicInformationBody extends React.Component {
         const isFirstNation = document.querySelectorAll("#isFirstNation");
 
         document.getElementById("exitButton").addEventListener('click', () => {
-            this.setState({saved:true})
+            window.removeEventListener('beforeunload', this.saveCheck)
             const {values, email} = this.props
             db.collection("submissions").doc(email).set({ 'basicInfo': values }, { merge: true })
+            if (!this.state.saved) {
+                db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
+            }
         })
         window.addEventListener('beforeunload',this.saveCheck)
         const selectCheck = (target) => {
@@ -123,6 +125,9 @@ class BasicInformationBody extends React.Component {
         if (email) {
             db.collection("submissions").doc(email).set({ basicInfo: values }, { merge: true })
         }
+        if (!this.state.saved) {
+            db.collection("submissions").doc(email).set({ applicationStatus:"Incomplete" }, { merge: true })
+        }
     }
     render() {
         const genders = ['Male', 'Female', 'Prefer not to say', 'Other']
@@ -144,6 +149,7 @@ class BasicInformationBody extends React.Component {
                                     label="First Name"
                                     className={classes.text}
                                     value={values.firstName || ''}
+                                    inputProps={{maxLength:30}}
                                 />
                             </Box>
                             <Box style={{ marginLeft: `${2}em` }}>
@@ -157,6 +163,7 @@ class BasicInformationBody extends React.Component {
                                     label="Last Name"
                                     className={classes.text}
                                     value={values.lastName || ''}
+                                    inputProps={{maxLength:30}}
                                 />
                             </Box>
 
@@ -188,6 +195,7 @@ class BasicInformationBody extends React.Component {
                                 label="School "
                                 className={classes.text}
                                 value={values.school || ''}
+                                inputProps={{ maxLength: 60 }}
                             />
                         </Box>
                         <Box style={{ marginLeft: `${2}em` }} >
@@ -201,6 +209,7 @@ class BasicInformationBody extends React.Component {
                                 label="City"
                                 className={classes.text}
                                 value={values.city || ''}
+                                inputProps={{ maxLength: 45 }}
                             />
                         </Box>
                         <Box style={{ marginLeft: `${2}em` }} >

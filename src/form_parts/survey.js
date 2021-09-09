@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { withFormik } from "formik";
 import { withStyles, Container } from "@material-ui/core";
 import "firebase/firestore"
@@ -21,20 +21,33 @@ class SurveyBody extends React.Component {
     }
     componentWillUnmount() {
         window.removeEventListener('beforeunload', this.saveCheck)
+
         const { values, email } = this.props
+
         if (email) {
             db.collection("submissions").doc(email).set({ 'survey':values }, { merge: true })
+        }
+
+        if (!this.state.saved) {
+            db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
         }
     }
     componentDidMount() {
         const { values } = this.props
 
         document.getElementById("exitButton").addEventListener('click', () => {
-            this.setState({ saved: true })
+            window.removeEventListener('beforeunload', this.saveCheck)
+
             const { values, email } = this.props
+
             if (email) {
                 db.collection("submissions").doc(email).set({ 'survey': values }, { merge: true })
             }
+
+            if (!this.state.saved) {
+                db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
+            }
+
         })
 
         let checkBoxes = document.querySelectorAll('input[type=checkbox]')
@@ -55,6 +68,7 @@ class SurveyBody extends React.Component {
             errors,
             classes
         } = this.props
+
         return (
             <Container style={{ height: "75vh", overflowY: "scroll", width: "50vw", marginLeft: "-8vw" }}>
                 <form className={classes.form} id="4">
@@ -65,7 +79,6 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="instagram"
                         name="surveyQuestion1"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
                         onChange={(e) => { handleChange(e); this.setState({saved:false})}}
                         value="NOVA Instagram"
                     />
@@ -122,6 +135,7 @@ class SurveyBody extends React.Component {
                         name="surveyQuestion1Other"
                         onChange={(e) => { handleChange(e); this.setState({saved:false})}}
                         value={values.surveyQuestion1Other}
+                        maxlength="60"
                     />
                     <br />
                     {touched.surveyQuestion1 && errors.surveyQuestion1 ? (
@@ -191,6 +205,7 @@ class SurveyBody extends React.Component {
                         name="surveyQuestion2Other"
                         onChange={(e) => { handleChange(e); this.setState({saved:false})}}
                         value={values.surveyQuestion2Other}
+                        maxlength="60"
                     />
                     <br />
                     {touched.surveyQuestion2 && errors.surveyQuestion2 ? (
@@ -243,19 +258,23 @@ class Survey extends React.Component {
             answers: { surveyQuestion1: [], surveyQuestion1Other:'', surveyQuestion2: [], surveyQuestion2Other:'', surveyQuestion3: '' }
         }
     }
+
     componentDidMount() {
         const user = firebaseAppAuth.currentUser
-            console.log("hello")
+
             db.collection("submissions").doc(user.email).get()
                 .then((snapshot) => {
 
                     if (JSON.stringify(snapshot.data().survey) !== '{}') {
                         console.log(snapshot.data())
+
                         this.setState({ answers: snapshot.data().survey, email:user.email })
                     }
+
                     else {
                         db.collection("submissions").doc(user.email).set({ 'survey':this.state.answers }, { merge: true })
-                        this.setState({email:user.email})
+
+                        this.setState({ email: user.email })
                     }
                 })
     }
@@ -263,6 +282,7 @@ class Survey extends React.Component {
         const SurveyBodyWithFormik = withFormik({
                 mapPropsToValues: () => (this.state.answers),
         })(StyledSurvey)
+
         return (
             <SurveyBodyWithFormik email={this.state.email}>
             </SurveyBodyWithFormik>

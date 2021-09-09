@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withFormik }  from "formik";
-import { withStyles, Container } from "@material-ui/core";
+import { withStyles, Container, Typography } from "@material-ui/core";
 import firebaseApp from "../components/firebaseConfig.js"
 import "firebase/firestore"
 import "firebase/auth"
@@ -9,10 +9,14 @@ const firebaseAppAuth = firebaseApp.auth();
 class AnswerForm extends React.Component {
     constructor(props) {
         super(props)
+
         this.state = {
             saved: true,
+            wordCount: {longQuestion1:0, longQuestion2:0, longQuestion3:0, longQuestion:4}
         }
+
         this.saveCheck = this.saveCheck.bind(this)
+        this.wordCheck = this.wordCheck.bind(this)
     }
     saveCheck(event) {
         if (!this.state.saved) {
@@ -20,73 +24,125 @@ class AnswerForm extends React.Component {
         }
     }
     componentDidMount() {
+
+        const {
+            values
+        } = this.props
+
         document.getElementById("exitButton").addEventListener('click', () => {
-            this.setState({ saved: true })
+            window.removeEventListener('beforeunload', this.saveCheck)
+
             const { values, email } = this.props
+
             console.log(values)
+
             db.collection("submissions").doc(email).set({ 'longAnswer': values }, { merge: true })
+
+            if (!this.state.saved) {
+                db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
+            }
         })
 
         window.addEventListener('beforeunload', this.saveCheck)
-    }
 
+        let words = {}
+
+        Object.keys(values).forEach((question) => {
+            words[question] = values[question].trim().split(/\s+/).length
+        })
+
+        this.setState({ saved: false, wordCount: words })
+    }
+    wordCheck(question) {
+
+        let {
+            values,
+        } = this.props
+
+        let words = this.state.wordCount
+
+        words[question] = values[question].trim().split(/\s+/).length
+
+        this.setState({ saved: false, wordCount: words })
+    }
     componentWillUnmount() {
+
         window.removeEventListener('beforeunload', this.saveCheck)
+
         const { values, email } = this.props
+
         if (email) {
             db.collection("submissions").doc(email).set({ 'longAnswer': values }, { merge: true })
+
+            if (!this.state.saved) {
+                db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
+            }
         }
+
     }
 
     render() {
+
         const {
             values,
-            touched,
             errors,
             handleChange,
             handleSubmit,
             classes,
         } = this.props;
+
         return (
             <form onSubmit={handleSubmit} className={classes.form} id="3">
                 <label htmlFor="longQuestion1">Question 1:</label>
                 <textarea
                     id="longQuestion1"
                     name="longQuestion1"
-                    onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                    onKeyUp={() => { this.wordCheck("longQuestion1") }}
+                    onChange={handleChange}
                     value={values.longQuestion1}
                 />
-                {touched.longQuestion1 && errors.longQuestion1 ? (
+                <Typography align="left" style={{marginBottom:"25px"}}> Word limit:500</Typography>
+                <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion1}</Typography>
+                {errors.longQuestion1 ? (
                     <div>{errors.longQuestion1}</div>
                 ) : null}
                 <label htmlFor="longQuestion2">Question 2:</label>
                 <textarea
                     id="longQuestion2"
                     name="longQuestion2"
-                    onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                    onKeyUp={() => { this.wordCheck("longQuestion2") }}
+                    onChange={handleChange}
                     value={values.longQuestion2}
                 />
-                {touched.longQuestion2 && errors.longQuestion2 ? (
+                <Typography align="left" style={{marginBottom:"25px"}}> Word limit:300</Typography>
+                <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion2}</Typography>
+                {errors.longQuestion2 ? (
                     <div>{errors.longQuestion2}</div>
                 ) : null}
                 <label htmlFor="longQuestion3">Question 3:</label>
                 <textarea
                     id="longQuestion3"
                     name="longQuestion3"
-                    onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                    onKeyUp={() => { this.wordCheck("longQuestion3") }}
                     value={values.longQuestion3}
+                    onChange={handleChange}
                 />
-                {touched.longQuestion3 && errors.longQuestion3 ? (
+                <Typography align="left" style={{marginBottom:"25px"}}> Word limit:300</Typography>
+                <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion3}</Typography>
+                {errors.longQuestion3 ? (
                     <div>{errors.longQuestion3}</div>
                 ) : null}
                 <label htmlFor="longQuestion4">Question 4</label>
                 <textarea
                     id="longQuestion4"
                     name="longQuestion4"
-                    onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                    onKeyUp={() => { this.wordCheck("longQuestion4") }}
                     value={values.longQuestion4}
+                    onChange={handleChange}
                 />
-                {touched.longQuestion4 && errors.longQuestion4 ? (
+                <Typography align="left" style={{ marginBottom: "25px" }}> Word limit:300</Typography>
+                <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion4}</Typography>
+                {errors.longQuestion4 ? (
                     <div>{errors.longQuestion4}</div>
                 ) : null}
             </form>
@@ -101,18 +157,26 @@ const formStyle = withStyles({
             display: "block",
             marginBottom: "10px"
         },
+
         '& textarea + div': {
             marginBottom: "50px",
             color: "red"
         },
+
         '& *': {
             fontFamily: `poppins`,
         },
+
         '& label': {
             fontSize: "30px"
+        },
+
+        '& div': {
+            color:"red"
         }
     }
 })(AnswerForm)
+
 class LongResponses extends React.Component{
     constructor(props) {
         super(props)
@@ -122,41 +186,55 @@ class LongResponses extends React.Component{
         }
     }
     componentDidMount() {
+
         firebaseAppAuth.onAuthStateChanged((user) => {
+
                 db.collection("submissions").doc(user.email).get()
                     .then((snapshot) => {
+
                         if (JSON.stringify(snapshot.data().longAnswer) !== '{}') {
                             this.setState({ answers: snapshot.data().longAnswer })
                         }
+
                         this.setState({ email: user.email })
+
                     })
         })
+
     }
     render() {
         const AnswerFormWithFormik = withFormik({
             mapPropsToValues: () => (this.state.answers),
-            validateOnChange: false,
-            // Custom sync validation
+
+            validateOnMount: true,
+
             validate: values => {
                 const errors = {};
-                console.log(values.longQuestion1.trim().split(/\s+/).length)
+
+                console.log("validated")
+
                 if (values.longQuestion1.trim().split(/\s+/).length > 500) {
                     errors.longQuestion1 = 'Answer must be 500 words long or less';
                 }
+
                 if (values.longQuestion2.trim().split(/\s+/).length > 300) {
                     errors.longQuestion2 = 'Answer must be 300 words long or less';
                 }
+
                 if (values.longQuestion3.trim().split(/\s+/).length > 300) {
                     errors.longQuestion3 = 'Answer must be 300 words long or less';
                 }
+
                 if (values.longQuestion4.trim().split(/\s+/).length > 300) {
                     errors.longQuestion4 = 'Answer must be 300 words long or less';
                 }
 
+                console.log(errors)
                 return errors;
             },
             displayName: 'LongResponseForm',
         })(formStyle);
+
         return (
             <Container style={{ height: "75vh", overflowY: "scroll", width: "60vw", marginLeft: "-15vw" }}>
                 <AnswerFormWithFormik

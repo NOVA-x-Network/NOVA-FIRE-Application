@@ -8,6 +8,9 @@ const Description = () => {
             '& h5': {
                 fontWeight: 900,
                 marginTop:"30px"
+            },
+            '& span': {
+                fontWeight:"bold"
             }
         }
     })
@@ -16,12 +19,11 @@ const Description = () => {
         <>
             <Container maxWidth="md" style={{ marginLeft: `${-15}em`, width: `${60}vw`, overflowY: `scroll`, height: `${75}vh` }} className={classes.body}>
                 <Typography
-                    variant="p"
+                    align="left"
                 >
                     Thank you for applying to participate in NOVA's FIRE (Fellowship for
                     Innovation, Research, and Education) Program. This application is due
-                    Monday, October 12, 2020. All fields on each section of the application are mandatory
-                    unless they're explicitly stated to be optional. 
+                    <span> Monday, October 12, 2020</span>. All fields on each section of the application are <span>mandatory</span> unless they're explicitly stated to be optional. 
         </Typography>
 
                 <Typography
@@ -30,7 +32,7 @@ const Description = () => {
                     About the NOVA x Network:
         </Typography>
                 <Typography
-                    variant="p"
+                    align="left"
                 >
                     The NOVA x Network helps youth develop a dynamic mindset towards STEM
                     through the fusion of disciplines and ethical literacy. Our goal is to
@@ -43,7 +45,7 @@ const Description = () => {
                     The NOVA FIRE Program:
         </Typography>
                 <Typography
-                    variant="p"
+                    align="left"
                 >
                     The NOVA Fellowship for Innovation, Research and Education (FIRE)
                     Program is a five-month virtual fellowship for high school students.
@@ -59,7 +61,7 @@ const Description = () => {
                     <li style={{ color: `#323865`, fontFamily: `poppins`, }}>Improve the efficiency of production and distribution of all food and agriculture products</li>
                 </ol>
                 <Typography
-                    variant="p"
+                    align="left"
                 >
                     Students will be working in teams of five to six from November 2020 to March 2021 to research and complete tasks related to one of the above topics. We have broken up our topics into 2 streams:
                     Research & Development
