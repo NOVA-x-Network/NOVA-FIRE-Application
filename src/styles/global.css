@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap'); /*Poppins*/
-
+@keyframes load {
+    to {
+        transform: rotate(360deg)
+    }
+}
+.loading {
+    animation-name: load;
+    animation-duration: 0.8s;
+    animation-iteration-count: 60;
+    animation-timing-function: ease-in-out;
+}
 @media (min-width: 1025px) {
     body {
     background: #D6F3F2;

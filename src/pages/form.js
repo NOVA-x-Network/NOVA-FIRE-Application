@@ -89,7 +89,35 @@ const App = ()=> {
                 db.collection("submissions").doc(user.email).get()
                     .then((snapshot)=> {
                         if (typeof snapshot.data() === 'undefined') {
-                            db.collection("submissions").doc(user.email).set({ basicInfo: {}, longAnswer: {}, survey: {}, files: {}, applicationStatus:"Incomplete" })
+                            db.collection("submissions").doc(user.email).set({
+                                basicInfo: {
+                                    firstName: "",
+                                    lastName: "",
+                                    school: "",
+                                    phoneNumber: "",
+                                    gender: "",
+                                    city: "",
+                                    grade: "",
+                                    householdIncome: "",
+                                    laptopAndInternetAccess: "",
+                                    isFirstNation: ""
+                                },
+                                longAnswer: {
+                                    longQuestion1: '',
+                                    longQuestion2: '',
+                                    longQuestion3: '',
+                                    longQuestion4: ''
+                                },
+                                survey: {
+                                    surveyQuestion1: [],
+                                    surveyQuestion1Other: '',
+                                    surveyQuestion2: [],
+                                    surveyQuestion2Other: '',
+                                    surveyQuestion3: ''
+                                },
+                                files: {},
+                                applicationStatus: "Incomplete"
+                            })
                         }
                         setUserStatus(true)
                     })

@@ -12,8 +12,8 @@ import { withFormik } from "formik";
 import firebaseApp from "../components/firebaseConfig.js";
 import "firebase/firestore";
 import "firebase/auth";
+import getData from "./dataWrapper.js"
 let db = firebaseApp.firestore()
-const firebaseAppAuth = firebaseApp.auth();
 
 class BasicInformationBody extends React.Component {
     constructor(props) {
@@ -22,12 +22,20 @@ class BasicInformationBody extends React.Component {
             saved:true,
         }
         this.saveCheck = this.saveCheck.bind(this)
+        this.changeHandler = this.changeHandler.bind(this)
     }
+
     saveCheck(event) {
-        if (!this.state.saved) {
-            return event.returnValue = "Are you sure you want to leave? You have unsaved data."
-        }
+       return event.returnValue = "Are you sure you want to leave? You have unsaved data."
     }
+
+    changeHandler(event) {
+        const { handleChange } = this.props
+        handleChange(event)
+        this.setState({ saved: false })
+        window.addEventListener('beforeunload', this.saveCheck)
+    }
+
     componentDidMount() {
         const { values } = this.props
         const grade = document.querySelectorAll("#grade");
@@ -43,7 +51,7 @@ class BasicInformationBody extends React.Component {
                 db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
             }
         })
-        window.addEventListener('beforeunload',this.saveCheck)
+
         const selectCheck = (target) => {
             var x = 0;
             while (x < target.length) {
@@ -86,6 +94,7 @@ class BasicInformationBody extends React.Component {
                 e.target.style.background = "#1A6F4C";
                 e.target.style.color = "#fff";
                 values.grade = e.target.innerHTML
+                window.addEventListener('beforeunload', this.saveCheck);
                 this.setState({ saved: false })
             })
         }
@@ -96,6 +105,7 @@ class BasicInformationBody extends React.Component {
                 e.target.style.background = "#1A6F4C";
                 e.target.style.color = "#fff";
                 values.householdIncome = e.target.innerHTML
+                window.addEventListener('beforeunload', this.saveCheck);
                 this.setState({ saved: false })
             })
         }
@@ -105,6 +115,7 @@ class BasicInformationBody extends React.Component {
                 e.target.style.background = "#1A6F4C";
                 e.target.style.color = "#fff";
                 values.laptopAndInternetAccess = e.target.innerHTML
+                window.addEventListener('beforeunload', this.saveCheck);
                 this.setState({ saved: false })
             })
         }
@@ -115,6 +126,7 @@ class BasicInformationBody extends React.Component {
                 e.target.style.background = "#1A6F4C";
                 e.target.style.color = "#fff";
                 values.isFirstNation = e.target.innerHTML
+                window.addEventListener('beforeunload', this.saveCheck);
                 this.setState({saved:false})
             })
         }
@@ -131,7 +143,7 @@ class BasicInformationBody extends React.Component {
     }
     render() {
         const genders = ['Male', 'Female', 'Prefer not to say', 'Other']
-        const { values, classes, handleChange } = this.props
+        const { values, classes } = this.props
         return (
             <Container style={{ marginLeft: "-5vw", fontFamily: "poppins" }}>
                 <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${0}em ${0}px ${0}px ${-9}em`, width: `${58}vw`, height: `${75}vh`, }} id="2">
@@ -143,7 +155,7 @@ class BasicInformationBody extends React.Component {
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                                    onChange={(e) => {this.changeHandler(e)}}
                                     name="firstName"
                                     id="firstName"
                                     label="First Name"
@@ -157,7 +169,7 @@ class BasicInformationBody extends React.Component {
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                                    onChange={(e) => {this.changeHandler(e)}}
                                     name="lastName"
                                     id="lastName"
                                     label="Last Name"
@@ -172,7 +184,7 @@ class BasicInformationBody extends React.Component {
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                                    onChange={(e) => {this.changeHandler(e)}}
                                     name="phoneNumber"
                                     id="phoneNumber"
                                     label="Phone Number (Optional)"
@@ -189,7 +201,7 @@ class BasicInformationBody extends React.Component {
                                 variant="outlined"
                                 type="text"
                                 size="small"
-                                onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                                onChange={(e) => {this.changeHandler(e)}}
                                 name="school"
                                 id="school"
                                 label="School "
@@ -203,7 +215,7 @@ class BasicInformationBody extends React.Component {
                                 variant="outlined"
                                 type="text"
                                 size="small"
-                                onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                                onChange={(e) => {this.changeHandler(e)}}
                                 name="city"
                                 id="city"
                                 label="City"
@@ -218,7 +230,7 @@ class BasicInformationBody extends React.Component {
                                 type="text"
                                 select
                                 size="small"
-                                onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                                onChange={(e) => {this.changeHandler(e)}}
                                 name="gender"
                                 id="gender"
                                 label="Gender"
@@ -293,7 +305,7 @@ class BasicInformationBody extends React.Component {
                             variant="outlined"
                             type="text"
                             size="small"
-                            onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                            onChange={(e) => {this.changeHandler(e)}}
                             name="address"
                             id="address"
                             label="Link to LinkedIn or Personal Portfolio"
@@ -305,6 +317,12 @@ class BasicInformationBody extends React.Component {
         )
     }
 }
+
+
+const BasicInformationForm = withFormik({
+    mapPropsToValues: (props) => (props.answers)
+})(BasicInformationBody)
+
 const StyledBasicInfo = withStyles({
     text: {
         borderRadius: `${9}px`,
@@ -392,47 +410,8 @@ const StyledBasicInfo = withStyles({
         fontSize: `${13}px`,
         paddingTop: `${6}px`
     }
-})(BasicInformationBody)
+})(BasicInformationForm)
 
-class BasicInformation extends React.Component {
-    constructor(props) {
-        super(props)
+const BasicInformation = getData("basicInfo", StyledBasicInfo)
 
-        this.state = {
-            answers: {
-                firstName: "",
-                lastName: "",
-                school: "",
-                phoneNumber: "",
-                gender: "",
-                city: "",
-                grade: "",
-                householdIncome: "",
-                laptopAndInternetAccess: "",
-                isFirstNation: "",
-            },
-            email: '',
-
-        }
-    }
-    componentDidMount() {
-        firebaseAppAuth.onAuthStateChanged((user) => {
-            db.collection("submissions").doc(user.email).get()
-                .then((snapshot) => {
-                    if (JSON.stringify(snapshot.data().basicInfo) !== '{}') {
-                        this.setState({ answers: snapshot.data().basicInfo })
-                    }
-                    this.setState({ email: user.email })
-                })
-        })
-    }
-    render() {
-        const BasicInformationForm = withFormik({
-            mapPropsToValues: () => (this.state.answers)
-        })(StyledBasicInfo)
-        return (<BasicInformationForm
-            email={this.state.email}>
-        </BasicInformationForm>)
-    }
-}
-            export default BasicInformation;
+export default BasicInformation

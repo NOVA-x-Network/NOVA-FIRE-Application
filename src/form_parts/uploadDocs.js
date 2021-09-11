@@ -19,6 +19,7 @@ const Upload = () => {
         multiple: true,
         readAs: 'DataURL',
         accept: ['.pdf', '.png', '.jpeg', '.doc', '.docx'],
+        limitFilesConfig: {max:1}
     });
     let uploadStyle = makeStyles(() => ({
         upload: {
@@ -46,11 +47,6 @@ const Upload = () => {
                             fileWithName.content = snapshot.data()['files'][file]
                             allFilesTemp.push(fileWithName)
                         })
-                        if (filesContent) {
-                            filesContent.forEach((file) => {
-                                allFilesTemp.push(file)
-                            })
-                        }
                         setAllFiles(allFilesTemp)
                     })
             setEmail(user.email)

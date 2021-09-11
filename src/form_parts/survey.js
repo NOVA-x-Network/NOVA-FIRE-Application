@@ -4,8 +4,8 @@ import { withStyles, Container } from "@material-ui/core";
 import "firebase/firestore"
 import "firebase/auth"
 import firebaseApp from "../components/firebaseConfig.js"
+import getData from "./dataWrapper.js"
 let db = firebaseApp.firestore()
-const firebaseAppAuth = firebaseApp.auth();
 class SurveyBody extends React.Component {
     constructor(props) {
         super(props)
@@ -13,12 +13,20 @@ class SurveyBody extends React.Component {
             saved: true,
         }
         this.saveCheck = this.saveCheck.bind(this)
+        this.changeHandler = this.changeHandler.bind(this)
     }
+
     saveCheck(event) {
-        if (!this.state.saved) {
-            return event.returnValue = "Are you sure you want to leave? You have unsaved data."
-        }
+        return event.returnValue = "Are you sure you want to leave? You have unsaved data."
     }
+
+    changeHandler(event) {
+        const { handleChange } = this.props
+        handleChange(event)
+        this.setState({ saved: false })
+        window.addEventListener('beforeunload', this.saveCheck)
+    }
+
     componentWillUnmount() {
         window.removeEventListener('beforeunload', this.saveCheck)
 
@@ -58,17 +66,15 @@ class SurveyBody extends React.Component {
             }
         })
 
-        window.addEventListener('beforeunload', this.saveCheck)
     }
+
     render() {
         const {
             values,
-            handleChange,
             touched,
             errors,
             classes
         } = this.props
-
         return (
             <Container style={{ height: "75vh", overflowY: "scroll", width: "50vw", marginLeft: "-8vw" }}>
                 <form className={classes.form} id="4">
@@ -79,7 +85,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="instagram"
                         name="surveyQuestion1"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="NOVA Instagram"
                     />
                     <br />
@@ -88,7 +94,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="linkedin"
                         name="surveyQuestion1"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="NOVA LinkedIn"
                     />
                     <br />
@@ -97,7 +103,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="friend"
                         name="surveyQuestion1"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="Friend"
                     />
                     <br />
@@ -106,7 +112,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="website"
                         name="surveyQuestion1"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="NOVA Website"
                     />
                     <br />
@@ -115,7 +121,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="execPost"
                         name="surveyQuestion1"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="Executive Post"
                     />
                     <br />
@@ -124,7 +130,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="otherInstagram"
                         name="surveyQuestion1"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="Other Org Instagram"
                     />
                     <br />
@@ -133,7 +139,7 @@ class SurveyBody extends React.Component {
                         type="text"
                         id="other"
                         name="surveyQuestion1Other"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value={values.surveyQuestion1Other}
                         maxlength="60"
                     />
@@ -148,7 +154,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="instagram2"
                         name="surveyQuestion2"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="NOVA Instagram"
                     />
                     <br />
@@ -157,7 +163,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="linkedin2"
                         name="surveyQuestion2"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="NOVA LinkedIn"
                     />
                     <br />
@@ -166,7 +172,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="friend2"
                         name="surveyQuestion2"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="Friend"
                     />
                     <br />
@@ -175,7 +181,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="website2"
                         name="surveyQuestion2"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="NOVA Website"
                     />
                     <br />
@@ -184,7 +190,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="execPost2"
                         name="surveyQuestion2"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="Executive Post"
 
                     />
@@ -194,7 +200,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="otherInstagram2"
                         name="surveyQuestion2"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value="Other Org Instagram"
                     />
                     <br />
@@ -203,7 +209,7 @@ class SurveyBody extends React.Component {
                         type="text"
                         id="other2"
                         name="surveyQuestion2Other"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value={values.surveyQuestion2Other}
                         maxlength="60"
                     />
@@ -216,7 +222,7 @@ class SurveyBody extends React.Component {
                     <textarea
                         id="surveyQuestion3"
                         name="surveyQuestion3"
-                        onChange={(e) => { handleChange(e); this.setState({saved:false})}}
+                        onChange={(e) => {this.changeHandler(e)}}
                         value={values.surveyQuestion3}
                         style={{ width: "40vw", height: "200px" }}
                     />
@@ -250,43 +256,10 @@ const StyledSurvey = withStyles({
     }
 })(SurveyBody)
 
-class Survey extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            email: '',
-            answers: { surveyQuestion1: [], surveyQuestion1Other:'', surveyQuestion2: [], surveyQuestion2Other:'', surveyQuestion3: '' }
-        }
-    }
+const SurveyBodyWithFormik = withFormik({
+    mapPropsToValues: (props) => (props.answers),
+})(StyledSurvey)
 
-    componentDidMount() {
-        const user = firebaseAppAuth.currentUser
+const Survey = getData("survey", SurveyBodyWithFormik)
 
-            db.collection("submissions").doc(user.email).get()
-                .then((snapshot) => {
-
-                    if (JSON.stringify(snapshot.data().survey) !== '{}') {
-                        console.log(snapshot.data())
-
-                        this.setState({ answers: snapshot.data().survey, email:user.email })
-                    }
-
-                    else {
-                        db.collection("submissions").doc(user.email).set({ 'survey':this.state.answers }, { merge: true })
-
-                        this.setState({ email: user.email })
-                    }
-                })
-    }
-    render() {
-        const SurveyBodyWithFormik = withFormik({
-                mapPropsToValues: () => (this.state.answers),
-        })(StyledSurvey)
-
-        return (
-            <SurveyBodyWithFormik email={this.state.email}>
-            </SurveyBodyWithFormik>
-            )
-    }
-}
 export default Survey
