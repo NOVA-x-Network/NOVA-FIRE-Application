@@ -145,8 +145,8 @@ class BasicInformationBody extends React.Component {
         const genders = ['Male', 'Female', 'Prefer not to say', 'Other']
         const { values, classes } = this.props
         return (
-            <Container style={{ marginLeft: "-5vw", fontFamily: "poppins" }}>
-                <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${0}em ${0}px ${0}px ${-9}em`, width: `${58}vw`, height: `${75}vh`, }} id="2">
+            <Container style={{ fontFamily: "poppins", marginLeft:"-15vw"}}>
+                <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${0}em ${0}px ${0}px ${0}em`, width: `${58}vw`, height: `${75}vh`, }} id="2">
                     <div style={{ display: `flex`, marginTop: `${1.5}em`, alignItems: "flex-start", flexDirection: "column" }}>
                         <Typography className={classes.heading}>Basic Information</Typography>
                         <Box style={{ display: `flex`, flexDirection: "row" }}>

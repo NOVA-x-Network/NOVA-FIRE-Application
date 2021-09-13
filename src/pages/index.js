@@ -13,9 +13,10 @@ const providers = {
 // markup
 const IndexPage = props => {
 	const { user, signOut } = props
-	let [appStatus, setAppStatus]=useState(false)
-	let width = window.innerWidth
-	console.log(width)
+	const [appStatus, setAppStatus] = useState(false)
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+	console.log(windowWidth)
+	const defaultComputerWidth = 2550
 	var introTextWidth
 	var introTextFont
 	var frontBannerWidth
@@ -24,10 +25,10 @@ const IndexPage = props => {
 	var frontBannerImageHeight
 	var cornerImageHeight
 	var cornerImageWidth
-	if (width >= 1025) {
-		introTextFont = "2vh"
-		introTextWidth = "510px"
-		frontBannerHeight = "40vh"
+	if (windowWidth >= 500) {
+		introTextFont = "2.2vh"
+		introTextWidth = "30vw"
+		frontBannerHeight = `${defaultComputerWidth/windowWidth*27}vh`
 		frontBannerImageHeight = "30vh"
 		frontBannerWidth = "60vw"
 		frontBannerImageWidth = "22vw"
@@ -36,11 +37,11 @@ const IndexPage = props => {
 	}
 	else {
 		introTextFont = "1.3vh"
-		introTextWidth="130px"
+		introTextWidth ="40vw"
 		frontBannerHeight = "45vh"
-		frontBannerImageHeight = "12.5vh"
+		frontBannerImageHeight = "35vw"
 		frontBannerWidth = "90vw"
-		frontBannerImageWidth = "30w"
+		frontBannerImageWidth = "42vw"
 		cornerImageHeight = "4vh"
 		cornerImageWidth="8vh"
 	}
@@ -51,6 +52,9 @@ const IndexPage = props => {
 					setAppStatus(snapshot.data().applicationStatus)
 				})
 		}
+		window.addEventListener('resize', () => {
+			setWindowWidth(window.innerWidth)
+		})
     })
 	console.log(introTextWidth)
 	return (<div>
@@ -58,12 +62,12 @@ const IndexPage = props => {
 			<img src={nova_logo_cropped} style={{ height: cornerImageHeight, width: cornerImageWidth, marginLeft: "8px", marginTop: "8px" }} />
 			<div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
 				{appStatus ? <p>Application Status: {appStatus}</p> : null}
-				{user ? <button onClick={() => { signOut(); setAppStatus(false) }} style={{ marginTop: "10px", marginRight: "10px" }}>Sign out</button> : <button onClick={() => { window.location = "/login" }}>Login</button>}
+				{user ? <button onClick={() => { signOut(); setAppStatus(false) }} style={{ marginLeft: "10px" }}>Sign out</button> : <button onClick={() => { window.location = "/login" }}>Login</button>}
 				</div>
 				</div>
 				<div style={{ display: "flex", flex: 9, flexDirection: "column", alignItems:"center", marginTop:"12px"}}>
-					<div style={{ background: "linear-gradient(90deg, rgba(17,8,153,1) 0%, rgba(25,180,103,1) 97%)", display:"flex",justifyContent:"left", width:frontBannerWidth, borderRadius:"20px", height:frontBannerHeight, alignItems:"center"}}>
-				<div style={{ display: "flex", flexDirection: "column", marginLeft: "25px",}}>
+					<div style={{ background: "linear-gradient(90deg, rgba(17,8,153,1) 0%, rgba(25,180,103,1) 97%)", display:"flex",justifyContent:"flex-start", width:frontBannerWidth, borderRadius:"20px", height:frontBannerHeight, alignItems:"center"}}>
+				<div style={{ display: "flex", flexDirection: "column", marginLeft: "25px", justifyContent:"space-around"}}>
 					<p style={{ fontFamily: "arial", lineHeight: `1.4`, color: "white", fontSize: introTextFont, textAlign: "left", width: introTextWidth}}>
 						NOVA FIRE (Fellowship in Innovation, Research, and Education) is a
 						5 month-long intensive fellowship program for high school students.

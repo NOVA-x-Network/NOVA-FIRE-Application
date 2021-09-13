@@ -22,54 +22,95 @@ import "firebase/auth"
 import "firebase/firestore";
 let db = firebaseApp.firestore()
 const firebaseAppAuth = firebaseApp.auth()
-const myStyles = makeStyles(() => ({
-    paper: {
-        width: `${85}%`,
-        height: `${93}vh`,
-        background: `#fff`,
-        marginTop: `${1.5}em`,
-        marginLeft: `${8}em`,
-        overflow: `hidden`,
-        fontFamily:"poppins"
-    },
-    first: {
-        width: `${10}%`,
-        height: `${93}vh`,
-        background: `#1A6F4C`,
+var myStyles
 
-    },
-    item: {
-        marginTop: `${1.5}em`,
-        cursor: `pointer`
-    },
-    contain: {
-        marginTop: `${2}em`,
-    },
-
-    Box: {
-        width: `${8}px`,
-        height: `${8}px`,
-        background: `#BFEDEA`,
-        border: `${7}px solid #BFEDEA`,
-        borderRadius: `${50}px`,
-
-    },
-    stepname: {
-        color: `#fff`,
-        marginLeft: `${0.8}em`,
-        fontSize: `${1}em`,
-        display: `inline-block`
-    },
-}));
-
-
-const App = ()=> {
-    const classes = myStyles();
+const App = () => {
     const [activeStep, setActiveStep] = useState(1);
     const [gotAuthStatus, setAuthStatus] = useState(false)
     const [userStatus, setUserStatus] = useState(null)
-    const [formData, setFormData] = useState({})
-    const [email, setEmail] = useState('')
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    if (windowWidth >= 780) {
+        myStyles = makeStyles(() => ({
+            paper: {
+                width: `${85}%`,
+                height: `${93}vh`,
+                background: `#fff`,
+                marginTop: `${1.5}em`,
+                marginLeft: `${8}em`,
+                fontFamily: "poppins"
+            },
+            first: {
+                width: `${10}%`,
+                height: `${93}vh`,
+                background: `#1A6F4C`,
+
+            },
+            item: {
+                marginTop: `${1.5}em`,
+                cursor: `pointer`
+            },
+            contain: {
+                marginTop: `${2}em`,
+                width: "70%"
+            },
+
+            Box: {
+                width: `${8}px`,
+                height: `${8}px`,
+                background: `#BFEDEA`,
+                border: `${7}px solid #BFEDEA`,
+                borderRadius: `${50}px`,
+
+            },
+            stepname: {
+                color: `#fff`,
+                marginLeft: `${0.8}em`,
+                fontSize: `2.3vh`,
+                display: `inline-block`
+            },
+        }));
+    }
+    else {
+        myStyles = makeStyles(() => ({
+            paper: {
+                height: `${93}vh`,
+                background: `#fff`,
+                marginTop: `${1.5}em`,
+                marginLeft: `${8}em`,
+                fontFamily: "poppins"
+            },
+            first: {
+                width: `${10}%`,
+                height: `${93}vh`,
+                background: `#1A6F4C`,
+
+            },
+            item: {
+                marginTop: `${1.5}em`,
+                cursor: `pointer`
+            },
+            contain: {
+                marginTop: `${2}em`,
+                width:"30%"
+            },
+
+            Box: {
+                width: `${8}px`,
+                height: `${8}px`,
+                background: `#BFEDEA`,
+                border: `${7}px solid #BFEDEA`,
+                borderRadius: `${50}px`,
+
+            },
+            stepname: {
+                color: `#fff`,
+                marginLeft: `${0.8}em`,
+                fontSize: `0.1vh`,
+                display: `inline-block`
+            },
+        }));
+    }
+    let classes = myStyles()
     const handleNext = () => {
         setActiveStep(activeStep + 1)
     }
@@ -78,14 +119,12 @@ const App = ()=> {
         setActiveStep(activeStep - 1)
     }
 
-    const getFormSectionData = (data) => {
-        setFormData(data)
-    }
-
     useEffect(() => {
+        window.addEventListener('resize', () => {
+            setWindowWidth(window.innerWidth)
+        })
         firebaseAppAuth.onAuthStateChanged((user) => {
             if (user) {
-                setEmail(user.email)
                 db.collection("submissions").doc(user.email).get()
                     .then((snapshot)=> {
                         if (typeof snapshot.data() === 'undefined') {
@@ -201,7 +240,7 @@ const App = ()=> {
 
                                 <Container>
                                     {activeStep === 1 ? <Description /> : null}
-                                    {activeStep === 2 ? <BasicInformation sendDataToFormParent={getFormSectionData}/> : null}
+                                    {activeStep === 2 ? <BasicInformation /> : null}
                                     {activeStep === 3 ? <LongResponses /> : null}
                                     {activeStep === 4 ? <Survey /> : null}
                                     {activeStep === 5 ? <Upload /> : null}
