@@ -25,25 +25,25 @@ const IndexPage = props => {
 	var frontBannerImageHeight
 	var cornerImageHeight
 	var cornerImageWidth
-	if (windowWidth >= 500) {
-		introTextFont = "2.2vh"
+	if (windowWidth >= 900) {
+		introTextFont = "14pt"
 		introTextWidth = "30vw"
-		frontBannerHeight = `${defaultComputerWidth/windowWidth*27}vh`
+		frontBannerHeight = "auto"
 		frontBannerImageHeight = "30vh"
-		frontBannerWidth = "60vw"
+		frontBannerWidth = "90vw"
 		frontBannerImageWidth = "22vw"
-		cornerImageHeight = "8vh"
-		cornerImageWidth="16vh"
+		cornerImageHeight = "auto"
+		cornerImageWidth="8vw"
 	}
 	else {
-		introTextFont = "1.3vh"
+		introTextFont = "14pt"
 		introTextWidth ="40vw"
-		frontBannerHeight = "45vh"
+		frontBannerHeight = "auto"
 		frontBannerImageHeight = "35vw"
 		frontBannerWidth = "90vw"
 		frontBannerImageWidth = "42vw"
-		cornerImageHeight = "4vh"
-		cornerImageWidth="8vh"
+		cornerImageHeight = "auuto"
+		cornerImageWidth="8vw"
 	}
 	useEffect(() => {
 		if (user) {
@@ -59,59 +59,45 @@ const IndexPage = props => {
 	console.log(introTextWidth)
 	return (<div>
 				<div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"space-between", fontFamily:"poppins"}}>
-			<img src={nova_logo_cropped} style={{ height: cornerImageHeight, width: cornerImageWidth, marginLeft: "8px", marginTop: "8px" }} />
-			<div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+			<img id="indexLogo" src={nova_logo_cropped} style={{ height: cornerImageHeight, width: cornerImageWidth, marginLeft: "3vw", marginTop: "20px", marginBottom: "10px"}} />
+			<div id="indexLogin" style={{ display: "flex", flexDirection: "row", alignItems: "center", marginRight: "2.5vw"}}>
 				{appStatus ? <p>Application Status: {appStatus}</p> : null}
-				{user ? <button onClick={() => { signOut(); setAppStatus(false) }} style={{ marginLeft: "10px" }}>Sign out</button> : <button onClick={() => { window.location = "/login" }}>Login</button>}
+				{user ? <button onClick={() => { signOut(); setAppStatus(false) }} style={{ marginLeft: "30px" }}>Sign out</button> : <button style={{ marginLeft: "30px" }} onClick={() => { window.location = "/login" }}>Login</button>}
 				</div>
 				</div>
-				<div style={{ display: "flex", flex: 9, flexDirection: "column", alignItems:"center", marginTop:"12px"}}>
-					<div style={{ background: "linear-gradient(90deg, rgba(17,8,153,1) 0%, rgba(25,180,103,1) 97%)", display:"flex",justifyContent:"flex-start", width:frontBannerWidth, borderRadius:"20px", height:frontBannerHeight, alignItems:"center"}}>
-				<div style={{ display: "flex", flexDirection: "column", marginLeft: "25px", justifyContent:"space-around"}}>
-					<p style={{ fontFamily: "arial", lineHeight: `1.4`, color: "white", fontSize: introTextFont, textAlign: "left", width: introTextWidth}}>
+		<div className="indexMain" style={{ position: "relative", marginTop:"12px"}}>
+					<div id="indexBanner">
+				<div style={{ position:"relative", marginTop: "10px", display: "flex", flexDirection: "column", marginLeft: "25px", justifyContent:"space-around"}}>
+					<h1>NOVA Fellowship Applications are now open!</h1>
+					<p className="bannerText">
 						NOVA FIRE (Fellowship in Innovation, Research, and Education) is a
 						5 month-long intensive fellowship program for high school students.
 						Our fellows will participate in primary and secondary interdisciplinary
 						research in 1 of our 4 topics. They will be given the opportunity to either
 						develop a hands-on project, or a written report for publication, based on their findings
 						and analysis. Students will have a chance to work in teams of 5-6.
-						NOVA will be accepting a maximum of 24 students into our program.
+						NOVA will be accepting a maximum of 24 students into our program... <a href="https://novaxnetwork.com/fellowship/">Learn More</a>
 				</p>
-					<form method="get" action="https://novaxnetwork.com/fellowship/">
-						<button type="submit">Learn more</button>
-					</form>
 				</div>
-				<div style={{ display: "flex", justifyContent: "center", flex:"auto"}}>
-					<img src={nova_front_art} style={{ width: frontBannerImageWidth, height: frontBannerImageHeight, marginRight: "0px" }} />
+				<div id="bannerImg">
+					<img src={nova_front_art} />
 				</div>
 					</div>
-					<div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
-						<p style={{ fontSize: "6vh", fontWeight: "bold", fontFamily: "arial", marginBottom:"15px"}}>
-								NOVA Fellowship Applications are now open!
-						</p>
-						<br />
+					<div style={{ marginTop:"20px", marginLeft:"25px", marginBottom:"40px"}}>
 						<div style={{display:"flex", flexDirection:"row"}}>
-							<div className="gradient-button-border" onClick={() => { window.location = "/signup" }}>
-								<div>
-									<p style={{ color: "#07024e", fontFamily: "arial", fontWeight: "bold" }}>Sign up</p>
-								</div>
-							</div>
-					<div className="gradient-button-border" onClick={() => {
+					<button style={{ marginRight:"10px"}} onClick={() => { window.location = "/signup" }}>Sign up</button>
+					<button className="button" onClick={() => {
 						if (!user) {
 							window.location = "/login"
 						}
 						else {
 							window.location="/form"
                         }
-					}}>
-								<div >
-									<p style={{ color: "#07024e", fontFamily: "arial", fontWeight: "bold" }}>Continue your application</p>
+					}}>Continue your application</button>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
   )
 }
 

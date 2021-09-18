@@ -32,17 +32,21 @@ const App = () => {
     if (windowWidth >= 780) {
         myStyles = makeStyles(() => ({
             paper: {
-                width: `${85}%`,
+                width: `${95}vw`,
                 height: `${93}vh`,
-                background: `#fff`,
-                marginTop: `${1.5}em`,
-                marginLeft: `${8}em`,
-                fontFamily: "poppins"
+                background: `white`,
+                marginTop: `${0}vh`,
+                marginLeft: `${2.5}vw`,
+                marginRight: `${2.5}vw`,
+                fontFamily: "poppins",
+                borderRadius: "15px 15px 15px 15px",
+                boxShadow: "0px 5px 12px #ADE0DD"
             },
             first: {
                 width: `${10}%`,
                 height: `${93}vh`,
                 background: `#1A6F4C`,
+                borderRadius: "15px 0px 0px 15px"
 
             },
             item: {
@@ -171,7 +175,7 @@ const App = () => {
     if (userStatus && gotAuthStatus) {
         return (
             <>
-                <style>{"body {background-color: #bfbaba; overflow:hidden;}"}</style>
+                <style>{"body {background-color: #D6F3F2; overflow:hidden;}"}</style>
                 <Paper className={classes.paper} elevation={10}>
                     <Grid container>
                         <Grid className={classes.first} item xs={3}>
@@ -211,24 +215,12 @@ const App = () => {
 
                                 <Button
                                     id="exitButton"
-                                    style={{
-                                        background: `#fff`,
-                                        color: `#1A6F4C`,
-                                        width: `${90}%`,
-                                        height: `${25}px`,
-                                        marginTop: `${1}em`,
-                                        marginLeft: `${1}em`,
-                                        fontSize: `${1}em`,
-                                        borderRadius: `${0.5}em`,
-                                        fontFamily: `poppins`,
-                                        fontWeight: 900,
-                                    }}
                                     onClick={() => {
                                         setTimeout(() => {
                                             window.location = "/"
                                         },300)
                                     }}
-                                >Save and Exit <CloseIcon /></Button>
+                                >Save and Exit <CloseIcon style={{paddingTop: "10px"}}/></Button>
                                 <Typography style={{ marginTop: "30px" }}>Tip: Clicking "Back", "Continue", or each of the above section labels automatically saves your work. </Typography>
                                 <Typography style={{ marginTop: "30px" }}>Note: Every time you change your answers after submitting, you will have to reverify and resubmit them. </Typography>
                             </Container>

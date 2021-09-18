@@ -133,14 +133,14 @@ class Login extends React.Component {
                 Sign in with Google
               </button>
 
-              <button
+                  <button style={{ marginTop:"10px"}}
                 onClick={() => {
                   this.sendPasswordResetEmail(prompt("Email address:"));
                 }}
               >
                 Forgot password
               </button>
-              <p>Don't have an account yet? <a href="signup"><b><u>Sign up. </u></b></a></p>
+              <p>Don't have an account yet? <a href="signup"><b><u>Sign up.</u></b></a></p>
             </div>
           )}
         </header>

@@ -13,6 +13,7 @@
 @media (min-width: 1025px) {
     body {
     background: #D6F3F2;
+    padding-top:10px;
     }
     input {
     width: 50%;
@@ -44,62 +45,20 @@
     }
 
     button {
-    width: 10vw;
-    height:50px;
     border: 0;
     outline: 0;
     display:block;
     padding:8px;
-    padding-left: 12px;
-    padding-right: 12px;
-    background: #E9FEFD;
+    padding-left: 20px;
+    padding-right: 20px;
     box-sizing: border-box;
     background: #ADE0DD;
     border-radius: 30px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     font-family: 'Poppins', sans-serif;
     font-style: normal;
-    font-weight: 600;
-    font-size: 1vw;
-    line-height: 30px;
+    font-size: 16px;
     transition: 0.2s ease-in-out all;
-    }
-    .gradient-button-border {
-    background: linear-gradient(90deg, rgba(17,8,153,1) 0%, rgba(25,180,103,1) 97%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 15px;
-    margin:30px
-    }
-    .gradient-button-border div {
-    display: flex;
-    background-color: white;
-    height: 10vh;
-    width: 12vw;
-    border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-    }
-    .gradient-button-border div p {
-    font-size: 3.2vh
-    }
-    .gradient-button-border {
-    display: flex;
-    background-color: white;
-    height: 12vh;
-    width: 13vw;
-    border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-    margin:20px
-    }
-    .gradient-button-border:hover {
-    cursor: pointer
-    }
-    a {
-    color:inherit;
-    text-decoration:none;
     }
 
     button:hover {
@@ -110,6 +69,7 @@
 
     p {
     text-align: center;
+    vertical-align: top;
     }
 
     .main {
@@ -188,13 +148,95 @@
         line-height: 5px;
         color: #BFEDEA;
     }
-  }
+
+    /*index page*/
+    #indexBanner p {
+        color:#323865;
+    }
+
+    #indexBanner h1 {
+        color:#323865;
+        font-family: 'Poppins', sans-serif;
+        font-size: 30px;
+        margin-top:20px;
+        margin-bottom:0;
+        width:40vw;
+    }
+
+    .bannerText{ 
+        width:40vw;
+        position:relative;
+        text-align:left;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 23px;
+        color: #323865;
+    }
+
+    #bannerImg {
+        position:absolute;
+        width: auto;
+        top:20px;
+        right:20px;
+    }
+
+    #bannerImg img {
+        width: 40vw;
+        margin-top:10px;
+    }
+
+    #indexBanner  a {
+        font-style:italic;
+        color:#4a707a;
+    }
+
+    #indexBanner  a:hover{
+        font-style:italic;
+        color:#788878;
+    }
+
+    .indexMain {
+    position:relative;
+    background: rgb(233,254,253);
+    background: linear-gradient(180deg, rgba(233,254,253,1) 0%, rgba(208,244,242,1) 93%, rgba(191,237,234,1) 100%);
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 0px 5px 12px #ADE0DD;
+    margin:auto;
+    margin-top:30px;
+    margin-bottom:50px;
+    width:95%;
+    height:auto;
+    overflow:hidden;
+    }
+
+    /*form*/
+    #exitButton {
+        border: 0;
+        outline: 0;
+        display:block;
+        padding:8px;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-sizing: border-box;
+        background: #ADE0DD;
+        border-radius: 30px;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-size: 16px;
+        transition: 0.2s ease-in-out all;
+    }
+
+}
 
 @media (max-width: 1024px) {
     body {
     width:100%;
     background: #D6F3F2;
     margin:0;
+    padding-top:0;
     }
     input {
     width: 80%;
@@ -256,20 +298,19 @@
     cursor:pointer
     }
     button {
-    width: 80px;
-    height:33px;
     border: 0;
     outline: 0;
-    margin-bottom: 10px;
     display:block;
+    padding:8px;
+    padding-left: 20px;
+    padding-right: 20px;
     box-sizing: border-box;
     background: #ADE0DD;
-    border-radius: 40px;
+    border-radius: 30px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     font-family: 'Poppins', sans-serif;
     font-style: normal;
-    font-weight: 600;
-    font-size: 10px;
+    font-size: 16px;
     transition: 0.2s ease-in-out all;
     }
 
@@ -352,5 +393,71 @@
     line-height: 5px;
     color: #BFEDEA;
     padding:20px;
+    }
+
+    /*index page*/
+    #indexBanner p {
+        color:#323865;
+    }
+
+    #indexBanner h1 {
+        color:#323865;
+        font-family: 'Poppins', sans-serif;
+        font-size: 30px;
+        margin-top:20px;
+        margin-bottom:0;
+    }
+
+    .bannerText{ 
+        width:auto;
+        position:relative;
+        text-align:left;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 23px;
+        color: #323865;
+    }
+
+    #bannerImg {
+        width:90vw;
+        overflow-x:hidden;
+    }
+
+    #bannerImg img {
+        width:90vw;
+    }
+
+    #indexBanner  a {
+        font-style:italic;
+        color:#4a707a;
+    }
+
+    #indexBanner  a:hover{
+        font-style:italic;
+        color:#788878;
+    }
+
+    .indexMain {
+    position:relative;
+    background:#D6F3F2;
+    border-radius: 0 0 0 0;
+    width:90vw;
+    margin-left:5vw;
+    margin-right:5vw;
+    }
+
+    #indexLogo {
+        margin-left:8vw !important;
+    }
+
+    #indexLogin {
+        padding-right:3vw !important;
+    }
+
+    /*description*/
+    .descriptionText {
+        background:blue;
     }
 }
