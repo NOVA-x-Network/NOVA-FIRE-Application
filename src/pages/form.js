@@ -109,7 +109,7 @@ const App = () => {
             stepname: {
                 color: `#fff`,
                 marginLeft: `${0.8}em`,
-                fontSize: `0.1vh`,
+                fontSize: `1vh`,
                 display: `inline-block`
             },
         }));
@@ -214,32 +214,38 @@ const App = () => {
                                 </List>
 
                                 <Button
+                                    style={{ display:"flex", alignItems:"center", width:"20vw"}}
                                     id="exitButton"
                                     onClick={() => {
                                         setTimeout(() => {
                                             window.location = "/"
                                         },300)
                                     }}
-                                >Save and Exit <CloseIcon style={{paddingTop: "10px"}}/></Button>
+                                >Save and Exit <CloseIcon/></Button>
                                 <Typography style={{ marginTop: "30px" }}>Tip: Clicking "Back", "Continue", or each of the above section labels automatically saves your work. </Typography>
                                 <Typography style={{ marginTop: "30px" }}>Note: Every time you change your answers after submitting, you will have to reverify and resubmit them. </Typography>
                             </Container>
                         </Grid>
 
                         <Grid item xs={9}>
-                            <Container className={classes.contain} maxWidth="sm">
+                            <Box className={classes.contain} maxWidth="sm" style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
 
-
-                                <Container>
                                     {activeStep === 1 ? <Description /> : null}
                                     {activeStep === 2 ? <BasicInformation /> : null}
                                     {activeStep === 3 ? <LongResponses /> : null}
                                     {activeStep === 4 ? <Survey /> : null}
                                     {activeStep === 5 ? <Upload /> : null}
                                     {activeStep === 6 ? <Review />: null}
-
-
-                                </Container>
+                                <Container
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        marginTop: "20px",
+                                        width: "35vw",
+                                        minWidth:"200px"
+                                    }}
+                                >
                                 {
                                     activeStep < 6 ?
                                         <Button variant="contained" style={{
@@ -247,12 +253,11 @@ const App = () => {
                                             color: `#fff`,
                                             width: `${32}%`,
                                             height: `${30}px`,
-                                            marginTop: `${2}em`,
-                                            marginLeft: `${38}em`,
                                             fontSize: `${0.8}em`,
                                             borderRadius: `${0.5}em`,
                                             fontFamily: `poppins`,
-                                            fontWeight: 900
+                                            fontWeight: 900,
+                                            minWidth:"75px"
                                         }}
                                             onClick={handleNext}
                                             form={activeStep.toString()}
@@ -268,10 +273,10 @@ const App = () => {
                                             color: `#fff`,
                                             width: `${32}%`,
                                             height: `${30}px`,
-                                            marginTop: `${-4}em`,
                                             fontFamily: `poppins`,
                                             fontSize: `${0.8}em`,
-                                            fontWeight: 900
+                                                fontWeight: 900,
+                                                minWidth: "75px"
                                         }}
                                             onClick={handlePrev}
                                             form={activeStep.toString()}
@@ -280,8 +285,9 @@ const App = () => {
                                         </Button>
                                         :
                                         null
-                                }
-                            </Container>
+                                    }
+                                    </Container>
+                            </Box>
                         </Grid>
 
                     </Grid>

@@ -76,7 +76,7 @@ class SurveyBody extends React.Component {
             classes
         } = this.props
         return (
-            <Container style={{ height: "75vh", overflowY: "scroll", width: "50vw", marginLeft: "-8vw" }}>
+            <Container style={{ height: "75vh", overflowY: "scroll", width: "50vw" }}>
                 <form className={classes.form} id="4">
                     <h2>Question 1: How'd you hear about the NOVA FIRE Fellowship?</h2>
                     <br />
@@ -224,7 +224,7 @@ class SurveyBody extends React.Component {
                         name="surveyQuestion3"
                         onChange={(e) => {this.changeHandler(e)}}
                         value={values.surveyQuestion3}
-                        style={{ width: "40vw", height: "200px" }}
+                        style={{ width: "40vw" }}
                     />
                     <br />
                     {touched.surveyQuestion3 && errors.surveyQuestion3 ? (
@@ -242,7 +242,7 @@ const StyledSurvey = withStyles({
         },
         '& label': {
             display: "inline-block",
-            width: "250px",
+            width: "20vw",
         },
         '& input': {
             display: "inline-block",

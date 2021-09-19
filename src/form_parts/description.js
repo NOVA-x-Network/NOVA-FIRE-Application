@@ -17,7 +17,7 @@ const Description = () => {
     let classes=descriptionStyles()
     return (
         <>
-            <Container maxWidth="md" style={{ marginLeft: `${-15}em`, width: `${60}vw`, overflowY: `scroll`, height: `${75}vh` }} className={classes.body}>
+            <Container maxWidth="md" style={{ width: `${60}vw`, overflowY: `scroll`, height: `${75}vh` }} className={classes.body}>
                 <Typography
                     align="left"
                 >

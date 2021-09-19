@@ -145,12 +145,11 @@ class BasicInformationBody extends React.Component {
         const genders = ['Male', 'Female', 'Prefer not to say', 'Other']
         const { values, classes } = this.props
         return (
-            <Container style={{ fontFamily: "poppins", marginLeft:"-15vw"}}>
-                <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${0}em ${0}px ${0}px ${0}em`, width: `${58}vw`, height: `${75}vh`, }} id="2">
-                    <div style={{ display: `flex`, marginTop: `${1.5}em`, alignItems: "flex-start", flexDirection: "column" }}>
+            <Container style={{ fontFamily: "poppins"}}>
+                <form style={{ overflowY: `scroll`, overflowX: `scroll`, margin: `${0}em ${0}px ${0}px ${0}em`, width: `${58}vw`, height: `${75}vh`, }} id="2">
+                    <div style={{ display: `flex`, marginTop: `${1.5}em`, alignItems: "flex-start", flexDirection: "column"}}>
                         <Typography className={classes.heading}>Basic Information</Typography>
-                        <Box style={{ display: `flex`, flexDirection: "row" }}>
-                            <Box>
+                        <div style={{ width:"60vw"}}>
                                 <TextField
                                     variant="outlined"
                                     type="text"
@@ -163,8 +162,6 @@ class BasicInformationBody extends React.Component {
                                     value={values.firstName || ''}
                                     inputProps={{maxLength:30}}
                                 />
-                            </Box>
-                            <Box style={{ marginLeft: `${2}em` }}>
                                 <TextField
                                     variant="outlined"
                                     type="text"
@@ -177,9 +174,7 @@ class BasicInformationBody extends React.Component {
                                     value={values.lastName || ''}
                                     inputProps={{maxLength:30}}
                                 />
-                            </Box>
 
-                            <Box style={{ marginLeft: `${2}em` }}>
                                 <TextField
                                     variant="outlined"
                                     type="text"
@@ -191,12 +186,10 @@ class BasicInformationBody extends React.Component {
                                     className={classes.text}
                                     value={values.phoneNumber || ''}
                                 />
-                            </Box>
-                        </Box>
+                        </div>
                     </div>
 
-                    <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em` }}>
-                        <Box>
+                    <div style={{marginTop: `${2}em`, marginBottom: `${1}em` }}>
                             <TextField
                                 variant="outlined"
                                 type="text"
@@ -209,8 +202,6 @@ class BasicInformationBody extends React.Component {
                                 value={values.school || ''}
                                 inputProps={{ maxLength: 60 }}
                             />
-                        </Box>
-                        <Box style={{ marginLeft: `${2}em` }} >
                             <TextField
                                 variant="outlined"
                                 type="text"
@@ -223,8 +214,6 @@ class BasicInformationBody extends React.Component {
                                 value={values.city || ''}
                                 inputProps={{ maxLength: 45 }}
                             />
-                        </Box>
-                        <Box style={{ marginLeft: `${2}em` }} >
                             <TextField
                                 variant="outlined"
                                 type="text"
@@ -243,7 +232,6 @@ class BasicInformationBody extends React.Component {
                                     </MenuItem>
                                 ))}
                             </TextField>
-                        </Box>
                     </div>
 
                     <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em`, overflow: `hidden` }}>
@@ -272,9 +260,9 @@ class BasicInformationBody extends React.Component {
 
                     <div style={{ display: `flex`, marginTop: `${1}em`, marginBottom: `${1}em` }}>
                         <Box style={{ marginLeft: `${2}em` }}>
-                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em` }}>Do you have access to a laptop and internet  that you can complete the <br /> program at home?</Typography>
+                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em`, width:"35vw" }}>Do you have access to a laptop and internet  that you can complete the program at home?</Typography>
                         </Box>
-                        <Box style={{ marginLeft: `${2}em` }}>
+                        <Box style={{ marginLeft: `5vw` }}>
                             <Box style={{ display: `flex` }}>
                                 <Box className={classes.option} id="laptopAndInternetAccess">
                                     Yes
@@ -288,11 +276,11 @@ class BasicInformationBody extends React.Component {
 
                     <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em` }}>
                         <Box style={{ marginLeft: `${2}em` }}>
-                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em` }}>Do you wish to self‑identify as an Indigenous person  in Canada, such as <br />
+                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em`, width:"35vw"}}>Do you wish to self‑identify as an Indigenous person  in Canada, such as 
                                 First Nation, Métis or Inuit?</Typography>
                         </Box>
 
-                        <Box style={{ marginLeft: `${1}em` }}>
+                        <Box style={{ marginLeft: `5vw`}}>
                             <Box style={{ display: `flex` }}>
                                 <Box className={classes.option} id="isFirstNation" name='isFirstNation'>Yes</Box>
                                 <Box className={classes.option} id="isFirstNation" name='isFirstNation'>No</Box>
@@ -326,7 +314,10 @@ const BasicInformationForm = withFormik({
 const StyledBasicInfo = withStyles({
     text: {
         borderRadius: `${9}px`,
-        width: `${15}em`,
+        width: `15vw`,
+        marginLeft: "20px",
+        marginTop: "20px",
+        minWidth: "150px",
         '& label.Mui-focused': {
             color: '#1A6F4C',
         },
@@ -393,10 +384,12 @@ const StyledBasicInfo = withStyles({
         borderRadius: `${10}px`,
         paddingTop: `${4}px`,
         marginLeft: `${8}px`,
-        textAlign: `center`,
         cursor: `pointer`,
-        fontSize: `${16}px`,
-        fontFamily: `poppins`
+        fontSize: `calc(6px + 0.5vw)`,
+        fontFamily: `poppins`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
     option: {
         border: `${1}px solid #1A6F4C`,

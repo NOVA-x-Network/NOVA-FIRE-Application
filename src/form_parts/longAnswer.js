@@ -96,7 +96,7 @@ class AnswerForm extends React.Component {
             classes,
         } = this.props;
         return (
-            <Container style={{ height: "75vh", overflowY: "scroll", width: "60vw", marginLeft: "-15vw" }}>
+            <Container style={{ height: "75vh", overflowY: "scroll", width: "60vw" }}>
                 <form onSubmit={handleSubmit} className={classes.form} id="3">
                     <label htmlFor="longQuestion1">Question 1:</label>
                     <textarea
@@ -106,8 +106,8 @@ class AnswerForm extends React.Component {
                         onChange={(e) => {this.changeHandler(e)}}
                         value={values.longQuestion1}
                     />
-                    <Typography align="left" style={{marginBottom:"25px"}}> Word limit:500</Typography>
-                    <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion1}</Typography>
+                    <Typography align="left" > Word limit:500</Typography>
+                    <Typography align="left" > Word count: {this.state.wordCount.longQuestion1}</Typography>
                     {errors.longQuestion1 ? (
                         <div>{errors.longQuestion1}</div>
                     ) : null}
@@ -119,8 +119,8 @@ class AnswerForm extends React.Component {
                         onChange={(e) => {this.changeHandler(e)}}
                         value={values.longQuestion2}
                     />
-                    <Typography align="left" style={{marginBottom:"25px"}}> Word limit:300</Typography>
-                    <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion2}</Typography>
+                    <Typography align="left" > Word limit:300</Typography>
+                    <Typography align="left" > Word count: {this.state.wordCount.longQuestion2}</Typography>
                     {errors.longQuestion2 ? (
                         <div>{errors.longQuestion2}</div>
                     ) : null}
@@ -132,8 +132,8 @@ class AnswerForm extends React.Component {
                         value={values.longQuestion3}
                         onChange={(e) => {this.changeHandler(e)}}
                     />
-                    <Typography align="left" style={{marginBottom:"25px"}}> Word limit:300</Typography>
-                    <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion3}</Typography>
+                    <Typography align="left" > Word limit:300</Typography>
+                    <Typography align="left" > Word count: {this.state.wordCount.longQuestion3}</Typography>
                     {errors.longQuestion3 ? (
                         <div>{errors.longQuestion3}</div>
                     ) : null}
@@ -145,8 +145,8 @@ class AnswerForm extends React.Component {
                         value={values.longQuestion4}
                         onChange={(e) => {this.changeHandler(e)}}
                     />
-                    <Typography align="left" style={{ marginBottom: "25px" }}> Word limit:300</Typography>
-                    <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion4}</Typography>
+                    <Typography align="left" > Word limit:300</Typography>
+                    <Typography align="left" > Word count: {this.state.wordCount.longQuestion4}</Typography>
                     {errors.longQuestion4 ? (
                         <div>{errors.longQuestion4}</div>
                     ) : null}
@@ -193,7 +193,7 @@ const FormStyle = withStyles({
     form: {
         '& textarea': {
             height: "300px",
-            width: "600px",
+            width: "40vw",
             display: "block",
             marginBottom: "10px"
         },
@@ -205,6 +205,9 @@ const FormStyle = withStyles({
 
         '& *': {
             fontFamily: `poppins`,
+        },
+        '& p': {
+            marginBottom:"25px"
         },
 
         '& label': {

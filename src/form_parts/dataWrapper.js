@@ -30,7 +30,7 @@ function getData(formSection, Component) {
                     <Component answers={this.state.answers} email={this.state.email} />)
             }
             return (<div style={{display:"flex", alignItems:"center", justifyContent:"center", height:"75vh"}}>
-                <img src={loadingIcon} width="200px" height="200px" className="loading"/>
+                <img src={loadingIcon} style={{width:"20vw", height:"20vw"}} className="loading"/>
             </div>)
         }
     }
