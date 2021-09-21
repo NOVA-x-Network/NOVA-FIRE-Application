@@ -41,71 +41,46 @@ class BasicInformationBody extends React.Component {
             }
         }
 
-        for (let i = 0; i < grade.length; i++) {
-            if (grade[i].innerHTML == values.grade) {
-                grade[i].style.background = "#1A6F4C";
-                grade[i].style.color = "#fff";
+        console.log(grade[0])
+        console.log(values)
+
+        const setSelected = (target) => {
+            for (let i = 0; i < target.length; i++) {
+                if (target[i].innerHTML == values[target[0].id]) {
+                    target[i].style.background = "#1A6F4C";
+                    target[i].style.color = "#fff";
+                }
             }
         }
 
-        for (let i = 0; i < householdIncome.length; i++) {
-            if (householdIncome[i].innerHTML == values.householdIncome) {
-                householdIncome[i].style.background = "#1A6F4C";
-                householdIncome[i].style.color = "#fff";
-            }
-        }
-        for (let i = 0; i < laptopAndInternetAccess.length; i++) {
-            if (laptopAndInternetAccess[i].innerHTML == values.laptopAndInternetAccess) {
-                laptopAndInternetAccess[i].style.background = "#1A6F4C";
-                laptopAndInternetAccess[i].style.color = "#fff";
-            }
-        }
-
-        for (let i = 0; i < isFirstNation.length; i++) {
-            if (isFirstNation[i].innerHTML == values.isFirstNation) {
-                isFirstNation[i].style.background = "#1A6F4C";
-                isFirstNation[i].style.color = "#fff";
+        const setHandleSelect= (target) => {
+            for (let i = 0; i < target.length; i++) {
+                target[i].addEventListener("click", (e) => {
+                    selectCheck(target)
+                    e.target.style.background = "#1A6F4C";
+                    e.target.style.color = "#fff";
+                    values[target[0].id] = e.target.innerHTML
+                    changeHandler(e, formikHandleChange)
+                })
             }
         }
 
-        for (let i = 0; i < grade.length; i++) {
-            grade[i].addEventListener("click", (e) => {
-                selectCheck(grade)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-                values.grade = e.target.innerHTML
-                changeHandler(e, formikHandleChange)
-            })
-        }
+        setSelected(grade)
 
-        for (let i = 0; i < householdIncome.length; i++) {
-            householdIncome[i].addEventListener("click", (e) => {
-                selectCheck(householdIncome)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-                values.householdIncome = e.target.innerHTML
-                changeHandler(e, formikHandleChange)
-            })
-        }
-        for (let i = 0; i < laptopAndInternetAccess.length; i++) {
-            laptopAndInternetAccess[i].addEventListener("click", (e) => {
-                selectCheck(laptopAndInternetAccess)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-                values.laptopAndInternetAccess = e.target.innerHTML
-                changeHandler(e, formikHandleChange)
-            })
-        }
+        setSelected(laptopAndInternetAccess)
 
-        for (let i = 0; i < isFirstNation.length; i++) {
-            isFirstNation[i].addEventListener("click", (e) => {
-                selectCheck(isFirstNation)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-                values.isFirstNation = e.target.innerHTML
-                changeHandler(e, formikHandleChange)
-            })
-        }
+        setSelected(isFirstNation)
+
+        setSelected(householdIncome)
+
+        setHandleSelect(grade)
+
+        setHandleSelect(laptopAndInternetAccess)
+
+        setHandleSelect(isFirstNation)
+
+        setHandleSelect(householdIncome)
+
     }
     componentWillUnmount() {
         this.props.unmountHandler(this.props.values)
