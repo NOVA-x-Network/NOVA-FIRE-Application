@@ -44,13 +44,13 @@ function getData(formSection, Component) {
         changeHandler(event, formikHandleChange) {
             let email = this.state.email
             formikHandleChange(event)
-            this.setState({ saved: false })
-            window.addEventListener('beforeunload', this.saveCheck)
 
-            if (!this.state.saved) {
+            if (this.state.saved) {
                 db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
             }
 
+            this.setState({ saved: false })
+            window.addEventListener('beforeunload', this.saveCheck)
             document.getElementById("exitButton").addEventListener('click', this.saveHandler)
         }
 
