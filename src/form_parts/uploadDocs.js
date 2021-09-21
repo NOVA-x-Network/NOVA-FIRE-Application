@@ -70,7 +70,7 @@ const Upload = () => {
         setFetchDone(true)
     }
     return (
-        <div style={{ height: `${75}vh`}} className={classes.upload}>
+        <div style={{ height: `${75}vh`, marginLeft:"10vw"}} className={classes.upload}>
             <Button onClick={() => openFileSelector()} style={{ background: `#1A6F4C`, height: `${30}vh`, width: `${80}%`, color: `#fff`, textAlign: `center` }}>
                 <CloudUpload style={{ fontSize: `${15}em`, display: `block` }} onClick={() => { setFetchDone(false)} }/> Select file </Button>
             <br />

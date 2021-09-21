@@ -18,39 +18,19 @@ let db = firebaseApp.firestore()
 class BasicInformationBody extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            saved:true,
-        }
-        this.saveCheck = this.saveCheck.bind(this)
-        this.changeHandler = this.changeHandler.bind(this)
-    }
-
-    saveCheck(event) {
-       return event.returnValue = "Are you sure you want to leave? You have unsaved data."
-    }
-
-    changeHandler(event) {
-        const { handleChange } = this.props
-        handleChange(event)
-        this.setState({ saved: false })
-        window.addEventListener('beforeunload', this.saveCheck)
     }
 
     componentDidMount() {
-        const { values } = this.props
+        const { values, changeHandler } = this.props
+
+        function formikHandleChange(e) {
+            return null
+        }
+
         const grade = document.querySelectorAll("#grade");
         const householdIncome = document.querySelectorAll("#householdIncome");
         const laptopAndInternetAccess = document.querySelectorAll("#laptopAndInternetAccess");
         const isFirstNation = document.querySelectorAll("#isFirstNation");
-
-        document.getElementById("exitButton").addEventListener('click', () => {
-            window.removeEventListener('beforeunload', this.saveCheck)
-            const {values, email} = this.props
-            db.collection("submissions").doc(email).set({ 'basicInfo': values }, { merge: true })
-            if (!this.state.saved) {
-                db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
-            }
-        })
 
         const selectCheck = (target) => {
             var x = 0;
@@ -94,8 +74,7 @@ class BasicInformationBody extends React.Component {
                 e.target.style.background = "#1A6F4C";
                 e.target.style.color = "#fff";
                 values.grade = e.target.innerHTML
-                window.addEventListener('beforeunload', this.saveCheck);
-                this.setState({ saved: false })
+                changeHandler(e, formikHandleChange)
             })
         }
 
@@ -105,8 +84,7 @@ class BasicInformationBody extends React.Component {
                 e.target.style.background = "#1A6F4C";
                 e.target.style.color = "#fff";
                 values.householdIncome = e.target.innerHTML
-                window.addEventListener('beforeunload', this.saveCheck);
-                this.setState({ saved: false })
+                changeHandler(e, formikHandleChange)
             })
         }
         for (let i = 0; i < laptopAndInternetAccess.length; i++) {
@@ -115,8 +93,7 @@ class BasicInformationBody extends React.Component {
                 e.target.style.background = "#1A6F4C";
                 e.target.style.color = "#fff";
                 values.laptopAndInternetAccess = e.target.innerHTML
-                window.addEventListener('beforeunload', this.saveCheck);
-                this.setState({ saved: false })
+                changeHandler(e, formikHandleChange)
             })
         }
 
@@ -126,27 +103,20 @@ class BasicInformationBody extends React.Component {
                 e.target.style.background = "#1A6F4C";
                 e.target.style.color = "#fff";
                 values.isFirstNation = e.target.innerHTML
-                window.addEventListener('beforeunload', this.saveCheck);
-                this.setState({saved:false})
+                changeHandler(e, formikHandleChange)
             })
         }
     }
     componentWillUnmount() {
-        window.removeEventListener('beforeunload',this.saveCheck)
-        const { email, values } = this.props
-        if (email) {
-            db.collection("submissions").doc(email).set({ basicInfo: values }, { merge: true })
-        }
-        if (!this.state.saved) {
-            db.collection("submissions").doc(email).set({ applicationStatus:"Incomplete" }, { merge: true })
-        }
+        this.props.unmountHandler(this.props.values)
     }
     render() {
         const genders = ['Male', 'Female', 'Prefer not to say', 'Other']
-        const { values, classes } = this.props
+        const { values, classes, changeHandler } = this.props
+        const formikHandleChange = this.props.handleChange
         return (
             <Container style={{ fontFamily: "poppins"}}>
-                <form style={{ overflowY: `scroll`, overflowX: `scroll`, margin: `${0}em ${0}px ${0}px ${0}em`, width: `${58}vw`, height: `${75}vh`, }} id="2">
+                <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${0}em ${0}px ${0}px ${0}em`, width: `${58}vw`, height: `${75}vh`, }} id="2">
                     <div style={{ display: `flex`, marginTop: `${1.5}em`, alignItems: "flex-start", flexDirection: "column"}}>
                         <Typography className={classes.heading}>Basic Information</Typography>
                         <div style={{ width:"60vw"}}>
@@ -154,7 +124,7 @@ class BasicInformationBody extends React.Component {
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => {this.changeHandler(e)}}
+                                    onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                     name="firstName"
                                     id="firstName"
                                     label="First Name"
@@ -166,7 +136,7 @@ class BasicInformationBody extends React.Component {
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => {this.changeHandler(e)}}
+                                    onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                     name="lastName"
                                     id="lastName"
                                     label="Last Name"
@@ -179,7 +149,7 @@ class BasicInformationBody extends React.Component {
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => {this.changeHandler(e)}}
+                                    onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                     name="phoneNumber"
                                     id="phoneNumber"
                                     label="Phone Number (Optional)"
@@ -194,7 +164,7 @@ class BasicInformationBody extends React.Component {
                                 variant="outlined"
                                 type="text"
                                 size="small"
-                                onChange={(e) => {this.changeHandler(e)}}
+                                onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                 name="school"
                                 id="school"
                                 label="School "
@@ -206,7 +176,7 @@ class BasicInformationBody extends React.Component {
                                 variant="outlined"
                                 type="text"
                                 size="small"
-                                onChange={(e) => {this.changeHandler(e)}}
+                                onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                 name="city"
                                 id="city"
                                 label="City"
@@ -219,7 +189,7 @@ class BasicInformationBody extends React.Component {
                                 type="text"
                                 select
                                 size="small"
-                                onChange={(e) => {this.changeHandler(e)}}
+                                onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                 name="gender"
                                 id="gender"
                                 label="Gender"
@@ -293,7 +263,7 @@ class BasicInformationBody extends React.Component {
                             variant="outlined"
                             type="text"
                             size="small"
-                            onChange={(e) => {this.changeHandler(e)}}
+                            onChange={(e) => {changeHandler(e, formikHandleChange)}}
                             name="address"
                             id="address"
                             label="Link to LinkedIn or Personal Portfolio"

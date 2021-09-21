@@ -175,7 +175,7 @@ const App = () => {
     if (userStatus && gotAuthStatus) {
         return (
             <>
-                <style>{"body {background-color: #D6F3F2; overflow:hidden;}"}</style>
+                <style>{"body {background-color: #D6F3F2; overflowX:hidden;}"}</style>
                 <Paper className={classes.paper} elevation={10}>
                     <Grid container>
                         <Grid className={classes.first} item xs={3}>
@@ -247,26 +247,6 @@ const App = () => {
                                     }}
                                 >
                                 {
-                                    activeStep < 6 ?
-                                        <Button variant="contained" style={{
-                                            background: `#1A6F4C`,
-                                            color: `#fff`,
-                                            width: `${32}%`,
-                                            height: `${30}px`,
-                                            fontSize: `${0.8}em`,
-                                            borderRadius: `${0.5}em`,
-                                            fontFamily: `poppins`,
-                                            fontWeight: 900,
-                                            minWidth:"75px"
-                                        }}
-                                            onClick={handleNext}
-                                            form={activeStep.toString()}
-                                        >
-                                            Continue
-                                        </Button>
-                                        :null
-                                        }
-                                {
                                     activeStep > 1
                                         ? <Button variant="contained" style={{
                                             background: `#1A6F4C`,
@@ -285,6 +265,26 @@ const App = () => {
                                         </Button>
                                         :
                                         null
+                                    }
+                                    {
+                                        activeStep < 6 ?
+                                            <Button variant="contained" style={{
+                                                background: `#1A6F4C`,
+                                                color: `#fff`,
+                                                width: `${32}%`,
+                                                height: `${30}px`,
+                                                fontSize: `${0.8}em`,
+                                                borderRadius: `${0.5}em`,
+                                                fontFamily: `poppins`,
+                                                fontWeight: 900,
+                                                minWidth: "75px"
+                                            }}
+                                                onClick={handleNext}
+                                                form={activeStep.toString()}
+                                            >
+                                                Continue
+                                            </Button>
+                                            : null
                                     }
                                     </Container>
                             </Box>
