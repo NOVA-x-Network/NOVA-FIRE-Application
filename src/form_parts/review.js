@@ -22,7 +22,7 @@ const Review = () => {
     }))
     const classes=reviewStyle()
     return (
-        <div style={{ height: "83vh", display: "flex", flexDirection: "column", alignItems: "center" }} className={classes.body}>
+        <div style={{ height: "75vh", display: "flex", width: "65vw", flexDirection: "column", alignItems: "center" }} className={classes.body}>
             <button onClick={() => {
                 let errorMsgsCopy = []
                 firebaseAppAuth.onAuthStateChanged((user) => {

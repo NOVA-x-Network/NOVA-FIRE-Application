@@ -76,10 +76,9 @@ class SurveyBody extends React.Component {
             classes
         } = this.props
         return (
-            <Container style={{ height: "75vh", overflowY: "scroll", width: "50vw", marginLeft: "-8vw" }}>
+            <Container style={{ height: "75vh", overflowY: "scroll", width: "65vw", marginLeft: "2vw" }}>
                 <form className={classes.form} id="4">
                     <h2>Question 1: How'd you hear about the NOVA FIRE Fellowship?</h2>
-                    <br />
                     <label htmlFor="instagram">NOVA's instagram page</label>
                     <input
                         type="checkbox"
@@ -133,7 +132,7 @@ class SurveyBody extends React.Component {
                         onChange={(e) => {this.changeHandler(e)}}
                         value="Other Org Instagram"
                     />
-                    <br />
+                    <br /><br/>
                     <label htmlFor="other">Other:</label>
                     <input
                         type="text"
@@ -143,12 +142,11 @@ class SurveyBody extends React.Component {
                         value={values.surveyQuestion1Other}
                         maxlength="60"
                     />
-                    <br />
+                    <br /><br/>
                     {touched.surveyQuestion1 && errors.surveyQuestion1 ? (
                         <div>{errors.surveyQuestion1}</div>
                     ) : null}
                     <h2>Question 2: How'd you hear about the NOVA x Network?</h2>
-                    <br />
                     <label htmlFor="instagram">NOVA's instagram page</label>
                     <input
                         type="checkbox"
@@ -203,7 +201,7 @@ class SurveyBody extends React.Component {
                         onChange={(e) => {this.changeHandler(e)}}
                         value="Other Org Instagram"
                     />
-                    <br />
+                    <br /><br/>
                     <label htmlFor="other">Other:</label>
                     <input
                         type="text"
@@ -212,7 +210,7 @@ class SurveyBody extends React.Component {
                         onChange={(e) => {this.changeHandler(e)}}
                         value={values.surveyQuestion2Other}
                         maxlength="60"
-                    />
+                    /><br/>
                     <br />
                     {touched.surveyQuestion2 && errors.surveyQuestion2 ? (
                         <div>{errors.surveyQuestion2}</div>

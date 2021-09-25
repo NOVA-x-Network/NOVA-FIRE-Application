@@ -145,12 +145,11 @@ class BasicInformationBody extends React.Component {
         const genders = ['Male', 'Female', 'Prefer not to say', 'Other']
         const { values, classes } = this.props
         return (
-            <Container style={{ fontFamily: "poppins", marginLeft:"-15vw"}}>
-                <form style={{ overflowY: `scroll`, overflowX: `hidden`, margin: `${0}em ${0}px ${0}px ${0}em`, width: `${58}vw`, height: `${75}vh`, }} id="2">
-                    <div style={{ display: `flex`, marginTop: `${1.5}em`, alignItems: "flex-start", flexDirection: "column" }}>
-                        <Typography className={classes.heading}>Basic Information</Typography>
-                        <Box style={{ display: `flex`, flexDirection: "row" }}>
-                            <Box>
+            <Container style={{ fontFamily: "poppins", marginLeft:"0vw"}}>
+                <form style={{ overflowY: `scroll`, overflowX: `hidden`, marginLeft: `${2}vw`, width: `${65}vw`, overflowY: `scroll`, height: `75vh` }} id="2">
+                    <Typography className={classes.heading}>Basic Information</Typography>
+                    <Box style={{ display: `inline-flex`, flexDirection: "row", flexWrap: "wrap", rowGap: "10px", columnGap: "10px"}}>
+                        <Box style={{ flexBasis: "30%"}}>
                                 <TextField
                                     variant="outlined"
                                     type="text"
@@ -164,7 +163,7 @@ class BasicInformationBody extends React.Component {
                                     inputProps={{maxLength:30}}
                                 />
                             </Box>
-                            <Box style={{ marginLeft: `${2}em` }}>
+                        <Box style={{ flexBasis: "30%" }}>
                                 <TextField
                                     variant="outlined"
                                     type="text"
@@ -179,7 +178,7 @@ class BasicInformationBody extends React.Component {
                                 />
                             </Box>
 
-                            <Box style={{ marginLeft: `${2}em` }}>
+                        <Box style={{ flexBasis: "30%" }}>
                                 <TextField
                                     variant="outlined"
                                     type="text"
@@ -192,11 +191,7 @@ class BasicInformationBody extends React.Component {
                                     value={values.phoneNumber || ''}
                                 />
                             </Box>
-                        </Box>
-                    </div>
-
-                    <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em` }}>
-                        <Box>
+                        <Box style={{ flexBasis: "30%" }}>
                             <TextField
                                 variant="outlined"
                                 type="text"
@@ -210,7 +205,7 @@ class BasicInformationBody extends React.Component {
                                 inputProps={{ maxLength: 60 }}
                             />
                         </Box>
-                        <Box style={{ marginLeft: `${2}em` }} >
+                        <Box style={{ flexBasis: "30%" }}>
                             <TextField
                                 variant="outlined"
                                 type="text"
@@ -224,7 +219,7 @@ class BasicInformationBody extends React.Component {
                                 inputProps={{ maxLength: 45 }}
                             />
                         </Box>
-                        <Box style={{ marginLeft: `${2}em` }} >
+                        <Box style={{ flexBasis: "30%" }}>
                             <TextField
                                 variant="outlined"
                                 type="text"
@@ -244,7 +239,7 @@ class BasicInformationBody extends React.Component {
                                 ))}
                             </TextField>
                         </Box>
-                    </div>
+                    </Box>
 
                     <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em`, overflow: `hidden` }}>
                         <Box style={{ display: `flex`, marginTop: `${1.6}em`, alignItems: "flex-start", flexDirection: "column" }}>
@@ -298,7 +293,7 @@ class BasicInformationBody extends React.Component {
                                 <Box className={classes.option} id="isFirstNation" name='isFirstNation'>No</Box>
                             </Box>
                         </Box>
-                    </div>
+                    </div><br/>
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
                         <Typography className={classes.heading}>LinkedIn or Personal Portfolio (Optional)</Typography>
                         <TextField
@@ -311,7 +306,7 @@ class BasicInformationBody extends React.Component {
                             label="Link to LinkedIn or Personal Portfolio"
                             className={classes.field}
                         />
-                    </div>
+                    </div><br/>
                 </form>
             </Container>
         )
@@ -371,7 +366,7 @@ const StyledBasicInfo = withStyles({
         border: `${1}px solid #1A6F4C`,
         color: `#1A6F4C`,
         width: `${45}px`,
-        height: `${25}px`,
+        height: `auto`,
         paddingTop: `${3}px`,
         borderRadius: `${8}px`,
         marginLeft: `${8}px`,
@@ -389,7 +384,7 @@ const StyledBasicInfo = withStyles({
         border: `${1}px solid #1A6F4C`,
         color: `#1A6F4C`,
         width: `${100}%`,
-        height: `${25}px`,
+        height: `auto`,
         borderRadius: `${10}px`,
         paddingTop: `${4}px`,
         marginLeft: `${8}px`,
@@ -402,7 +397,7 @@ const StyledBasicInfo = withStyles({
         border: `${1}px solid #1A6F4C`,
         color: `#1A6F4C`,
         width: `${35}px`,
-        height: `${20}px`,
+        height: `auto`,
         borderRadius: `${3}px`,
         margin: `${8}px`,
         textAlign: `center`,

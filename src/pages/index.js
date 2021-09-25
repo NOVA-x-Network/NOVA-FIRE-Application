@@ -15,7 +15,6 @@ const IndexPage = props => {
 	const { user, signOut } = props
 	const [appStatus, setAppStatus] = useState(false)
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-	console.log(windowWidth)
 	const defaultComputerWidth = 2550
 	var introTextWidth
 	var introTextFont
@@ -56,7 +55,6 @@ const IndexPage = props => {
 			setWindowWidth(window.innerWidth)
 		})
     })
-	console.log(introTextWidth)
 	return (<div>
 				<div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"space-between", fontFamily:"poppins"}}>
 			<img id="indexLogo" src={nova_logo_cropped} style={{ height: cornerImageHeight, width: cornerImageWidth, marginLeft: "3vw", marginTop: "20px", marginBottom: "10px"}} />

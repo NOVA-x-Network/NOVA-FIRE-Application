@@ -50,12 +50,12 @@ const App = () => {
 
             },
             item: {
-                marginTop: `${1.5}em`,
+                marginTop: `${1}vw`,
                 cursor: `pointer`
             },
             contain: {
-                marginTop: `${2}em`,
-                width: "70%"
+                marginTop: `${40}px`,
+                width: `100%`
             },
 
             Box: {
@@ -69,7 +69,7 @@ const App = () => {
             stepname: {
                 color: `#fff`,
                 marginLeft: `${0.8}em`,
-                fontSize: `2.3vh`,
+                fontSize: `16pt`,
                 display: `inline-block`
             },
         }));
@@ -95,7 +95,7 @@ const App = () => {
             },
             contain: {
                 marginTop: `${2}em`,
-                width:"30%"
+                width:"100%"
             },
 
             Box: {
@@ -109,7 +109,7 @@ const App = () => {
             stepname: {
                 color: `#fff`,
                 marginLeft: `${0.8}em`,
-                fontSize: `0.1vh`,
+                fontSize: `16pt`,
                 display: `inline-block`
             },
         }));
@@ -221,57 +221,36 @@ const App = () => {
                                         },300)
                                     }}
                                 >Save and Exit <CloseIcon style={{paddingTop: "10px"}}/></Button>
-                                <Typography style={{ marginTop: "30px" }}>Tip: Clicking "Back", "Continue", or each of the above section labels automatically saves your work. </Typography>
-                                <Typography style={{ marginTop: "30px" }}>Note: Every time you change your answers after submitting, you will have to reverify and resubmit them. </Typography>
+                                <Typography style={{ marginTop: "30px", color: `white` }}>Tip: Clicking "Back", "Continue", or each of the above section labels automatically saves your work. </Typography>
+                                <Typography style={{ marginTop: "30px", color: `white`}}>Note: Every time you change your answers after submitting, you will have to reverify and resubmit them. </Typography>
                             </Container>
                         </Grid>
 
                         <Grid item xs={9}>
-                            <Container className={classes.contain} maxWidth="sm">
+                            <Container className={classes.contain}>
 
 
-                                <Container>
                                     {activeStep === 1 ? <Description /> : null}
                                     {activeStep === 2 ? <BasicInformation /> : null}
                                     {activeStep === 3 ? <LongResponses /> : null}
                                     {activeStep === 4 ? <Survey /> : null}
                                     {activeStep === 5 ? <Upload /> : null}
                                     {activeStep === 6 ? <Review />: null}
-
-
-                                </Container>
-                                {
-                                    activeStep < 6 ?
-                                        <Button variant="contained" style={{
-                                            background: `#1A6F4C`,
-                                            color: `#fff`,
-                                            width: `${32}%`,
-                                            height: `${30}px`,
-                                            marginTop: `${2}em`,
-                                            marginLeft: `${38}em`,
-                                            fontSize: `${0.8}em`,
-                                            borderRadius: `${0.5}em`,
-                                            fontFamily: `poppins`,
-                                            fontWeight: 900
-                                        }}
-                                            onClick={handleNext}
-                                            form={activeStep.toString()}
-                                        >
-                                            Continue
-                                        </Button>
-                                        :null
-                                        }
+                                    
                                 {
                                     activeStep > 1
                                         ? <Button variant="contained" style={{
                                             background: `#1A6F4C`,
+                                            position: "relative",
                                             color: `#fff`,
-                                            width: `${32}%`,
+                                            top: "30px",
+                                            width: `200px`,
                                             height: `${30}px`,
-                                            marginTop: `${-4}em`,
+                                            marginLeft: `${4}vw`,
                                             fontFamily: `poppins`,
-                                            fontSize: `${0.8}em`,
-                                            fontWeight: 900
+                                            borderRadius: `${2}em`,
+                                            fontSize: `${14}pt`,
+                                            paddingTop: `20px`
                                         }}
                                             onClick={handlePrev}
                                             form={activeStep.toString()}
@@ -281,6 +260,77 @@ const App = () => {
                                         :
                                         null
                                 }
+
+                                {
+                                    activeStep < 2
+                                        ? <Button variant="contained" style={{
+                                            background: `#1A6F4C`,
+                                            position: "relative",
+                                            color: `#fff`,
+                                            top: "30px",
+                                            width: `200px`,
+                                            height: `${30}px`,
+                                            marginLeft: `${4}vw`,
+                                            fontFamily: `poppins`,
+                                            borderRadius: `${2}em`,
+                                            fontSize: `${14}pt`,
+                                            paddingTop: `20px`,
+                                            visibility:"hidden"
+                                        }}
+                                            onClick={handlePrev}
+                                            form={activeStep.toString()}
+                                        >
+                                            Back
+                                        </Button>
+                                        :
+                                        null
+                                }
+
+                                {
+                                    activeStep < 6 ?
+                                        <Button variant="contained" style={{
+                                            background: `#1A6F4C`,
+                                            position: "relative",
+                                            color: `#fff`,
+                                            width: `200px`,
+                                            height: `${30}px`,
+                                            marginLeft: `${40}vw`,
+                                            fontSize: `${14}pt`,
+                                            borderRadius: `${2}em`,
+                                            fontFamily: `poppins`,
+                                            paddingTop: `20px`
+                                        }}
+                                            onClick={handleNext}
+                                            form={activeStep.toString()}
+                                        >
+                                            Continue
+                                        </Button>
+                                        :null
+                                }
+                                
+                                {
+                                    activeStep > 5 ?
+                                        <Button variant="contained" style={{
+                                            background: `#1A6F4C`,
+                                            position: "relative",
+                                            color: `#fff`,
+                                            width: `200px`,
+                                            height: `${30}px`,
+                                            marginLeft: `${40}vw`,
+                                            fontSize: `${14}pt`,
+                                            borderRadius: `${2}em`,
+                                            fontFamily: `poppins`,
+                                            paddingTop: `20px`,
+                                            visibility:"hidden"
+                                        }}
+                                            onClick={handleNext}
+                                            form={activeStep.toString()}
+                                        >
+                                            Continue
+                                        </Button>
+                                        : null
+                                }
+                                
                             </Container>
                         </Grid>
 

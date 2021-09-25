@@ -96,7 +96,7 @@ class AnswerForm extends React.Component {
             classes,
         } = this.props;
         return (
-            <Container style={{ height: "75vh", overflowY: "scroll", width: "60vw", marginLeft: "-15vw" }}>
+            <Container style={{ height: "75vh", overflowY: "scroll", width: "65vw", marginLeft: "2vw" }}>
                 <form onSubmit={handleSubmit} className={classes.form} id="3">
                     <label htmlFor="longQuestion1">Question 1:</label>
                     <textarea
