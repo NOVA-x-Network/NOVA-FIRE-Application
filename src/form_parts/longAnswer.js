@@ -14,40 +14,14 @@ class AnswerForm extends React.Component {
             saved: true,
             wordCount: {longQuestion1:0, longQuestion2:0, longQuestion3:0, longQuestion4:0}
         }
-        this.saveCheck = this.saveCheck.bind(this)
-        this.changeHandler = this.changeHandler.bind(this)
         this.wordCheck = this.wordCheck.bind(this)
     }
 
-    saveCheck(event) {
-        return event.returnValue = "Are you sure you want to leave? You have unsaved data."
-    }
-
-    changeHandler(event) {
-        const {handleChange} = this.props
-        handleChange(event)
-        this.setState({ saved: false })
-        window.addEventListener('beforeunload', this.saveCheck)
-    }
     componentDidMount() {
 
         const {
             values
         } = this.props
-
-        document.getElementById("exitButton").addEventListener('click', () => {
-            window.removeEventListener('beforeunload', this.saveCheck)
-
-            const { values, email } = this.props
-
-            console.log(values)
-
-            db.collection("submissions").doc(email).set({ 'longAnswer': values }, { merge: true })
-
-            if (!this.state.saved) {
-                db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
-            }
-        })
 
         let words = {}
 
@@ -55,7 +29,7 @@ class AnswerForm extends React.Component {
             words[question] = values[question].trim().split(/\s+/).length
         })
 
-        this.setState({ saved: false, wordCount: words })
+        this.setState({ wordCount: words })
     }
 
     wordCheck(question) {
@@ -68,23 +42,11 @@ class AnswerForm extends React.Component {
 
         words[question] = values[question].trim().split(/\s+/).length
 
-        this.setState({ saved: false, wordCount: words })
+        this.setState({ wordCount: words })
     }
 
     componentWillUnmount() {
-
-        window.removeEventListener('beforeunload', this.saveCheck)
-
-        const { values, email } = this.props
-
-        if (email) {
-            db.collection("submissions").doc(email).set({ 'longAnswer': values }, { merge: true })
-
-            if (!this.state.saved) {
-                db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
-            }
-        }
-
+        this.props.unmountHandler(this.props.values)
     }
 
     render() {
@@ -94,7 +56,9 @@ class AnswerForm extends React.Component {
             errors,
             handleSubmit,
             classes,
+            changeHandler,
         } = this.props;
+        const formikHandleChange = this.props.handleChange
         return (
             <Container style={{ height: "75vh", overflowY: "scroll", width: "65vw", marginLeft: "2vw" }}>
                 <form onSubmit={handleSubmit} className={classes.form} id="3">
@@ -103,11 +67,11 @@ class AnswerForm extends React.Component {
                         id="longQuestion1"
                         name="longQuestion1"
                         onKeyUp={() => { this.wordCheck("longQuestion1") }}
-                        onChange={(e) => {this.changeHandler(e)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
                         value={values.longQuestion1}
                     />
-                    <Typography align="left" style={{marginBottom:"25px"}}> Word limit:500</Typography>
-                    <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion1}</Typography>
+                    <Typography align="left" > Word limit:500</Typography>
+                    <Typography align="left" > Word count: {this.state.wordCount.longQuestion1}</Typography>
                     {errors.longQuestion1 ? (
                         <div>{errors.longQuestion1}</div>
                     ) : null}
@@ -116,11 +80,11 @@ class AnswerForm extends React.Component {
                         id="longQuestion2"
                         name="longQuestion2"
                         onKeyUp={() => { this.wordCheck("longQuestion2") }}
-                        onChange={(e) => {this.changeHandler(e)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
                         value={values.longQuestion2}
                     />
-                    <Typography align="left" style={{marginBottom:"25px"}}> Word limit:300</Typography>
-                    <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion2}</Typography>
+                    <Typography align="left" > Word limit:300</Typography>
+                    <Typography align="left" > Word count: {this.state.wordCount.longQuestion2}</Typography>
                     {errors.longQuestion2 ? (
                         <div>{errors.longQuestion2}</div>
                     ) : null}
@@ -130,10 +94,10 @@ class AnswerForm extends React.Component {
                         name="longQuestion3"
                         onKeyUp={() => { this.wordCheck("longQuestion3") }}
                         value={values.longQuestion3}
-                        onChange={(e) => {this.changeHandler(e)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
                     />
-                    <Typography align="left" style={{marginBottom:"25px"}}> Word limit:300</Typography>
-                    <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion3}</Typography>
+                    <Typography align="left" > Word limit:300</Typography>
+                    <Typography align="left" > Word count: {this.state.wordCount.longQuestion3}</Typography>
                     {errors.longQuestion3 ? (
                         <div>{errors.longQuestion3}</div>
                     ) : null}
@@ -143,10 +107,10 @@ class AnswerForm extends React.Component {
                         name="longQuestion4"
                         onKeyUp={() => { this.wordCheck("longQuestion4") }}
                         value={values.longQuestion4}
-                        onChange={(e) => {this.changeHandler(e)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
                     />
-                    <Typography align="left" style={{ marginBottom: "25px" }}> Word limit:300</Typography>
-                    <Typography align="left" style={{ marginBottom: "25px" }}> Word count: {this.state.wordCount.longQuestion4}</Typography>
+                    <Typography align="left" > Word limit:300</Typography>
+                    <Typography align="left" > Word count: {this.state.wordCount.longQuestion4}</Typography>
                     {errors.longQuestion4 ? (
                         <div>{errors.longQuestion4}</div>
                     ) : null}
@@ -193,7 +157,7 @@ const FormStyle = withStyles({
     form: {
         '& textarea': {
             height: "300px",
-            width: "600px",
+            width: "40vw",
             display: "block",
             marginBottom: "10px"
         },
@@ -205,6 +169,9 @@ const FormStyle = withStyles({
 
         '& *': {
             fontFamily: `poppins`,
+        },
+        '& p': {
+            marginBottom:"25px"
         },
 
         '& label': {

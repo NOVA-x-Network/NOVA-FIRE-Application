@@ -74,11 +74,11 @@ const IndexPage = props => {
 						research in 1 of our 4 topics. They will be given the opportunity to either
 						develop a hands-on project, or a written report for publication, based on their findings
 						and analysis. Students will have a chance to work in teams of 5-6.
-						NOVA will be accepting a maximum of 24 students into our program... <a href="https://novaxnetwork.com/fellowship/">Learn More</a>
+						NOVA will be accepting a maximum of 24 students into our program. <a href="https://novaxnetwork.com/fellowship/">Learn More</a>
 				</p>
 				</div>
 				<div id="bannerImg">
-					<img src={nova_front_art} />
+					<img src={nova_front_art} style={{maxHeight:"330px"}}/>
 				</div>
 					</div>
 					<div style={{ marginTop:"20px", marginLeft:"25px", marginBottom:"40px"}}>

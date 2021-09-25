@@ -18,39 +18,19 @@ let db = firebaseApp.firestore()
 class BasicInformationBody extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            saved:true,
-        }
-        this.saveCheck = this.saveCheck.bind(this)
-        this.changeHandler = this.changeHandler.bind(this)
-    }
-
-    saveCheck(event) {
-       return event.returnValue = "Are you sure you want to leave? You have unsaved data."
-    }
-
-    changeHandler(event) {
-        const { handleChange } = this.props
-        handleChange(event)
-        this.setState({ saved: false })
-        window.addEventListener('beforeunload', this.saveCheck)
     }
 
     componentDidMount() {
-        const { values } = this.props
+        const { values, changeHandler } = this.props
+
+        function formikHandleChange(e) {
+            return null
+        }
+
         const grade = document.querySelectorAll("#grade");
         const householdIncome = document.querySelectorAll("#householdIncome");
         const laptopAndInternetAccess = document.querySelectorAll("#laptopAndInternetAccess");
         const isFirstNation = document.querySelectorAll("#isFirstNation");
-
-        document.getElementById("exitButton").addEventListener('click', () => {
-            window.removeEventListener('beforeunload', this.saveCheck)
-            const {values, email} = this.props
-            db.collection("submissions").doc(email).set({ 'basicInfo': values }, { merge: true })
-            if (!this.state.saved) {
-                db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
-            }
-        })
 
         const selectCheck = (target) => {
             var x = 0;
@@ -61,89 +41,54 @@ class BasicInformationBody extends React.Component {
             }
         }
 
-        for (let i = 0; i < grade.length; i++) {
-            if (grade[i].innerHTML == values.grade) {
-                grade[i].style.background = "#1A6F4C";
-                grade[i].style.color = "#fff";
+        console.log(grade[0])
+        console.log(values)
+
+        const setSelected = (target) => {
+            for (let i = 0; i < target.length; i++) {
+                if (target[i].innerHTML == values[target[0].id]) {
+                    target[i].style.background = "#1A6F4C";
+                    target[i].style.color = "#fff";
+                }
             }
         }
 
-        for (let i = 0; i < householdIncome.length; i++) {
-            if (householdIncome[i].innerHTML == values.householdIncome) {
-                householdIncome[i].style.background = "#1A6F4C";
-                householdIncome[i].style.color = "#fff";
-            }
-        }
-        for (let i = 0; i < laptopAndInternetAccess.length; i++) {
-            if (laptopAndInternetAccess[i].innerHTML == values.laptopAndInternetAccess) {
-                laptopAndInternetAccess[i].style.background = "#1A6F4C";
-                laptopAndInternetAccess[i].style.color = "#fff";
-            }
-        }
-
-        for (let i = 0; i < isFirstNation.length; i++) {
-            if (isFirstNation[i].innerHTML == values.isFirstNation) {
-                isFirstNation[i].style.background = "#1A6F4C";
-                isFirstNation[i].style.color = "#fff";
+        const setHandleSelect= (target) => {
+            for (let i = 0; i < target.length; i++) {
+                target[i].addEventListener("click", (e) => {
+                    selectCheck(target)
+                    e.target.style.background = "#1A6F4C";
+                    e.target.style.color = "#fff";
+                    values[target[0].id] = e.target.innerHTML
+                    changeHandler(e, formikHandleChange)
+                })
             }
         }
 
-        for (let i = 0; i < grade.length; i++) {
-            grade[i].addEventListener("click", (e) => {
-                selectCheck(grade)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-                values.grade = e.target.innerHTML
-                window.addEventListener('beforeunload', this.saveCheck);
-                this.setState({ saved: false })
-            })
-        }
+        setSelected(grade)
 
-        for (let i = 0; i < householdIncome.length; i++) {
-            householdIncome[i].addEventListener("click", (e) => {
-                selectCheck(householdIncome)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-                values.householdIncome = e.target.innerHTML
-                window.addEventListener('beforeunload', this.saveCheck);
-                this.setState({ saved: false })
-            })
-        }
-        for (let i = 0; i < laptopAndInternetAccess.length; i++) {
-            laptopAndInternetAccess[i].addEventListener("click", (e) => {
-                selectCheck(laptopAndInternetAccess)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-                values.laptopAndInternetAccess = e.target.innerHTML
-                window.addEventListener('beforeunload', this.saveCheck);
-                this.setState({ saved: false })
-            })
-        }
+        setSelected(laptopAndInternetAccess)
 
-        for (let i = 0; i < isFirstNation.length; i++) {
-            isFirstNation[i].addEventListener("click", (e) => {
-                selectCheck(isFirstNation)
-                e.target.style.background = "#1A6F4C";
-                e.target.style.color = "#fff";
-                values.isFirstNation = e.target.innerHTML
-                window.addEventListener('beforeunload', this.saveCheck);
-                this.setState({saved:false})
-            })
-        }
+        setSelected(isFirstNation)
+
+        setSelected(householdIncome)
+
+        setHandleSelect(grade)
+
+        setHandleSelect(laptopAndInternetAccess)
+
+        setHandleSelect(isFirstNation)
+
+        setHandleSelect(householdIncome)
+
     }
     componentWillUnmount() {
-        window.removeEventListener('beforeunload',this.saveCheck)
-        const { email, values } = this.props
-        if (email) {
-            db.collection("submissions").doc(email).set({ basicInfo: values }, { merge: true })
-        }
-        if (!this.state.saved) {
-            db.collection("submissions").doc(email).set({ applicationStatus:"Incomplete" }, { merge: true })
-        }
+        this.props.unmountHandler(this.props.values)
     }
     render() {
         const genders = ['Male', 'Female', 'Prefer not to say', 'Other']
-        const { values, classes } = this.props
+        const { values, classes, changeHandler } = this.props
+        const formikHandleChange = this.props.handleChange
         return (
             <Container style={{ fontFamily: "poppins", marginLeft:"0vw"}}>
                 <form style={{ overflowY: `scroll`, overflowX: `hidden`, marginLeft: `${2}vw`, width: `${65}vw`, overflowY: `scroll`, height: `75vh` }} id="2">
@@ -154,7 +99,7 @@ class BasicInformationBody extends React.Component {
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => {this.changeHandler(e)}}
+                                    onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                     name="firstName"
                                     id="firstName"
                                     label="First Name"
@@ -168,7 +113,7 @@ class BasicInformationBody extends React.Component {
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => {this.changeHandler(e)}}
+                                    onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                     name="lastName"
                                     id="lastName"
                                     label="Last Name"
@@ -176,14 +121,13 @@ class BasicInformationBody extends React.Component {
                                     value={values.lastName || ''}
                                     inputProps={{maxLength:30}}
                                 />
-                            </Box>
 
                         <Box style={{ flexBasis: "30%" }}>
                                 <TextField
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => {this.changeHandler(e)}}
+                                    onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                     name="phoneNumber"
                                     id="phoneNumber"
                                     label="Phone Number (Optional)"
@@ -196,7 +140,7 @@ class BasicInformationBody extends React.Component {
                                 variant="outlined"
                                 type="text"
                                 size="small"
-                                onChange={(e) => {this.changeHandler(e)}}
+                                onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                 name="school"
                                 id="school"
                                 label="School "
@@ -210,7 +154,7 @@ class BasicInformationBody extends React.Component {
                                 variant="outlined"
                                 type="text"
                                 size="small"
-                                onChange={(e) => {this.changeHandler(e)}}
+                                onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                 name="city"
                                 id="city"
                                 label="City"
@@ -225,7 +169,7 @@ class BasicInformationBody extends React.Component {
                                 type="text"
                                 select
                                 size="small"
-                                onChange={(e) => {this.changeHandler(e)}}
+                                onChange={(e) => {changeHandler(e, formikHandleChange)}}
                                 name="gender"
                                 id="gender"
                                 label="Gender"
@@ -238,6 +182,7 @@ class BasicInformationBody extends React.Component {
                                     </MenuItem>
                                 ))}
                             </TextField>
+                        </Box>
                         </Box>
                     </Box>
 
@@ -267,9 +212,9 @@ class BasicInformationBody extends React.Component {
 
                     <div style={{ display: `flex`, marginTop: `${1}em`, marginBottom: `${1}em` }}>
                         <Box style={{ marginLeft: `${2}em` }}>
-                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em` }}>Do you have access to a laptop and internet  that you can complete the <br /> program at home?</Typography>
+                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em`, width:"35vw" }}>Do you have access to a laptop and internet  that you can complete the program at home?</Typography>
                         </Box>
-                        <Box style={{ marginLeft: `${2}em` }}>
+                        <Box style={{ marginLeft: `5vw` }}>
                             <Box style={{ display: `flex` }}>
                                 <Box className={classes.option} id="laptopAndInternetAccess">
                                     Yes
@@ -283,11 +228,11 @@ class BasicInformationBody extends React.Component {
 
                     <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em` }}>
                         <Box style={{ marginLeft: `${2}em` }}>
-                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em` }}>Do you wish to self‑identify as an Indigenous person  in Canada, such as <br />
+                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em`, width:"35vw"}}>Do you wish to self‑identify as an Indigenous person  in Canada, such as 
                                 First Nation, Métis or Inuit?</Typography>
                         </Box>
 
-                        <Box style={{ marginLeft: `${1}em` }}>
+                        <Box style={{ marginLeft: `5vw`}}>
                             <Box style={{ display: `flex` }}>
                                 <Box className={classes.option} id="isFirstNation" name='isFirstNation'>Yes</Box>
                                 <Box className={classes.option} id="isFirstNation" name='isFirstNation'>No</Box>
@@ -300,7 +245,7 @@ class BasicInformationBody extends React.Component {
                             variant="outlined"
                             type="text"
                             size="small"
-                            onChange={(e) => {this.changeHandler(e)}}
+                            onChange={(e) => {changeHandler(e, formikHandleChange)}}
                             name="address"
                             id="address"
                             label="Link to LinkedIn or Personal Portfolio"
@@ -321,7 +266,10 @@ const BasicInformationForm = withFormik({
 const StyledBasicInfo = withStyles({
     text: {
         borderRadius: `${9}px`,
-        width: `${15}em`,
+        width: `15vw`,
+        marginLeft: "20px",
+        marginTop: "20px",
+        minWidth: "150px",
         '& label.Mui-focused': {
             color: '#1A6F4C',
         },
@@ -388,10 +336,12 @@ const StyledBasicInfo = withStyles({
         borderRadius: `${10}px`,
         paddingTop: `${4}px`,
         marginLeft: `${8}px`,
-        textAlign: `center`,
         cursor: `pointer`,
-        fontSize: `${16}px`,
-        fontFamily: `poppins`
+        fontSize: `calc(6px + 0.5vw)`,
+        fontFamily: `poppins`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
     option: {
         border: `${1}px solid #1A6F4C`,

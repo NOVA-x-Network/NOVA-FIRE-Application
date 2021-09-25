@@ -32,16 +32,16 @@ const Review = () => {
                                 let appSection = snapshot.data()[category]
                                 console.log(category)
                                 let mandatoryFields = []
-                                let section =""
+                                let section = ""
                                 let verified = true
                                 switch (category) {
                                     case 'basicInfo':
                                         mandatoryFields = ['grade', 'city', 'firstName', 'lastName', 'isFirstNation', 'laptopAndInternetAccess', 'householdIncome', 'school']
-                                        section ="Personal Information"
+                                        section = "Personal Information"
                                         break
                                     case 'longAnswer':
                                         console.log('longaswer')
-                                        section="Creative Responses"
+                                        section = "Creative Responses"
                                         mandatoryFields = ['longQuestion1', 'longQuestion2', 'longQuestion3', 'longQuestion4']
                                         mandatoryFields.forEach((field) => {
                                             try {
@@ -62,7 +62,7 @@ const Review = () => {
                                         })
                                         break
                                     case 'survey':
-                                        section="Survey"
+                                        section = "Survey"
                                         mandatoryFields = ['surveyQuestion1', 'surveyQuestion2']
                                         if (appSection['surveyQuestion1Other']) {
                                             appSection['surveyQuestion1'].push(appSection['surveyQuestion1Other'])
@@ -79,7 +79,7 @@ const Review = () => {
                                         }
                                 }
                                 if (JSON.stringify(appSection) == '{}') {
-                                    verified=false
+                                    verified = false
                                 }
                                 console.log(mandatoryFields)
                                 mandatoryFields.every((field) => {
@@ -97,16 +97,18 @@ const Review = () => {
                             if (errorMsgsCopy.length == 0) {
                                 errorMsgsCopy.push(<p style={{ color: "green" }}>"Good job! You've successfully completed the application. Your answers have been submitted."</p>)
                                 firebaseAppAuth.onAuthStateChanged((user) => {
-                                    db.collection("submissions").doc(user.email).set({ 'applicationStatus':"Complete"}, { merge: true })
+                                    db.collection("submissions").doc(user.email).update({ 'applicationStatus': "Complete" })
                                 })
                             }
                             else {
-                                db.collection("submissions").doc(user.email).set({ 'applicationStatus':"Incomplete"}, { merge: true })
+                                db.collection("submissions").doc(user.email).update({ 'applicationStatus': "Incomplete" })
                             }
                             setErrorMsgs(errorMsgsCopy)
                         })
                 })
-            }}> Verify and Submit </button>
+            }}
+                style={{marginBottom:"25px"}}
+            > Verify and Submit </button>
             <Typography style={{color:"black"}}>Click on the button to check if all your answers are valid and if you've completed all the necessary parts of the application.
                 Until the application deadline of (insert date), you can still edit your application after submitting it.</Typography>
             {errorMsgs}

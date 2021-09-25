@@ -175,7 +175,7 @@ const App = () => {
     if (userStatus && gotAuthStatus) {
         return (
             <>
-                <style>{"body {background-color: #D6F3F2; overflow:hidden;}"}</style>
+                <style>{"body {background-color: #D6F3F2; overflowX:hidden;}"}</style>
                 <Paper className={classes.paper} elevation={10}>
                     <Grid container>
                         <Grid className={classes.first} item xs={3}>
@@ -214,6 +214,7 @@ const App = () => {
                                 </List>
 
                                 <Button
+                                    style={{ display:"flex", alignItems:"center", width:"20vw"}}
                                     id="exitButton"
                                     onClick={() => {
                                         setTimeout(() => {
