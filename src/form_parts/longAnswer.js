@@ -1,11 +1,7 @@
 import React from 'react';
 import { withFormik }  from "formik";
 import { withStyles, Typography, Container } from "@material-ui/core";
-import firebaseApp from "../components/firebaseConfig.js"
 import getData from "./dataWrapper.js"
-import "firebase/firestore"
-import "firebase/auth"
-let db = firebaseApp.firestore()
 
 class AnswerForm extends React.Component {
     constructor(props) {
@@ -67,7 +63,7 @@ class AnswerForm extends React.Component {
                         id="longQuestion1"
                         name="longQuestion1"
                         onKeyUp={() => { this.wordCheck("longQuestion1") }}
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value={values.longQuestion1}
                     />
                     <Typography align="left" > Word limit:500</Typography>
@@ -80,7 +76,7 @@ class AnswerForm extends React.Component {
                         id="longQuestion2"
                         name="longQuestion2"
                         onKeyUp={() => { this.wordCheck("longQuestion2") }}
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value={values.longQuestion2}
                     />
                     <Typography align="left" > Word limit:300</Typography>
@@ -94,7 +90,7 @@ class AnswerForm extends React.Component {
                         name="longQuestion3"
                         onKeyUp={() => { this.wordCheck("longQuestion3") }}
                         value={values.longQuestion3}
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                     />
                     <Typography align="left" > Word limit:300</Typography>
                     <Typography align="left" > Word count: {this.state.wordCount.longQuestion3}</Typography>
@@ -107,7 +103,7 @@ class AnswerForm extends React.Component {
                         name="longQuestion4"
                         onKeyUp={() => { this.wordCheck("longQuestion4") }}
                         value={values.longQuestion4}
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                     />
                     <Typography align="left" > Word limit:300</Typography>
                     <Typography align="left" > Word count: {this.state.wordCount.longQuestion4}</Typography>

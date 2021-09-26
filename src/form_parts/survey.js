@@ -1,11 +1,7 @@
 import React from 'react';
 import { withFormik } from "formik";
 import { withStyles, Container } from "@material-ui/core";
-import "firebase/firestore"
-import "firebase/auth"
-import firebaseApp from "../components/firebaseConfig.js"
 import getData from "./dataWrapper.js"
-let db = firebaseApp.firestore()
 class SurveyBody extends React.Component {
     constructor(props) {
         super(props)
@@ -47,7 +43,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="instagram"
                         name="surveyQuestion1"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="NOVA Instagram"
                     />
                     <br />
@@ -56,7 +52,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="linkedin"
                         name="surveyQuestion1"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="NOVA LinkedIn"
                     />
                     <br />
@@ -65,7 +61,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="friend"
                         name="surveyQuestion1"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="Friend"
                     />
                     <br />
@@ -74,7 +70,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="website"
                         name="surveyQuestion1"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="NOVA Website"
                     />
                     <br />
@@ -83,7 +79,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="execPost"
                         name="surveyQuestion1"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="Executive Post"
                     />
                     <br />
@@ -92,7 +88,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="otherInstagram"
                         name="surveyQuestion1"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="Other Org Instagram"
                     />
                     <br /><br/>
@@ -101,7 +97,7 @@ class SurveyBody extends React.Component {
                         type="text"
                         id="other"
                         name="surveyQuestion1Other"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value={values.surveyQuestion1Other}
                         maxlength="60"
                     />
@@ -115,7 +111,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="instagram2"
                         name="surveyQuestion2"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="NOVA Instagram"
                     />
                     <br />
@@ -124,7 +120,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="linkedin2"
                         name="surveyQuestion2"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="NOVA LinkedIn"
                     />
                     <br />
@@ -133,7 +129,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="friend2"
                         name="surveyQuestion2"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="Friend"
                     />
                     <br />
@@ -142,7 +138,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="website2"
                         name="surveyQuestion2"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="NOVA Website"
                     />
                     <br />
@@ -151,7 +147,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="execPost2"
                         name="surveyQuestion2"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="Executive Post"
 
                     />
@@ -161,7 +157,7 @@ class SurveyBody extends React.Component {
                         type="checkbox"
                         id="otherInstagram2"
                         name="surveyQuestion2"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value="Other Org Instagram"
                     />
                     <br /><br/>
@@ -170,7 +166,7 @@ class SurveyBody extends React.Component {
                         type="text"
                         id="other2"
                         name="surveyQuestion2Other"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value={values.surveyQuestion2Other}
                         maxlength="60"
                     /><br/>
@@ -183,7 +179,7 @@ class SurveyBody extends React.Component {
                     <textarea
                         id="surveyQuestion3"
                         name="surveyQuestion3"
-                        onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value={values.surveyQuestion3}
                         style={{ width: "40vw" }}
                     />

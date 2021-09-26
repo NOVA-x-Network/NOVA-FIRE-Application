@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react"
 import nova_logo_cropped from "../images/cropped-NOVA-logo-1.png"
 import nova_front_art from "../images/NovaHomepageClipArt.png"
-import withFirebaseAuth from "react-with-firebase-auth"
-import firebaseApp from "../components/firebaseConfig.js"
-import firebase from "firebase/app";
+import getFirebase from "../components/firebaseConfig.js"
 import "firebase/firestore"
-const firebaseAppAuth = firebaseApp.auth()
-let db = firebaseApp.firestore()
-const providers = {
-	googleProvider: new firebase.auth.GoogleAuthProvider(),
-};
-// markup
-const IndexPage = props => {
-	const { user, signOut } = props
+const IndexPage = () => {
+	const [userStatus, setUserStatus] = useState(false)
 	const [appStatus, setAppStatus] = useState(false)
-	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+	const [windowWidth, setWindowWidth] = useState(901)
+	const [auth, setAuth] = useState('')
 	const defaultComputerWidth = 2550
 	var introTextWidth
 	var introTextFont
@@ -41,26 +34,37 @@ const IndexPage = props => {
 		frontBannerImageHeight = "35vw"
 		frontBannerWidth = "90vw"
 		frontBannerImageWidth = "42vw"
-		cornerImageHeight = "auuto"
+		cornerImageHeight = "auto"
 		cornerImageWidth="8vw"
 	}
 	useEffect(() => {
-		if (user) {
-			db.collection("submissions").doc(user.email).get()
-				.then((snapshot) => {
-					setAppStatus(snapshot.data().applicationStatus)
-				})
-		}
+		const app = import("firebase/app")
+		Promise.all([app]).then(([firebase]) => {
+			const firebaseApp = getFirebase(firebase)
+			console.log(firebaseApp)
+			const firebaseAppAuth = firebaseApp.default.auth()
+			let db = firebaseApp.default.firestore()
+			firebaseAppAuth.onAuthStateChanged((user) => {
+				if (user) {
+					db.collection("submissions").doc(user.email).get()
+						.then((snapshot) => {
+							setAppStatus(snapshot.data().applicationStatus)
+							setUserStatus(user)
+							setAuth(firebaseAppAuth)
+						})
+				}
+			})
+		})
 		window.addEventListener('resize', () => {
 			setWindowWidth(window.innerWidth)
 		})
-    })
+    },[])
 	return (<div>
 				<div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"space-between", fontFamily:"poppins"}}>
 			<img id="indexLogo" src={nova_logo_cropped} style={{ height: cornerImageHeight, width: cornerImageWidth, marginLeft: "3vw", marginTop: "20px", marginBottom: "10px"}} />
 			<div id="indexLogin" style={{ display: "flex", flexDirection: "row", alignItems: "center", marginRight: "2.5vw"}}>
 				{appStatus ? <p>Application Status: {appStatus}</p> : null}
-				{user ? <button onClick={() => { signOut(); setAppStatus(false) }} style={{ marginLeft: "30px" }}>Sign out</button> : <button style={{ marginLeft: "30px" }} onClick={() => { window.location = "/login" }}>Login</button>}
+				{userStatus ? <button onClick={() => { auth.signOut(); setAppStatus(false); setUserStatus(false) }} style={{ marginLeft: "30px" }}>Sign out</button> : <button style={{ marginLeft: "30px" }} onClick={() => { window.location = "/login" }}>Login</button>}
 				</div>
 				</div>
 		<div className="indexMain" style={{ position: "relative", marginTop:"12px"}}>
@@ -85,7 +89,7 @@ const IndexPage = props => {
 						<div style={{display:"flex", flexDirection:"row"}}>
 					<button style={{ marginRight:"10px"}} onClick={() => { window.location = "/signup" }}>Sign up</button>
 					<button className="button" onClick={() => {
-						if (!user) {
+						if (!userStatus) {
 							window.location = "/login"
 						}
 						else {
@@ -99,4 +103,4 @@ const IndexPage = props => {
   )
 }
 
-export default withFirebaseAuth({ providers, firebaseAppAuth })(IndexPage)
+export default IndexPage

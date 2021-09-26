@@ -1,18 +1,17 @@
 import React from "react";
-import firebaseApp from "../components/firebaseConfig.js"
+import getFirebase from "../components/firebaseConfig.js"
+import loadingIcon from "../images/loadingIcon.png"
 import "firebase/firestore"
 import "firebase/auth"
-import loadingIcon from "../images/loadingIcon.png"
-let db = firebaseApp.firestore()
-const firebaseAppAuth = firebaseApp.auth();
+let db
+let email
 function getData(formSection, Component) {
     return class extends React.Component {
         constructor(props) {
             super(props)
             this.state = {
                 answers: '',
-                email: '',
-                saved:true,
+                saved: true,
             }
             this.saveCheck = this.saveCheck.bind(this)
             this.saveHandler = this.saveHandler.bind(this)
@@ -21,11 +20,20 @@ function getData(formSection, Component) {
         }
 
         componentDidMount() {
-            firebaseAppAuth.onAuthStateChanged((user) => {
-                db.collection("submissions").doc(user.email).get()
-                    .then((snapshot) => {
-                        this.setState({answers:snapshot.data()[formSection], email:user.email})
-                    })
+            const app = import("firebase/app")
+
+            Promise.all([app]).then(([firebase]) => {
+                const firebaseApp = getFirebase(firebase)
+                const firebaseAppAuth = firebaseApp.default.auth()
+                db= firebaseApp.default.firestore()
+
+                firebaseAppAuth.onAuthStateChanged((user) => {
+                    db.collection("submissions").doc(user.email).get()
+                        .then((snapshot) => {
+                            email = user.email
+                            this.setState({ answers: snapshot.data()[formSection]})
+                        })
+                })
             })
         }
 
@@ -33,15 +41,14 @@ function getData(formSection, Component) {
             return event.returnValue = "Are you sure you want to leave? You have unsaved data."
         }
 
-        saveHandler(values) {
+        saveHandler() {
             window.removeEventListener('beforeunload', this.saveCheck)
-            let email = this.state.email
             let section = {}
-            section[formSection] = values
+            section[formSection] = this.state.answers
             db.collection("submissions").doc(email).set(section, { merge: true })
         }
 
-        changeHandler(event, formikHandleChange) {
+        changeHandler(event, formikHandleChange, values) {
             let email = this.state.email
             formikHandleChange(event)
 
@@ -49,15 +56,13 @@ function getData(formSection, Component) {
                 db.collection("submissions").doc(email).set({ applicationStatus: "Incomplete" }, { merge: true })
             }
 
-            this.setState({ saved: false })
+            this.setState({ saved: false, answers:values })
             window.addEventListener('beforeunload', this.saveCheck)
             document.getElementById("exitButton").addEventListener('click', this.saveHandler)
         }
 
         unmountHandler(values) {
             window.removeEventListener('beforeunload', this.saveCheck)
-
-            let email = this.state.email
 
             if (email) {
                 let section = {}
@@ -76,8 +81,8 @@ function getData(formSection, Component) {
                         changeHandler={this.changeHandler}
                     />)
             }
-            return (<div style={{display:"flex", alignItems:"center", justifyContent:"center", height:"75vh"}}>
-                <img src={loadingIcon} style={{width:"20vw", height:"20vw"}} className="loading"/>
+            return (<div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "75vh" }}>
+                <img src={loadingIcon} style={{ width: "20vw", height: "20vw" }} className="loading" />
             </div>)
         }
     }

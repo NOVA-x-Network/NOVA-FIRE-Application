@@ -17,11 +17,9 @@ import Description from "../form_parts/description.js";
 import Upload from "../form_parts/uploadDocs";
 import Survey from "../form_parts/survey";
 import Review from "../form_parts/review";
-import firebaseApp from "../components/firebaseConfig.js"
+import getFirebase from "../components/firebaseConfig.js"
 import "firebase/auth"
 import "firebase/firestore";
-let db = firebaseApp.firestore()
-const firebaseAppAuth = firebaseApp.auth()
 var myStyles
 
 const App = () => {
@@ -127,49 +125,56 @@ const App = () => {
         window.addEventListener('resize', () => {
             setWindowWidth(window.innerWidth)
         })
-        firebaseAppAuth.onAuthStateChanged((user) => {
-            if (user) {
-                db.collection("submissions").doc(user.email).get()
-                    .then((snapshot)=> {
-                        if (typeof snapshot.data() === 'undefined') {
-                            db.collection("submissions").doc(user.email).set({
-                                basicInfo: {
-                                    firstName: "",
-                                    lastName: "",
-                                    school: "",
-                                    phoneNumber: "",
-                                    gender: "",
-                                    city: "",
-                                    grade: "",
-                                    householdIncome: "",
-                                    laptopAndInternetAccess: "",
-                                    isFirstNation: ""
-                                },
-                                longAnswer: {
-                                    longQuestion1: '',
-                                    longQuestion2: '',
-                                    longQuestion3: '',
-                                    longQuestion4: ''
-                                },
-                                survey: {
-                                    surveyQuestion1: [],
-                                    surveyQuestion1Other: '',
-                                    surveyQuestion2: [],
-                                    surveyQuestion2Other: '',
-                                    surveyQuestion3: ''
-                                },
-                                files: {},
-                                applicationStatus: "Incomplete"
-                            })
-                        }
-                        setUserStatus(true)
-                    })
-            }
-            else {
-                window.location = "/login"
-                return (<div></div>)
-            }
-            setAuthStatus(true)
+        const app = import("firebase/app")
+
+        Promise.all([app]).then(([firebase]) => {
+            const firebaseApp = getFirebase(firebase)
+            const firebaseAppAuth = firebaseApp.default.auth()
+            const db = firebaseApp.default.firestore()
+            firebaseAppAuth.onAuthStateChanged((user) => {
+                if (user) {
+                    db.collection("submissions").doc(user.email).get()
+                        .then((snapshot) => {
+                            if (typeof snapshot.data() === 'undefined') {
+                                db.collection("submissions").doc(user.email).set({
+                                    basicInfo: {
+                                        firstName: "",
+                                        lastName: "",
+                                        school: "",
+                                        phoneNumber: "",
+                                        gender: "",
+                                        city: "",
+                                        grade: "",
+                                        householdIncome: "",
+                                        laptopAndInternetAccess: "",
+                                        isFirstNation: ""
+                                    },
+                                    longAnswer: {
+                                        longQuestion1: '',
+                                        longQuestion2: '',
+                                        longQuestion3: '',
+                                        longQuestion4: ''
+                                    },
+                                    survey: {
+                                        surveyQuestion1: [],
+                                        surveyQuestion1Other: '',
+                                        surveyQuestion2: [],
+                                        surveyQuestion2Other: '',
+                                        surveyQuestion3: ''
+                                    },
+                                    files: {},
+                                    applicationStatus: "Incomplete"
+                                })
+                            }
+                            setUserStatus(true)
+                        })
+                }
+                else {
+                    window.location = "/login"
+                    return (<div></div>)
+                }
+                setAuthStatus(true)
+            })
         })
     })
     if (userStatus && gotAuthStatus) {
@@ -214,14 +219,14 @@ const App = () => {
                                 </List>
 
                                 <Button
-                                    style={{ display:"flex", alignItems:"center", width:"20vw"}}
+                                    style={{ display: "flex", alignItems:"center", width:"20vw"}}
                                     id="exitButton"
                                     onClick={() => {
                                         setTimeout(() => {
                                             window.location = "/"
                                         },300)
                                     }}
-                                >Save and Exit <CloseIcon style={{paddingTop: "10px"}}/></Button>
+                                >Save and Exit <CloseIcon/></Button>
                                 <Typography style={{ marginTop: "30px", color: `white` }}>Tip: Clicking "Back", "Continue", or each of the above section labels automatically saves your work. </Typography>
                                 <Typography style={{ marginTop: "30px", color: `white`}}>Note: Every time you change your answers after submitting, you will have to reverify and resubmit them. </Typography>
                             </Container>
@@ -251,7 +256,6 @@ const App = () => {
                                             fontFamily: `poppins`,
                                             borderRadius: `${2}em`,
                                             fontSize: `${14}pt`,
-                                            paddingTop: `20px`
                                         }}
                                             onClick={handlePrev}
                                             form={activeStep.toString()}
@@ -275,7 +279,6 @@ const App = () => {
                                             fontFamily: `poppins`,
                                             borderRadius: `${2}em`,
                                             fontSize: `${14}pt`,
-                                            paddingTop: `20px`,
                                             visibility:"hidden"
                                         }}
                                             onClick={handlePrev}
@@ -299,7 +302,6 @@ const App = () => {
                                             fontSize: `${14}pt`,
                                             borderRadius: `${2}em`,
                                             fontFamily: `poppins`,
-                                            paddingTop: `20px`
                                         }}
                                             onClick={handleNext}
                                             form={activeStep.toString()}

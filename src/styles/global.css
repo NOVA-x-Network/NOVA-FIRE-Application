@@ -237,14 +237,10 @@
         transition: 0.2s ease-in-out all;
     }
 
-    .MuiButton-label {
-        position:relative;
-        bottom:7px;
-    }
+    .MuiButton-root {
+        display:flex;
+        align-items:center
 
-    .MuiSvgIcon-root {
-        position:relative;
-        top:6px;
     }
 
     .MuiContainer-root.MuiContainer-maxWidthLg {
@@ -522,15 +518,6 @@
         transition: 0.2s ease-in-out all;
     }
 
-    .MuiButton-label {
-        position:relative;
-        bottom:7px;
-    }
-
-    .MuiSvgIcon-root {
-        position:relative;
-        top:6px;
-    }
 
     .MuiContainer-root.MuiContainer-maxWidthLg {
         font-size:16pt;
@@ -542,5 +529,10 @@
     
     .MuiListItem-root.makeStyles-item-2221.MuiListItem-gutters {
         padding-top:0px;
+    }
+
+    .MuiButton-root {
+        display: flex;
+        align-items: center
     }
 }

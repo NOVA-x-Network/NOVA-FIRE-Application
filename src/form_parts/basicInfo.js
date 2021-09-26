@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     TextField,
     Box,
@@ -9,11 +9,7 @@ import {
     Input
 } from "@material-ui/core";
 import { withFormik } from "formik";
-import firebaseApp from "../components/firebaseConfig.js";
-import "firebase/firestore";
-import "firebase/auth";
 import getData from "./dataWrapper.js"
-let db = firebaseApp.firestore()
 
 class BasicInformationBody extends React.Component {
     constructor(props) {
@@ -60,7 +56,7 @@ class BasicInformationBody extends React.Component {
                     e.target.style.background = "#1A6F4C";
                     e.target.style.color = "#fff";
                     values[target[0].id] = e.target.innerHTML
-                    changeHandler(e, formikHandleChange)
+                    changeHandler(e, formikHandleChange, values)
                 })
             }
         }
@@ -99,7 +95,7 @@ class BasicInformationBody extends React.Component {
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                                    onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                                     name="firstName"
                                     id="firstName"
                                     label="First Name"
@@ -113,7 +109,7 @@ class BasicInformationBody extends React.Component {
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                                    onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                                     name="lastName"
                                     id="lastName"
                                     label="Last Name"
@@ -127,7 +123,7 @@ class BasicInformationBody extends React.Component {
                                     variant="outlined"
                                     type="text"
                                     size="small"
-                                    onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                                    onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                                     name="phoneNumber"
                                     id="phoneNumber"
                                     label="Phone Number (Optional)"
@@ -140,7 +136,7 @@ class BasicInformationBody extends React.Component {
                                 variant="outlined"
                                 type="text"
                                 size="small"
-                                onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                                onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                                 name="school"
                                 id="school"
                                 label="School "
@@ -154,7 +150,7 @@ class BasicInformationBody extends React.Component {
                                 variant="outlined"
                                 type="text"
                                 size="small"
-                                onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                                onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                                 name="city"
                                 id="city"
                                 label="City"
@@ -169,7 +165,7 @@ class BasicInformationBody extends React.Component {
                                 type="text"
                                 select
                                 size="small"
-                                onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                                onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                                 name="gender"
                                 id="gender"
                                 label="Gender"
@@ -245,7 +241,7 @@ class BasicInformationBody extends React.Component {
                             variant="outlined"
                             type="text"
                             size="small"
-                            onChange={(e) => {changeHandler(e, formikHandleChange)}}
+                            onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                             name="address"
                             id="address"
                             label="Link to LinkedIn or Personal Portfolio"

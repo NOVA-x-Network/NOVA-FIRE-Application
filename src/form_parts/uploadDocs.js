@@ -7,14 +7,14 @@ import {
 } from "@material-ui/core";
 import { useFilePicker } from 'use-file-picker';
 import { CloudUpload } from '@material-ui/icons';
-import firebaseApp from "../components/firebaseConfig.js"
+import getFirebase from "../components/firebaseConfig.js"
 import "firebase/firestore"
 import "firebase/auth"
-let db = firebaseApp.firestore()
-const firebaseAppAuth = firebaseApp.auth();
 const Upload = () => {
     const [allFiles, setAllFiles] = useState([])
-    const[fetchDone, setFetchDone] = useState(true)
+    const [fetchDone, setFetchDone] = useState(true)
+    const [db, setDb] = useState({})
+    const [email, setEmail] = useState('')
     const [openFileSelector, { filesContent, loading}] = useFilePicker({
         multiple: true,
         readAs: 'DataURL',
@@ -34,11 +34,17 @@ const Upload = () => {
             }
         }
     }))
-    const[email, setEmail]=useState('')
     let classes = uploadStyle()
     useEffect(() => {
-        firebaseAppAuth.onAuthStateChanged((user) => {
-                db.collection("submissions").doc(user.email).get()
+        const app = import("firebase/app")
+
+        Promise.all([app]).then(([firebase]) => {
+            const firebaseApp = getFirebase(firebase)
+            const firebaseAppAuth = firebaseApp.default.auth()
+            const database = firebaseApp.default.firestore()
+            setDb(database)
+            firebaseAppAuth.onAuthStateChanged((user) => {
+                database.collection("submissions").doc(user.email).get()
                     .then((snapshot) => {
                         let allFilesTemp = [...allFiles]
                         Object.keys(snapshot.data()['files']).forEach((file) => {
@@ -49,7 +55,8 @@ const Upload = () => {
                         })
                         setAllFiles(allFilesTemp)
                     })
-            setEmail(user.email)
+                setEmail(user.email)
+            })
         })
     }, [])
     if (loading && filesContent.length>0 && !fetchDone) {
