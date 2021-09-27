@@ -87,10 +87,9 @@ class BasicInformationBody extends React.Component {
         const formikHandleChange = this.props.handleChange
         return (
             <Container style={{ fontFamily: "poppins", marginLeft:"0vw"}}>
-                <form style={{ overflowY: `scroll`, overflowX: `hidden`, marginLeft: `${2}vw`, width: `${65}vw`, overflowY: `scroll`, height: `75vh` }} id="2">
+                <form style={{ overflowY: `scroll`, overflowX: `hidden`, marginLeft: `${2}vw`, overflowY: `scroll`, height: `75vh` }} id="2">
                     <Typography className={classes.heading}>Basic Information</Typography>
-                    <Box style={{ display: `inline-flex`, flexDirection: "row", flexWrap: "wrap", rowGap: "10px", columnGap: "10px"}}>
-                        <Box style={{ flexBasis: "30%"}}>
+                    <Box style={{ display: `flex`, flexDirection: "row", flexWrap: "wrap", rowGap: "10px", columnGap: "10px"}}>
                                 <TextField
                                     variant="outlined"
                                     type="text"
@@ -103,8 +102,6 @@ class BasicInformationBody extends React.Component {
                                     value={values.firstName || ''}
                                     inputProps={{maxLength:30}}
                                 />
-                            </Box>
-                        <Box style={{ flexBasis: "30%" }}>
                                 <TextField
                                     variant="outlined"
                                     type="text"
@@ -117,8 +114,6 @@ class BasicInformationBody extends React.Component {
                                     value={values.lastName || ''}
                                     inputProps={{maxLength:30}}
                                 />
-
-                        <Box style={{ flexBasis: "30%" }}>
                                 <TextField
                                     variant="outlined"
                                     type="text"
@@ -130,8 +125,6 @@ class BasicInformationBody extends React.Component {
                                     className={classes.text}
                                     value={values.phoneNumber || ''}
                                 />
-                            </Box>
-                        <Box style={{ flexBasis: "30%" }}>
                             <TextField
                                 variant="outlined"
                                 type="text"
@@ -144,8 +137,6 @@ class BasicInformationBody extends React.Component {
                                 value={values.school || ''}
                                 inputProps={{ maxLength: 60 }}
                             />
-                        </Box>
-                        <Box style={{ flexBasis: "30%" }}>
                             <TextField
                                 variant="outlined"
                                 type="text"
@@ -158,8 +149,6 @@ class BasicInformationBody extends React.Component {
                                 value={values.city || ''}
                                 inputProps={{ maxLength: 45 }}
                             />
-                        </Box>
-                        <Box style={{ flexBasis: "30%" }}>
                             <TextField
                                 variant="outlined"
                                 type="text"
@@ -178,14 +167,12 @@ class BasicInformationBody extends React.Component {
                                     </MenuItem>
                                 ))}
                             </TextField>
-                        </Box>
-                        </Box>
                     </Box>
 
                     <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em`, overflow: `hidden` }}>
                         <Box style={{ display: `flex`, marginTop: `${1.6}em`, alignItems: "flex-start", flexDirection: "column" }}>
                             <Typography className={classes.heading}>Current Grade</Typography>
-                            <Box style={{ display: `flex`, flexDirection: "row" }}>
+                            <Box className={classes.section}>
                                 <Box className={classes.navigate} id="grade">9</Box>
                                 <Box className={classes.navigate} id="grade" >10</Box>
                                 <Box className={classes.navigate} id="grade">11</Box>
@@ -198,7 +185,7 @@ class BasicInformationBody extends React.Component {
                         <Typography className={classes.heading}>What is your household income?</Typography>
 
                         <Typography style={{ fontSize: `${1}em` }}>We ask for your household income to ensure that we are providing adequate opportunities to multiple students across Ontario</Typography>
-                        <Box style={{ display: `flex`, marginTop: `${1.5}em`, width: "100%" }}>
+                        <Box className={classes.section}>
                             <Box className={classes.step} id="householdIncome"> {'<$35000'} </Box>
                             <Box className={classes.step} id="householdIncome"> $35,000 - $55,000 </Box>
                             <Box className={classes.step} id="householdIncome">$55,000 - $75,000</Box>
@@ -207,7 +194,7 @@ class BasicInformationBody extends React.Component {
                     </Box>
 
                     <div style={{ display: `flex`, marginTop: `${1}em`, marginBottom: `${1}em` }}>
-                        <Box style={{ marginLeft: `${2}em` }}>
+                        <Box>
                             <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em`, width:"35vw" }}>Do you have access to a laptop and internet  that you can complete the program at home?</Typography>
                         </Box>
                         <Box style={{ marginLeft: `5vw` }}>
@@ -223,7 +210,7 @@ class BasicInformationBody extends React.Component {
                     </div>
 
                     <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em` }}>
-                        <Box style={{ marginLeft: `${2}em` }}>
+                        <Box>
                             <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em`, width:"35vw"}}>Do you wish to self‑identify as an Indigenous person  in Canada, such as 
                                 First Nation, Métis or Inuit?</Typography>
                         </Box>
@@ -263,7 +250,6 @@ const StyledBasicInfo = withStyles({
     text: {
         borderRadius: `${9}px`,
         width: `15vw`,
-        marginLeft: "20px",
         marginTop: "20px",
         minWidth: "150px",
         '& label.Mui-focused': {
@@ -283,6 +269,13 @@ const StyledBasicInfo = withStyles({
                 borderColor: '#1A6F4C',
             },
         },
+    },
+    section:{
+        display: "flex",
+        flexWrap: "wrap",
+        rowGap: "15px",
+        justifyContent: "center",
+        marginBottom:"20px"
     },
     field: {
         borderRadius: `${9}px`,
@@ -327,7 +320,7 @@ const StyledBasicInfo = withStyles({
     step: {
         border: `${1}px solid #1A6F4C`,
         color: `#1A6F4C`,
-        width: `${100}%`,
+        width: `200px`,
         height: `auto`,
         borderRadius: `${10}px`,
         paddingTop: `${4}px`,
