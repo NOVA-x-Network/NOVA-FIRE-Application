@@ -27,7 +27,7 @@ const App = () => {
     const [gotAuthStatus, setAuthStatus] = useState(false)
     const [userStatus, setUserStatus] = useState(null)
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-    if (windowWidth >= 780) {
+    if (windowWidth >= 450) {
         myStyles = makeStyles(() => ({
             paper: {
                 width: `${95}vw`,
@@ -41,7 +41,6 @@ const App = () => {
                 boxShadow: "0px 5px 12px #ADE0DD"
             },
             first: {
-                width: `${10}%`,
                 height: `${93}vh`,
                 background: `#1A6F4C`,
                 borderRadius: "15px 0px 0px 15px"
@@ -67,7 +66,7 @@ const App = () => {
             stepname: {
                 color: `#fff`,
                 marginLeft: `${0.8}em`,
-                fontSize: `16pt`,
+                fontSize: `1.5vw`,
                 display: `inline-block`
             },
         }));
@@ -76,19 +75,19 @@ const App = () => {
         myStyles = makeStyles(() => ({
             paper: {
                 height: `${93}vh`,
+                width: `${100}vw`,
                 background: `#fff`,
                 marginTop: `${1.5}em`,
                 marginLeft: `${8}em`,
                 fontFamily: "poppins"
             },
             first: {
-                width: `${10}%`,
                 height: `${93}vh`,
                 background: `#1A6F4C`,
 
             },
             item: {
-                marginTop: `${1.5}em`,
+                marginTop: `${0.45}em`,
                 cursor: `pointer`
             },
             contain: {
@@ -106,8 +105,8 @@ const App = () => {
             },
             stepname: {
                 color: `#fff`,
-                marginLeft: `${0.8}em`,
-                fontSize: `16pt`,
+                marginLeft: `${0.4}em`,
+                fontSize: `8px`,
                 display: `inline-block`
             },
         }));
@@ -219,16 +218,16 @@ const App = () => {
                                 </List>
 
                                 <Button
-                                    style={{ display: "flex", alignItems:"center", width:"20vw"}}
+                                    style={{ display: "flex", alignItems: "center", width: "15vw", fontSize:"calc(6px + 0.8vw)", flexWrap:"wrap"}}
                                     id="exitButton"
                                     onClick={() => {
                                         setTimeout(() => {
                                             window.location = "/"
                                         },300)
                                     }}
-                                >Save and Exit <CloseIcon/></Button>
-                                <Typography style={{ marginTop: "30px", color: `white` }}>Tip: Clicking "Back", "Continue", or each of the above section labels automatically saves your work. </Typography>
-                                <Typography style={{ marginTop: "30px", color: `white`}}>Note: Every time you change your answers after submitting, you will have to reverify and resubmit them. </Typography>
+                                >Save and Exit <CloseIcon style={{width:"1.4vw", height:"1.4vw"}}/></Button>
+                                <Typography style={{ marginTop: "20px", color: `white`, fontSize:"calc(6px + 0.4vw)"}}>Tip: Clicking "Back", "Continue", or each of the above section labels automatically saves your work. </Typography>
+                                <Typography style={{ marginTop: "20px", color: `white`, fontSize: "calc(6px + 0.4vw)"}}>Note: Every time you change your answers after submitting, you will have to reverify and resubmit them. </Typography>
                             </Container>
                         </Grid>
 
@@ -250,36 +249,13 @@ const App = () => {
                                             position: "relative",
                                             color: `#fff`,
                                             top: "30px",
-                                            width: `200px`,
+                                            width: `20vw`,
                                             height: `${30}px`,
                                             marginLeft: `${4}vw`,
                                             fontFamily: `poppins`,
                                             borderRadius: `${2}em`,
-                                            fontSize: `${14}pt`,
-                                        }}
-                                            onClick={handlePrev}
-                                            form={activeStep.toString()}
-                                        >
-                                            Back
-                                        </Button>
-                                        :
-                                        null
-                                }
-
-                                {
-                                    activeStep < 2
-                                        ? <Button variant="contained" style={{
-                                            background: `#1A6F4C`,
-                                            position: "relative",
-                                            color: `#fff`,
-                                            top: "30px",
-                                            width: `200px`,
-                                            height: `${30}px`,
-                                            marginLeft: `${4}vw`,
-                                            fontFamily: `poppins`,
-                                            borderRadius: `${2}em`,
-                                            fontSize: `${14}pt`,
-                                            visibility:"hidden"
+                                            fontSize: `${11}pt`,
+                                            minWidth:"100px",
                                         }}
                                             onClick={handlePrev}
                                             form={activeStep.toString()}
@@ -296,12 +272,14 @@ const App = () => {
                                             background: `#1A6F4C`,
                                             position: "relative",
                                             color: `#fff`,
-                                            width: `200px`,
+                                            width: `20vw`,
                                             height: `${30}px`,
                                             marginLeft: `${40}vw`,
-                                            fontSize: `${14}pt`,
+                                            fontSize: `${11}pt`,
                                             borderRadius: `${2}em`,
                                             fontFamily: `poppins`,
+                                            minWidth: "100px",
+                                            padding:"0px 20px 0px 20px"
                                         }}
                                             onClick={handleNext}
                                             form={activeStep.toString()}
@@ -310,29 +288,7 @@ const App = () => {
                                         </Button>
                                         :null
                                 }
-                                
-                                {
-                                    activeStep > 5 ?
-                                        <Button variant="contained" style={{
-                                            background: `#1A6F4C`,
-                                            position: "relative",
-                                            color: `#fff`,
-                                            width: `200px`,
-                                            height: `${30}px`,
-                                            marginLeft: `${40}vw`,
-                                            fontSize: `${14}pt`,
-                                            borderRadius: `${2}em`,
-                                            fontFamily: `poppins`,
-                                            paddingTop: `20px`,
-                                            visibility:"hidden"
-                                        }}
-                                            onClick={handleNext}
-                                            form={activeStep.toString()}
-                                        >
-                                            Continue
-                                        </Button>
-                                        : null
-                                }
+                               
                                 
                             </Container>
                         </Grid>

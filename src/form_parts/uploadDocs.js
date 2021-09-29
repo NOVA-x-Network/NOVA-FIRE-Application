@@ -77,9 +77,9 @@ const Upload = () => {
         setFetchDone(true)
     }
     return (
-        <div style={{ height: `${75}vh`, width: "65vw"}} className={classes.upload}>
+        <div style={{ height: `${75}vh`, width: "65vw", overflowY:"scroll"}} className={classes.upload}>
             <Button onClick={() => openFileSelector()} style={{ background: `#1A6F4C`, height: `${30}vh`, width: `${80}%`, color: `#fff`, textAlign: `center` }}>
-                <CloudUpload style={{ fontSize: `${15}em`, display: `block` }} onClick={() => { setFetchDone(false)} }/> Select file </Button>
+                <CloudUpload style={{ fontSize: `${15}em`, display: `block`, width:"20vw" }} onClick={() => { setFetchDone(false)} }/> Select file </Button>
             <br />
             <Typography>Please upload your resume and high school transcript (or most recent report card instead if you're in grade 9). Upload <span style={{ fontWeight: "bold" }}>one file</span> for your resume,
                 and <span style={{ fontWeight: "bold" }}>another file</span> for your transcript/report card.</Typography>

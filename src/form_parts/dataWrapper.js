@@ -38,7 +38,7 @@ function getData(formSection, Component) {
         }
 
         saveCheck(event) {
-            return event.returnValue = "Are you sure you want to leave? You have unsaved data."
+            return event.returnValue = ""
         }
 
         saveHandler() {

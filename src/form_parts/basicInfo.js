@@ -193,9 +193,9 @@ class BasicInformationBody extends React.Component {
                         </Box>
                     </Box>
 
-                    <div style={{ display: `flex`, marginTop: `${1}em`, marginBottom: `${1}em` }}>
+                    <div style={{ display: `flex`, marginTop: `${1}em`, marginBottom: `${1}em`, flexWrap: "wrap" }}>
                         <Box>
-                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em`, width:"35vw" }}>Do you have access to a laptop and internet  that you can complete the program at home?</Typography>
+                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${0.8}em`, width: "35vw"}}>Do you have access to a laptop and internet  that you can complete the program at home?</Typography>
                         </Box>
                         <Box style={{ marginLeft: `5vw` }}>
                             <Box style={{ display: `flex` }}>
@@ -209,9 +209,9 @@ class BasicInformationBody extends React.Component {
                         </Box>
                     </div>
 
-                    <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em` }}>
+                    <div style={{ display: `flex`, marginTop: `${2}em`, marginBottom: `${1}em`, flexWrap:"wrap" }}>
                         <Box>
-                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${1}em`, width:"35vw"}}>Do you wish to self‑identify as an Indigenous person  in Canada, such as 
+                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${0.8}em`, width:"35vw"}}>Do you wish to self‑identify as an Indigenous person  in Canada, such as 
                                 First Nation, Métis or Inuit?</Typography>
                         </Box>
 
@@ -231,7 +231,7 @@ class BasicInformationBody extends React.Component {
                             onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                             name="address"
                             id="address"
-                            label="Link to LinkedIn or Personal Portfolio"
+                            label="Link"
                             className={classes.field}
                         />
                     </div><br/>

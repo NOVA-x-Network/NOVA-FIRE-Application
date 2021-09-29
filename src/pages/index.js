@@ -63,7 +63,7 @@ const IndexPage = () => {
 				<div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"space-between", fontFamily:"poppins"}}>
 			<img id="indexLogo" src={nova_logo_cropped} style={{ height: cornerImageHeight, width: cornerImageWidth, marginLeft: "3vw", marginTop: "20px", marginBottom: "10px"}} />
 			<div id="indexLogin" style={{ display: "flex", flexDirection: "row", alignItems: "center", marginRight: "2.5vw"}}>
-				{appStatus ? <p>Application Status: {appStatus}</p> : null}
+				{appStatus ? <p style={{color:"black"}}>Application Status: {appStatus}</p> : null}
 				{userStatus ? <button onClick={() => { auth.signOut(); setAppStatus(false); setUserStatus(false) }} style={{ marginLeft: "30px" }}>Sign out</button> : <button style={{ marginLeft: "30px" }} onClick={() => { window.location = "/login" }}>Login</button>}
 				</div>
 				</div>

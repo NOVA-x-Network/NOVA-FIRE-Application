@@ -100,6 +100,7 @@ class SurveyBody extends React.Component {
                         onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value={values.surveyQuestion1Other}
                         maxlength="60"
+                        style={{ height: "10vw", maxHeight: "25px"}}
                     />
                     <br /><br/>
                     {touched.surveyQuestion1 && errors.surveyQuestion1 ? (
@@ -166,9 +167,10 @@ class SurveyBody extends React.Component {
                         type="text"
                         id="other2"
                         name="surveyQuestion2Other"
-                        onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
+                        onChange={(e) => { changeHandler(e, formikHandleChange, values) }}
                         value={values.surveyQuestion2Other}
                         maxlength="60"
+                        style={{ height: "10vw", maxHeight: "25px"}}
                     /><br/>
                     <br />
                     {touched.surveyQuestion2 && errors.surveyQuestion2 ? (
@@ -201,14 +203,18 @@ const StyledSurvey = withStyles({
             display: "inline-block",
             width: "20vw",
         },
-        '& input': {
+        '& input[type=checkbox]': {
             display: "inline-block",
+            width: "30vw",
+            minWidth: "30px",
+            minHeight:"30px"
         },
         '& input[type=text]': {
             display: "inline-block",
             backgroundColor: "white",
             color: "black",
-            border: "2px solid black"
+            border: "2px solid black",
+            minWidth:"210px"
         },
     }
 })(SurveyBody)
