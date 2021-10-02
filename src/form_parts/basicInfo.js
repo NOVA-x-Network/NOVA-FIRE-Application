@@ -121,7 +121,7 @@ class BasicInformationBody extends React.Component {
                                     onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                                     name="phoneNumber"
                                     id="phoneNumber"
-                                    label="Phone Number (Optional)"
+                                    label="Phone Number"
                                     className={classes.text}
                                     value={values.phoneNumber || ''}
                                 />

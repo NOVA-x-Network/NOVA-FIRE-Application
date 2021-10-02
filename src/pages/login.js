@@ -90,6 +90,7 @@ class Login extends React.Component {
                     </p>
                 </div>
                 <div className="loginRight"><center>
+                    <h1>Log In</h1>
                     <header className="App-header">
                         {this.state.message !== null && <div>{this.state.message}</div>}
                         <div>

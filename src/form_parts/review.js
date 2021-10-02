@@ -91,7 +91,7 @@ const Review = () => {
                                         if (!appSection[field] || appSection[field].length == 0) {
                                             console.log(appSection)
                                             verified = false
-                                            errorMsgsCopy.push(<p>Error! You're missing mandatory resposnes from the {section} section.</p>)
+                                            errorMsgsCopy.push(<p>Error! You're missing mandatory responses from the {section} section.</p>)
                                             return false
                                         }
                                         return true
