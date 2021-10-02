@@ -99,7 +99,7 @@ const Review = () => {
                                     console.log(verified)
                                 })
                                 if (errorMsgsCopy.length == 0) {
-                                    errorMsgsCopy.push(<p style={{ color: "green" }}>"Good job! You've successfully completed the application. Your answers have been submitted."</p>)
+                                    errorMsgsCopy.push(<p style={{ color: "green" }}>You've successfully completed the application. Your answers have been submitted. Thank you!</p>)
                                     firebaseAppAuth.onAuthStateChanged((user) => {
                                         db.collection("submissions").doc(user.email).update({ 'applicationStatus': "Complete" })
                                     })
