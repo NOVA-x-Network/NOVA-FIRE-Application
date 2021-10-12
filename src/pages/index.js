@@ -7,6 +7,7 @@ const IndexPage = () => {
 	const [userStatus, setUserStatus] = useState(false)
 	const [appStatus, setAppStatus] = useState(false)
 	const [windowWidth, setWindowWidth] = useState(900)
+	const [gotAuthStatus, setGotAuthStatus] = useState(false)
 	const [auth, setAuth] = useState('')
 	const defaultComputerWidth = 2550
 	var introTextWidth
@@ -39,12 +40,14 @@ const IndexPage = () => {
 	}
 	useEffect(() => {
 		const app = import("firebase/app")
+		setWindowWidth(window.innerWidth)
 		Promise.all([app]).then(([firebase]) => {
 			const firebaseApp = getFirebase(firebase)
 			console.log(firebaseApp)
 			const firebaseAppAuth = firebaseApp.default.auth()
 			let db = firebaseApp.default.firestore()
 			firebaseAppAuth.onAuthStateChanged((user) => {
+				setGotAuthStatus(true)
 				if (user) {
 					db.collection("submissions").doc(user.email).get()
 						.then((snapshot) => {
@@ -58,7 +61,11 @@ const IndexPage = () => {
 		window.addEventListener('resize', () => {
 			setWindowWidth(window.innerWidth)
 		})
-    },[])
+	}, [])
+	if (!gotAuthStatus) {
+		<div>
+		</div>
+    }
 	return (<div>
 				<div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"space-between", fontFamily:"poppins"}}>
 			<img id="indexLogo" src={nova_logo_cropped} style={{ height: cornerImageHeight, width: cornerImageWidth, marginLeft: "3vw", marginTop: "20px", marginBottom: "10px"}} />

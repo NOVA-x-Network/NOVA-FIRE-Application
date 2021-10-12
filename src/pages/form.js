@@ -125,7 +125,7 @@ const App = () => {
             setWindowWidth(window.innerWidth)
         })
         const app = import("firebase/app")
-
+        setWindowWidth(window.innerWidth)
         Promise.all([app]).then(([firebase]) => {
             const firebaseApp = getFirebase(firebase)
             const firebaseAppAuth = firebaseApp.default.auth()
@@ -175,7 +175,7 @@ const App = () => {
                 setAuthStatus(true)
             })
         })
-    })
+    },[])
     if (userStatus && gotAuthStatus) {
         return (
             <>
