@@ -6,7 +6,7 @@ import "firebase/firestore"
 const IndexPage = () => {
 	const [userStatus, setUserStatus] = useState(false)
 	const [appStatus, setAppStatus] = useState(false)
-	const [windowWidth, setWindowWidth] = useState(901)
+	const [windowWidth, setWindowWidth] = useState(900)
 	const [auth, setAuth] = useState('')
 	const defaultComputerWidth = 2550
 	var introTextWidth

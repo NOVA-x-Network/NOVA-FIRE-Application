@@ -26,7 +26,7 @@ const App = () => {
     const [activeStep, setActiveStep] = useState(1);
     const [gotAuthStatus, setAuthStatus] = useState(false)
     const [userStatus, setUserStatus] = useState(null)
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    const [windowWidth, setWindowWidth] = useState(500)
     if (windowWidth >= 450) {
         myStyles = makeStyles(() => ({
             paper: {
