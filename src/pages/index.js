@@ -3,6 +3,7 @@ import nova_logo_cropped from "../images/cropped-NOVA-logo-1.png"
 import nova_front_art from "../images/NovaHomepageClipArt.png"
 import getFirebase from "../components/firebaseConfig.js"
 import "firebase/firestore"
+import "firebase/auth"
 const IndexPage = () => {
 	const [userStatus, setUserStatus] = useState(false)
 	const [appStatus, setAppStatus] = useState(false)
