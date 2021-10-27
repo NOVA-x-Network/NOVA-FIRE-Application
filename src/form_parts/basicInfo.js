@@ -27,6 +27,7 @@ class BasicInformationBody extends React.Component {
         const householdIncome = document.querySelectorAll("#householdIncome");
         const laptopAndInternetAccess = document.querySelectorAll("#laptopAndInternetAccess");
         const isFirstNation = document.querySelectorAll("#isFirstNation");
+        const canAttendGala = document.querySelectorAll("#canAttendGala")
 
         const selectCheck = (target) => {
             var x = 0;
@@ -40,16 +41,14 @@ class BasicInformationBody extends React.Component {
         console.log(grade[0])
         console.log(values)
 
-        const setSelected = (target) => {
+        const setHandleSelect = (target) => {
             for (let i = 0; i < target.length; i++) {
                 if (target[i].innerHTML == values[target[0].id]) {
                     target[i].style.background = "#1A6F4C";
                     target[i].style.color = "#fff";
                 }
             }
-        }
 
-        const setHandleSelect= (target) => {
             for (let i = 0; i < target.length; i++) {
                 target[i].addEventListener("click", (e) => {
                     selectCheck(target)
@@ -61,14 +60,6 @@ class BasicInformationBody extends React.Component {
             }
         }
 
-        setSelected(grade)
-
-        setSelected(laptopAndInternetAccess)
-
-        setSelected(isFirstNation)
-
-        setSelected(householdIncome)
-
         setHandleSelect(grade)
 
         setHandleSelect(laptopAndInternetAccess)
@@ -76,6 +67,8 @@ class BasicInformationBody extends React.Component {
         setHandleSelect(isFirstNation)
 
         setHandleSelect(householdIncome)
+
+        setHandleSelect(canAttendGala)
 
     }
     componentWillUnmount() {
@@ -135,6 +128,18 @@ class BasicInformationBody extends React.Component {
                                 label="School "
                                 className={classes.text}
                                 value={values.school || ''}
+                                inputProps={{ maxLength: 60 }}
+                            />
+                            <TextField
+                                variant="outlined"
+                                type="text"
+                                size="small"
+                                onChange={(e) => { changeHandler(e, formikHandleChange, values) }}
+                                name="regionalProgram"
+                                id="regionalProgram"
+                                label="Regional Program (if applicable)"
+                                className={classes.text}
+                                value={values.regionalProgram || ''}
                                 inputProps={{ maxLength: 60 }}
                             />
                             <TextField
@@ -203,6 +208,22 @@ class BasicInformationBody extends React.Component {
                                     Yes
                                 </Box>
                                 <Box className={classes.option} id="laptopAndInternetAccess">
+                                    No
+                                </Box>
+                            </Box>
+                        </Box>
+                    </div>
+                    <div style={{ display: `flex`, marginTop: `${1}em`, marginBottom: `${1}em`, flexWrap: "wrap" }}>
+                        <Box>
+                            <Typography style={{ color: `#323865`, fontWeight: 600, fontSize: `${0.8}em`, width: "35vw" }}>We are planning an in person final gala at the end of the fellowship that would take place
+                                in downtown Toronto (Covid permitting). Would you be able to attend this event at the end of May?</Typography>
+                        </Box>
+                        <Box style={{ marginLeft: `5vw` }}>
+                            <Box style={{ display: `flex` }}>
+                                <Box className={classes.option} id="canAttendGala">
+                                    Yes
+                                </Box>
+                                <Box className={classes.option} id="canAttendGala">
                                     No
                                 </Box>
                             </Box>

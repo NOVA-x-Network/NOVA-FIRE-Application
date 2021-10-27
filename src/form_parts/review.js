@@ -78,8 +78,8 @@ const Review = () => {
                                             break
                                         case 'files':
                                             section = "Upload Documents"
-                                            if (Object.keys(appSection).length < 2) {
-                                                errorMsgsCopy.push(<p>Error! You haven't uploaded enough files for the Upload Documents section.</p>)
+                                            if (Object.keys(appSection).length < 1) {
+                                                errorMsgsCopy.push(<p>Error! You haven't uploaded any files for the Upload Documents section.</p>)
                                             }
                                     }
                                     if (JSON.stringify(appSection) == '{}') {
@@ -115,7 +115,7 @@ const Review = () => {
                 style={{marginBottom:"25px"}}
             > Verify and Submit </button>
             <Typography style={{color:"black"}}>Click on the button to check if all your answers are valid and if you've completed all the necessary parts of the application.
-                Until the application deadline of (insert date), you can still edit your application after submitting it.</Typography>
+                Until the application deadline of November 20 2021, 11:59pm, you can still edit your application after submitting it.</Typography>
             {errorMsgs}
             </div>)
 }

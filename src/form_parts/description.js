@@ -23,7 +23,7 @@ const Description = () => {
                 >
                     Thank you for applying to participate in NOVA's FIRE (Fellowship for
                     Innovation, Research, and Education) Program. This application is due
-                    <span> Monday, October 12, 2020</span>. All fields on each section of the application are <span>mandatory</span> unless they're explicitly stated to be optional. 
+                    <span> Saturday, November 12, 2021, at 11:59pm</span>. All fields on each section of the application are <span>mandatory</span> unless they're explicitly stated to be optional. 
         </Typography>
 
                 <Typography
@@ -55,15 +55,15 @@ const Description = () => {
                     for this year's fellowship are:
         </Typography>
                 <ol>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}>The effectiveness of music therapy on dementia patients</li>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}> Water crisis in First Nation Reserves in Canada</li>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}> Effectiveness of standardized testing internationally</li>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}>Improve the efficiency of production and distribution of all food and agriculture products</li>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}>Developing Technologies to Reduce Food Waste in Ontario</li>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}>Developing technologies to make recreation more accessible for individuals living with a disability</li>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}>Examining the impacts of voluntourism in non-Western nations</li>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}>Studying the effects that technology has on socialization/ the age of digital socialization</li>
                 </ol>
                 <Typography
                     align="left"
                 >
-                    Students will be working in teams of five to six from November 2020 to March 2021 to research and complete tasks related to one of the above topics. We have broken up our topics into 2 streams:
+                    Students will be working in teams of five to six from January 2022 to May 2022 to research and complete tasks related to one of the above topics. We have broken up our topics into 2 streams:
                     Research & Development
                     Research & Publication
                     The former involves building a project following your research that can be technical or non technical, and includes topics 1 & 2. The latter involves writing a report that will be published on NOVA's website and includes topics 3 & 4. Each team will have 5 - 6 members for a total of 20 - 24 students accepted. As this is our pilot year of the program, we want to work with a tight-knit group of students to properly develop our program curriculum.

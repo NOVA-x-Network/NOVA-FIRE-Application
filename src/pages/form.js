@@ -144,9 +144,12 @@ const App = () => {
                                         gender: "",
                                         city: "",
                                         grade: "",
+                                        regionalProgram:"",
                                         householdIncome: "",
                                         laptopAndInternetAccess: "",
-                                        isFirstNation: ""
+                                        isFirstNation: "",
+                                        canAttendGala: "",
+                                        regionalProgram:"",
                                     },
                                     longAnswer: {
                                         longQuestion1: '',

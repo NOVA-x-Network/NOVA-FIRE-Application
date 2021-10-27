@@ -58,7 +58,11 @@ class AnswerForm extends React.Component {
         return (
             <Container style={{ height: "75vh", overflowY: "scroll", width: "65vw", marginLeft: "2vw" }}>
                 <form onSubmit={handleSubmit} className={classes.form} id="3">
-                    <label htmlFor="longQuestion1">Question 1:</label>
+                    <label htmlFor="longQuestion1">Question 1:
+                        Of the 4 research topics that we have focused on for this term (go to the "Description" section for the list of topics) Choose one
+                        that you are most interested in and describe why. Additionally, please rank your top choices in order of preference.
+                        Include specific information you would like to research on, and a potential project that you could make from it
+                    </label>
                     <textarea
                         id="longQuestion1"
                         name="longQuestion1"
@@ -66,12 +70,13 @@ class AnswerForm extends React.Component {
                         onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value={values.longQuestion1}
                     />
-                    <Typography align="left" > Word limit:500</Typography>
+                    <Typography align="left" > Word limit: 500</Typography>
                     <Typography align="left" > Word count: {this.state.wordCount.longQuestion1}</Typography>
                     {errors.longQuestion1 ? (
                         <div>{errors.longQuestion1}</div>
                     ) : null}
-                    <label htmlFor="longQuestion2">Question 2:</label>
+                    <label htmlFor="longQuestion2">Question 2: NOVA's program is very intensive and requires a time commitment of 5-8 hours a week to learn and work with your team.
+                        How would you balance this commitment with your other activities and school?</label>
                     <textarea
                         id="longQuestion2"
                         name="longQuestion2"
@@ -79,12 +84,12 @@ class AnswerForm extends React.Component {
                         onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                         value={values.longQuestion2}
                     />
-                    <Typography align="left" > Word limit:300</Typography>
+                    <Typography align="left" > Word limit: 300</Typography>
                     <Typography align="left" > Word count: {this.state.wordCount.longQuestion2}</Typography>
                     {errors.longQuestion2 ? (
                         <div>{errors.longQuestion2}</div>
                     ) : null}
-                    <label htmlFor="longQuestion3">Question 3:</label>
+                    <label htmlFor="longQuestion3">Question 3: How will this program accelerate your own personal goals? Where do you see yourself after completing the program?</label>
                     <textarea
                         id="longQuestion3"
                         name="longQuestion3"
@@ -97,7 +102,7 @@ class AnswerForm extends React.Component {
                     {errors.longQuestion3 ? (
                         <div>{errors.longQuestion3}</div>
                     ) : null}
-                    <label htmlFor="longQuestion4">Question 4</label>
+                    <label htmlFor="longQuestion4">Question 4: What resources would you like to have access to? What are your overall expectations of the NOVA FIRE program? </label>
                     <textarea
                         id="longQuestion4"
                         name="longQuestion4"
@@ -105,7 +110,7 @@ class AnswerForm extends React.Component {
                         value={values.longQuestion4}
                         onChange={(e) => {changeHandler(e, formikHandleChange, values)}}
                     />
-                    <Typography align="left" > Word limit:300</Typography>
+                    <Typography align="left" > Word limit: 300</Typography>
                     <Typography align="left" > Word count: {this.state.wordCount.longQuestion4}</Typography>
                     {errors.longQuestion4 ? (
                         <div>{errors.longQuestion4}</div>
@@ -171,7 +176,7 @@ const FormStyle = withStyles({
         },
 
         '& label': {
-            fontSize: "30px"
+            fontSize: "18px"
         },
 
         '& div': {

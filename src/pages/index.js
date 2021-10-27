@@ -64,8 +64,8 @@ const IndexPage = () => {
 		})
 	}, [])
 	if (!gotAuthStatus) {
-		<div>
-		</div>
+		return (<div>
+		</div>)
     }
 	return (<div>
 				<div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"space-between", fontFamily:"poppins"}}>
