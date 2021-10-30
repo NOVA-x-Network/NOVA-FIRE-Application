@@ -25,6 +25,7 @@ var myStyles
 const App = () => {
     const [activeStep, setActiveStep] = useState(1);
     const [gotAuthStatus, setAuthStatus] = useState(false)
+    const [appStatus, setAppStatus] = useState(false)
     const [userStatus, setUserStatus] = useState(null)
     const [windowWidth, setWindowWidth] = useState(500)
     if (windowWidth >= 450) {
@@ -169,6 +170,7 @@ const App = () => {
                                 })
                             }
                             setUserStatus(true)
+                            setAppStatus(snapshot.data().applicationStatus)
                         })
                 }
                 else {
@@ -220,6 +222,10 @@ const App = () => {
                                     </ListItem>
                                 </List>
 
+                                <div id="indexLogin" style={{ position: 'relative' }}>
+                                    {appStatus ? <p style={{ color: "#ADE0DD", fontSize: "1.2vw" }}>Application Status: {appStatus}</p> : null}
+                                </div>
+
                                 <Button
                                     style={{ display: "flex", alignItems: "center", width: "15vw", fontSize:"calc(6px + 0.8vw)", flexWrap:"wrap"}}
                                     id="exitButton"
@@ -228,7 +234,7 @@ const App = () => {
                                             window.location = "/"
                                         },300)
                                     }}
-                                >Save and Exit <CloseIcon style={{width:"1.4vw", height:"1.4vw"}}/></Button>
+                                >Save and Exit <CloseIcon style={{ width: "1.4vw", height: "1.4vw" }} /></Button>
                                 <Typography style={{ marginTop: "20px", color: `white`, fontSize:"calc(6px + 0.4vw)"}}>Tip: Clicking "Back", "Continue", or each of the above section labels automatically saves your work. </Typography>
                                 <Typography style={{ marginTop: "20px", color: `white`, fontSize: "calc(6px + 0.4vw)"}}>Note: Every time you change your answers after submitting, you will have to reverify and resubmit them. </Typography>
                             </Container>
