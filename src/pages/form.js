@@ -20,6 +20,7 @@ import Review from "../form_parts/review";
 import getFirebase from "../components/firebaseConfig.js"
 import "firebase/auth"
 import "firebase/firestore";
+import {Helmet} from "react-helmet"
 var myStyles
 
 const App = () => {
@@ -184,6 +185,11 @@ const App = () => {
     if (userStatus && gotAuthStatus) {
         return (
             <>
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <link rel="icon" href="../images/cropped-NOVA-logo-1.png" type="image/jpg"/>
+                    <title>Application Form</title>
+                </Helmet>
                 <style>{"body {background-color: #D6F3F2; overflowX:hidden;}"}</style>
                 <Paper className={classes.paper} elevation={10}>
                     <Grid container>
@@ -207,12 +213,12 @@ const App = () => {
 
                                     <ListItem className={classes.item} onClick={() => setActiveStep(4)}>
                                         <Box size="small" style={activeStep === 4 ? { background: `#1A6F4C` } : { background: `#BFEDEA` }} className={classes.Box} />
-                                        <Typography className={classes.stepname}  >Survey Questions </Typography>
+                                        <Typography className={classes.stepname}  >Upload Documents</Typography>
                                     </ListItem>
 
                                     <ListItem className={classes.item} onClick={() => setActiveStep(5)}>
                                         <Box size="small" style={activeStep === 5 ? { background: `#1A6F4C` } : { background: `#BFEDEA` }} className={classes.Box} />
-                                        <Typography className={classes.stepname}>Upload Documents</Typography>
+                                        <Typography className={classes.stepname}>Survey Questions</Typography>
                                     </ListItem >
 
 
@@ -247,8 +253,8 @@ const App = () => {
                                     {activeStep === 1 ? <Description /> : null}
                                     {activeStep === 2 ? <BasicInformation /> : null}
                                     {activeStep === 3 ? <LongResponses /> : null}
-                                    {activeStep === 4 ? <Survey /> : null}
-                                    {activeStep === 5 ? <Upload /> : null}
+                                    {activeStep === 4 ? <Upload />  : null}
+                                    {activeStep === 5 ? <Survey /> : null}
                                     {activeStep === 6 ? <Review />: null}
                                     
                                 {

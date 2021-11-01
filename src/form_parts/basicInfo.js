@@ -194,7 +194,8 @@ class BasicInformationBody extends React.Component {
                             <Box className={classes.step} id="householdIncome"> {'<$35000'} </Box>
                             <Box className={classes.step} id="householdIncome"> $35,000 - $55,000 </Box>
                             <Box className={classes.step} id="householdIncome">$55,000 - $75,000</Box>
-                            <Box className={classes.step} id="householdIncome"> $100,000+</Box>
+                            <Box className={classes.step} id="householdIncome">$75,000 - $100,000</Box>
+                            <Box className={classes.step} id="householdIncome">{'>$100,000'}</Box>
                         </Box>
                     </Box>
 
@@ -295,8 +296,10 @@ const StyledBasicInfo = withStyles({
         display: "flex",
         flexWrap: "wrap",
         rowGap: "15px",
+        columnGap:"15px",
         justifyContent: "center",
-        marginBottom:"20px"
+        marginBottom: "20px",
+        width:"100%"
     },
     field: {
         borderRadius: `${9}px`,
@@ -341,11 +344,10 @@ const StyledBasicInfo = withStyles({
     step: {
         border: `${1}px solid #1A6F4C`,
         color: `#1A6F4C`,
-        width: `200px`,
+        width: `175px`,
         height: `auto`,
         borderRadius: `${10}px`,
         paddingTop: `${4}px`,
-        marginLeft: `${8}px`,
         cursor: `pointer`,
         fontSize: `calc(6px + 0.5vw)`,
         fontFamily: `poppins`,

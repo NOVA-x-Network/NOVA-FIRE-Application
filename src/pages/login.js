@@ -2,6 +2,7 @@ import React from "react";
 import getFirebase from "../components/firebaseConfig.js"
 import logo from '../images/novaLogo.png';
 import "firebase/auth"
+import {Helmet} from "react-helmet"
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -82,6 +83,11 @@ class Login extends React.Component {
         }
         return (
             <div className="main">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <link rel="icon" href="../images/cropped-NOVA-logo-1.png" type="image/jpg"/>
+                    <title>Login</title>
+                </Helmet>
                 <div className="loginLeft">
                     <center><img src={logo} /></center>
                     <p>

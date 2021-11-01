@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import nova_logo_cropped from "../images/cropped-NOVA-logo-1.png"
 import nova_front_art from "../images/NovaHomepageClipArt.png"
 import getFirebase from "../components/firebaseConfig.js"
+import { Helmet } from "react-helmet"
 import "firebase/firestore"
 import "firebase/auth"
 const IndexPage = () => {
@@ -68,6 +69,11 @@ const IndexPage = () => {
 		</div>)
     }
 	return (<div>
+				<Helmet>
+					<meta charSet="utf-8" />
+					<link rel="icon" href="../images/cropped-NOVA-logo-1.png" type="image/png"/>
+					<title>FIRE Program Application</title>
+				</Helmet>
 				<div style={{display:"flex", flex:1, flexDirection:"row", justifyContent:"space-between", fontFamily:"poppins"}}>
 			<img id="indexLogo" src={nova_logo_cropped} style={{ height: cornerImageHeight, width: cornerImageWidth, marginLeft: "3vw", marginTop: "20px", marginBottom: "10px"}} />
 			<div id="indexLogin" style={{ display: "flex", flexDirection: "row", alignItems: "center", marginRight: "2.5vw"}}>

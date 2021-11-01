@@ -2,6 +2,7 @@ import React from "react";
 import logo from '../images/novaLogo.png';
 import getFirebase from "../components/firebaseConfig";
 import "firebase/auth"
+import {Helmet} from "react-helmet"
 class Signup extends React.Component {
     signUpWithEmailAndPassword = () => {
         this.state.firebaseAppAuth
@@ -62,6 +63,11 @@ class Signup extends React.Component {
         }
         return (
             <div className="main">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <link rel="icon" href="../images/cropped-NOVA-logo-1.png" type="image/jpg"/>
+                    <title>Sign up</title>
+                </Helmet>
                 {this.state.user ? (
                     <p>Welcome {this.state.user.displayName}</p>
                 ) : (
