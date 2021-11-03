@@ -170,8 +170,15 @@ const App = () => {
                                     applicationStatus: "Incomplete"
                                 })
                             }
-                            setUserStatus(true)
-                            setAppStatus(snapshot.data().applicationStatus)
+                            db.collection("submissions").doc(user.email).onSnapshot((snapshot) => {
+                                if (appStatus != snapshot.data().applicationStatus && typeof snapshot.data() !== 'undefined') {
+                                    setAppStatus(snapshot.data().applicationStatus)
+                                }
+                                else {
+                                    setAppStatus("Incomplete")
+                                }
+                                setUserStatus(true)
+                            })
                         })
                 }
                 else {
@@ -229,7 +236,7 @@ const App = () => {
                                 </List>
 
                                 <div id="indexLogin" style={{ position: 'relative' }}>
-                                    {appStatus ? <p style={{ color: "#ADE0DD", fontSize: "1.2vw" }}>Application Status: {appStatus}</p> : null}
+                                    {appStatus ? <Typography style={{ color: "#ADE0DD",  fontSize: "calc(6px + 1vw)", margin:"20px"}}>Application Status: {appStatus}</Typography> : null}
                                 </div>
 
                                 <Button
@@ -310,7 +317,7 @@ const App = () => {
 
                     </Grid>
                 </Paper>
-
+                <p style={{ position: "absolute", right: "10px", bottom: "3px", color: "#323865", fontSize: "calc(6px + 0.4vw)"}}>Have a question? Experiencing troubles with completeing your application? Email us at <a href="mailto: novaxnetwork@gmail.com">novaxnetwork@gmail.com</a>.</p>
             </>
         )
     }
