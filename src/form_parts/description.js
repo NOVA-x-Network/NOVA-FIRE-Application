@@ -23,14 +23,14 @@ const Description = () => {
                 >
                     Thank you for applying to participate in NOVA's FIRE (Fellowship for
                     Innovation, Research, and Education) Program. This application is due
-                    <span> Saturday, November 12, 2021, at 11:59pm</span>. All fields on each section of the application are <span>mandatory</span> unless they're explicitly stated to be optional. 
-        </Typography>
+                    <span> Saturday, November 12, 2021, at 11:59pm</span>. Note that we also require that you submit your <span>transcript/most recent report card</span> (for gr 9s) along with your application. 
+                </Typography>
 
                 <Typography
                     variant="h5"
                 >
                     About the NOVA x Network:
-        </Typography>
+                </Typography>
                 <Typography
                     align="left"
                 >
@@ -38,42 +38,78 @@ const Description = () => {
                     through the fusion of disciplines and ethical literacy. Our goal is to
                     see more integration between STEM & non-STEM fields through diversity
                     in projects, jobs, and other endeavours.
-        </Typography>
+                </Typography>
                 <Typography
                     variant="h5"
                 >
                     The NOVA FIRE Program:
-        </Typography>
+                </Typography>
                 <Typography
                     align="left"
                 >
-                    The NOVA Fellowship for Innovation, Research and Education (FIRE)
-                    Program is a five-month virtual fellowship for high school students.
-                    The program follow's NOVA's mission of integrating STEM and non-STEM
-                    research and applying it towards real-life issues that require an
-                    interdisciplinary and creative mindset to solve. The research prompts
-                    for this year's fellowship are:
-        </Typography>
+                    The NOVA Fellowship for Innovation, Research and Education (FIRE) Program is a five-month online 
+                    fellowship for high school students. The program follow’s NOVA’s mission of integrating STEM and 
+                    non-STEM research and applying it towards real-life issues that require an interdisciplinary and 
+                    creative mindset to solve. The research prompts for this year’s fellowship are:
+                </Typography>
                 <ol>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}>Developing Technologies to Reduce Food Waste in Ontario</li>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}>Developing technologies to make recreation more accessible for individuals living with a disability</li>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}>Examining the impacts of voluntourism in non-Western nations</li>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, }}>Studying the effects that technology has on socialization/ the age of digital socialization</li>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Developing Technologies to Reduce Food Waste in Ontario</li>
+                    <Typography
+                        align="left"
+                    >
+                        60% of food waste in Ontario is sent to landfills. 7.1 metric tonnes and 31 billion dollars 
+                        worth of food is wasted in the province each year. Data governance, waste management tools and 
+                        general education have been helping combat this rising source of environmental and economic damage.  
+                        This stream will focus on the creation of a technology to reduce the impact and amount of food  
+                        waste in the community.
+
+                    </Typography>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Developing technologies to make recreation more accessible for individuals living with a disability</li>
+                    <Typography
+                        align="left"
+                    >
+                            Historically, orthopedic technology has had a focus on the rehabilitation of injured or 
+                            disabled people. Basic needs have been addressed to better the quality of life of such 
+                            individuals, and recreational desires have been deemed secondary. However, because of 
+                            technology, participation barriers are being lifted for different vulnerable groups 
+                            around the world. Specifically, technology plays a key role in making recreation more 
+                            accessible for individuals who are living with a disability. This stream explores the 
+                            various existing literature on rehabilitation technology, and explores the ways in which 
+                            this research can be expanded to include modes of recreation for individuals with disabilities. 
+                    </Typography>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Examining the impacts of voluntourism in non-Western nations</li>
+                    <Typography
+                        align="left"
+                    >
+                        Volunteer tourism, or voluntourism, is an increasingly popular form of travel that has gained quite a 
+                        bit of attention in the world of academia over the last few years, and the motivations of volunteer 
+                        tourists have been examined. From this, it seems that there are quite a few negative implications of 
+                        volunteer tourism on the communities that are being toured due to gentrification and an overall 
+                        neglect of the desires of locals. This stream analyzes the disruption of local economies and 
+                        lifestyles that occurs when volunteers, who are mainly from the West (USA, Canada, Europe, Australia) 
+                        visit or settle down in the global south. In the end you will launch an information campaign to present 
+                        your findings using a variety of media
+                    </Typography>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Studying the effects that technology has on socialization/ the age of digital socialization</li>
+                    <Typography
+                        align="left"
+                    >
+                        In the last couple of decades, rapidly evolving technology has shifted the way we socialize. 
+                        Digital platforms have allowed people to communicate from anywhere in the world, making our society 
+                        more connected than ever. However, in some cases, the artificial nature of online interactions may 
+                        lead to feeling isolated and overwhelmed. It is important to research how the age of digital 
+                        socialization impacts mental health, cultural norms, and social development in adolescents. 
+                        This becomes more relevant when considering how Covid-19 has limited socialization to digital 
+                        platforms. This stream will design and conduct a qualitative study and use existing research papers 
+                        to develop a research report that will be published on NOVA’s website.
+                    </Typography>
                 </ol>
                 <Typography
-                    align="left"
+                    variant="h5"
                 >
-                    Students will be working in teams of five to six from January 2022 to May 2022 to research and complete tasks related to one of the above topics. We have broken up our topics into 2 streams:
-                    Research & Development
-                    Research & Publication
-                    The former involves building a project following your research that can be technical or non technical, and includes topics 1 & 2. The latter involves writing a report that will be published on NOVA's website and includes topics 3 & 4. Each team will have 5 - 6 members for a total of 20 - 24 students accepted. As this is our pilot year of the program, we want to work with a tight-knit group of students to properly develop our program curriculum.
-<Typography
-                        variant="h5"
-                    >
-                        Who is eligible to apply:
- </Typography>
-All Ontario high school students (grades 9 to 12) are eligible to apply for the fellowship. If you are an out-of-province international student interested in applying to the program, please keep an eye out for next year!
-</Typography>
+                    Who is eligible to apply:
+                </Typography>
+                All Ontario high school students (grades 9 to 12) are eligible to apply for the fellowship.
             </Container>
         </>
     );

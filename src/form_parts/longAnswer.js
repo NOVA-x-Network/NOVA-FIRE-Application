@@ -60,7 +60,7 @@ class AnswerForm extends React.Component {
                 <form onSubmit={handleSubmit} className={classes.form} id="3">
                     <label htmlFor="longQuestion1">Question 1:
                         Of the 4 research topics that we have focused on for this term (go to the "Description" section for the list of topics) Choose one
-                        that you are most interested in and describe why. Additionally, please rank your top choices in order of preference.
+                        that you are most interested in and describe why. Additionally, please <b>rank your topic choices </b> 1 to 4 in order of preference.
                         Include specific information you would like to research on, and a potential project that you could make from it
                     </label>
                     <textarea

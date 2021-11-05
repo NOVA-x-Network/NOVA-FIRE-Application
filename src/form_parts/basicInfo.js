@@ -189,7 +189,7 @@ class BasicInformationBody extends React.Component {
                     <Box style={{ marginTop: `${2.5}em`, width: `${90}%`, display: "flex", alignItems: "flex-start", flexDirection: "column" }}>
                         <Typography className={classes.heading}>What is your household income?</Typography>
 
-                        <Typography style={{ fontSize: `${1}em` }}>We ask for your household income to ensure that we are providing adequate opportunities to multiple students across Ontario</Typography>
+                        <Typography style={{ fontSize: `${0.8}em` }}>We ask for your household income to ensure that we are providing adequate opportunities to a variety of students from all SES backgrounds. We want to ensure equity and understand that extracurricular access can vary due to income, as opportunities are costly and often hard to find for low income students.</Typography>
                         <Box className={classes.section}>
                             <Box className={classes.step} id="householdIncome"> {'<$35000'} </Box>
                             <Box className={classes.step} id="householdIncome"> $35,000 - $55,000 </Box>
