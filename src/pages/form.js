@@ -317,7 +317,7 @@ const App = () => {
 
                     </Grid>
                 </Paper>
-                <p style={{ position: "absolute", right: "10px", bottom: "3px", color: "#323865", fontSize: "calc(6px + 0.4vw)"}}>Have a question? Experiencing troubles with completeing your application? Email us at <a href="mailto: novaxnetwork@gmail.com">novaxnetwork@gmail.com</a>.</p>
+                <p style={{ position: "absolute", right: "10px", bottom: "3px", color: "#323865", fontSize: "calc(6px + 0.4vw)"}}>Have a question? Experiencing troubles with completing your application? Email us at <a href="mailto: novaxnetwork@gmail.com">novaxnetwork@gmail.com</a>.</p>
             </>
         )
     }
