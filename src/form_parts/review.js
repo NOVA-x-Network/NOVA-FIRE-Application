@@ -54,7 +54,7 @@ const Review = () => {
                                                         console.log("too long")
                                                         errorMsgsCopy.push(<p>Error! Your answer for question {field[field.length - 1]} for the Creative Responses section was too long</p>)
                                                     }
-                                                    else if (appSection[field].trim().split(/\s+/).length > 300) {
+                                                    else if (appSection[field].trim().split(/\s+/).length > 300 && field != 'longQuestion1') {
                                                         verified = false
                                                         console.log("too long")
                                                         errorMsgsCopy.push(<p>Error! Your answer for question {field[field.length - 1]} for the Creative Responses section was too long</p>)
