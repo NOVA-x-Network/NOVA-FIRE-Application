@@ -23,7 +23,7 @@ const Description = () => {
                 >
                     Thank you for applying to participate in NOVA's FIRE (Fellowship for
                     Innovation, Research, and Education) Program. This application is due
-                    <span> Saturday, November 20, 2021, at 11:59pm</span>. Note that we also require that you submit your <span>transcript/most recent report card</span> (for gr 9s) along with your application. 
+                    <span> Tuesday, November 30, 2021, at 11:59pm</span>. Note that we also require that you submit your <span>transcript/most recent report card</span> (for gr 9s) along with your application. 
                 </Typography>
 
                 <Typography
