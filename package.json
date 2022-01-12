@@ -2,8 +2,8 @@
   "name": "nova-fire-application",
   "version": "1.0.0",
   "private": true,
-  "description": "NOVA-FIRE-Application",
-  "author": "Param Thakkar",
+  "description": "Nova-fire-application",
+  "author": "Emeka Ugbanu",
   "keywords": [
     "gatsby"
   ],
@@ -22,18 +22,19 @@
     "@reach/router": "^1.3.4",
     "firebase": "^8.2.6",
     "formik": "^2.2.9",
-    "gatsby": "^2.32.13",
-    "gatsby-image": "^2.11.0",
-    "gatsby-plugin-react-helmet": "^5.0.0",
-    "gatsby-plugin-sharp": "^2.14.1",
-    "gatsby-plugin-sitemap": "^2.12.0",
-    "gatsby-source-filesystem": "^2.11.0",
-    "gatsby-transformer-sharp": "^2.12.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "gatsby": "^4.2.0",
+    "gatsby-plugin-image": "^2.2.0",
+    "gatsby-plugin-sharp": "^4.2.0",
+    "gatsby-source-filesystem": "^4.2.0",
+    "gatsby-transformer-sharp": "^4.2.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
-    "react-with-firebase-auth": "^1.3.2",
-    "use-file-picker": "^1.3.0",
-    "yup": "^0.32.9"
+    "react-with-firebase-auth": "^1.3.11",
+    "use-file-picker": "^1.4.1",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "cypress": "^9.1.1"
   }
 }
