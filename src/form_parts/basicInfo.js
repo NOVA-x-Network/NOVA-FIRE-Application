@@ -6,7 +6,6 @@ import {
     withStyles,
     Container,
     MenuItem,
-    Input
 } from "@material-ui/core";
 import { withFormik } from "formik";
 import getData from "./dataWrapper.js"
@@ -18,7 +17,7 @@ class BasicInformationBody extends React.Component {
 
     componentDidMount() {
         const { values, changeHandler } = this.props
-
+   
         function formikHandleChange(e) {
             return null
         }
@@ -37,9 +36,6 @@ class BasicInformationBody extends React.Component {
                 x++
             }
         }
-
-        console.log(grade[0])
-        console.log(values)
 
         const setHandleSelect = (target) => {
             for (let i = 0; i < target.length; i++) {
