@@ -133,7 +133,7 @@ class BasicInformationBody extends React.Component {
                                 onChange={(e) => { changeHandler(e, formikHandleChange, values) }}
                                 name="regionalProgram"
                                 id="regionalProgram"
-                                label="Regional Program (if applicable)"
+                                label="Regional Program"
                                 className={classes.text}
                                 value={values.regionalProgram || ''}
                                 inputProps={{ maxLength: 60 }}
