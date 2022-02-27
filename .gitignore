@@ -1,34 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-/.cache
-/public
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/build
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-src/components/firebaseConfig.js.sample
-src/.vs/ProjectSettings.json
-src/.vs/slnx.sqlite
-src/.vs/src/v16/.suo
-src/.vs/VSWorkspaceState.json
-.vs/VSWorkspaceState.json
-.vs/slnx.sqlite
-.vs/NOVA-FIRE-Application/v16/.suo
+node_modules/
+.cache/
+public

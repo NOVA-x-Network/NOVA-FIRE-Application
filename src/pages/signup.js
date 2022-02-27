@@ -4,19 +4,7 @@ import getFirebase from "../components/firebaseConfig";
 import "firebase/auth"
 import {Helmet} from "react-helmet"
 class Signup extends React.Component {
-    signUpWithEmailAndPassword = () => {
-        this.state.firebaseAppAuth
-            .createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then((userCredential) => {
-                this.setState({ user: userCredential.user });
-            })
-            .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
-            });
-    };
+  
 
     onChangeHandler = (event) => {
         const { name, value } = event.currentTarget;
@@ -37,6 +25,23 @@ class Signup extends React.Component {
         user: '',
         firebaseAppAuth: {},
         provider: {}
+    };
+
+    signUpWithEmailAndPassword = () => {
+        this.state.firebaseAppAuth
+            .createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then((userCredential) => {
+                this.setState({ user: userCredential.user });
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+                this.setState({
+                    message: "Error Signing Up with password and email!",
+                })
+            });
     };
     componentDidMount() {
         const app = import("firebase/app")
@@ -81,12 +86,14 @@ class Signup extends React.Component {
                         </div>
                         <div className="loginRight"><center>
                             <h1>Create Account</h1>
+                            {this.state.message !== null && <h3  style={{color:"red",fontWeight:900,fontFamily:"Segoe UI"}}>{this.state.message}</h3>}
                             <input
                                 id="email"
                                 value={this.state.email}
                                 type="text"
                                 name="email"
                                 placeholder="Email"
+                                style={{border:this.state.message !== null ?`${3}px solid red`:`${1}px solid #fff` }}
                                 onChange={(event) => this.onChangeHandler(event)}
                             />
                             <input
@@ -95,6 +102,7 @@ class Signup extends React.Component {
                                 type="password"
                                 name="password"
                                 placeholder="Password"
+                                style={{border:this.state.message !== null ?`${3}px solid red`:`${1}px solid #fff` }}
                                 onChange={(event) => this.onChangeHandler(event)}
                             />
                             <button onClick={this.signUpWithEmailAndPassword}>Sign up</button>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react"
+import * as React from "react"
+import { useState, useEffect } from "react"
 import nova_logo_cropped from "../images/cropped-NOVA-logo-1.png"
 import nova_front_art from "../images/NovaHomepageClipArt.png"
 import getFirebase from "../components/firebaseConfig.js"
@@ -45,7 +46,7 @@ const IndexPage = () => {
 		setWindowWidth(window.innerWidth)
 		Promise.all([app]).then(([firebase]) => {
 			const firebaseApp = getFirebase(firebase)
-			console.log(firebaseApp)
+			//console.log(firebaseApp)
 			const firebaseAppAuth = firebaseApp.default.auth()
 			let db = firebaseApp.default.firestore()
 			firebaseAppAuth.onAuthStateChanged((user) => {

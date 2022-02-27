@@ -98,7 +98,7 @@ class Login extends React.Component {
                 <div className="loginRight"><center>
                     <h1>Log In</h1>
                     <header className="App-header">
-                        {this.state.message !== null && <div>{this.state.message}</div>}
+                        {this.state.message !== null && <h3 data-test-id="error" style={{color:"red",fontWeight:900,fontFamily:"Segoe UI"}}>{this.state.message}</h3>}
                         <div>
                             <input
                                 id="email"
@@ -106,15 +106,20 @@ class Login extends React.Component {
                                 type="text"
                                 name="email"
                                 placeholder="Email"
+                                data-test-id="email"
                                 onChange={(event) => this.onChangeHandler(event)}
+                                style={{border:this.state.message !== null ?`${3}px solid red`:`${1}px solid #fff` }}
                             />
+                            
                             <input
                                 id="password"
                                 value={this.state.password}
                                 type="password"
                                 name="password"
                                 placeholder="Password"
+                                data-test-id="password"
                                 onChange={(event) => this.onChangeHandler(event)}
+                                style={{border:this.state.message !== null ?`${3}px solid red`:`${1}px solid #fff` }}
                             />
                             <button onClick={this.signInWithEmailAndPassword}>Log in</button>
                             <p>or</p>
@@ -135,7 +140,7 @@ class Login extends React.Component {
                             >
                                 Forgot password
                             </button>
-                            <p>Don't have an account yet? <a href="/signup"><b><u>Sign up.</u></b></a></p>
+                            <p>Don't have an account yet? <a href="/signup" data-test-id="signup"><b><u>Sign up.</u></b></a></p>
                         </div>
                     </header>
                 </center></div>
