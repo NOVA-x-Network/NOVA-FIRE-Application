@@ -10,11 +10,15 @@
     animation-iteration-count: 60;
     animation-timing-function: ease-in-out;
 }
-@media (min-width: 1025px) {
-    body {
+
+
+body {
+    color: #ADE0DD;
     background: #D6F3F2;
+    font-family: 'Poppins', sans-serif;
     padding-top:10px;
     }
+@media (min-width: 1025px) {
     input {
     width: 50%;
     height:50px;
@@ -72,11 +76,6 @@
     p {
     text-align: left;
     vertical-align: top;
-    }
-
-    body {
-    color: #ADE0DD;
-    font-family: 'Poppins', sans-serif
     }
 
     .main {
@@ -152,7 +151,6 @@
         font-style: normal;
         font-weight: normal;
         font-size: 15px;
-        line-height: 5px;
         color: #BFEDEA;
     }
 
@@ -433,7 +431,6 @@
     font-style: normal;
     font-weight: normal;
     font-size: 25px;
-    line-height: 5px;
     color: #BFEDEA;
     padding:20px;
     }

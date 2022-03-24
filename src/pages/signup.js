@@ -117,7 +117,8 @@ class Signup extends React.Component {
                             >
                                 Sign up with Google
                             </button>
-                            <p>Already have an account? <a href="/login"><b><u>Sign in. </u></b></a></p></center>
+                            <p>Already have an account? <a href="/login"><b>Sign in.</b></a></p>
+                            </center>
                         </div>
                     </>
                 )}

@@ -35,9 +35,7 @@ const App = () => {
                 width: `${95}vw`,
                 height: `${93}vh`,
                 background: `white`,
-                marginTop: `${0}vh`,
-                marginLeft: `${2.5}vw`,
-                marginRight: `${2.5}vw`,
+                marginTop: `${1.4}vh`,
                 fontFamily: "poppins",
                 borderRadius: "15px 15px 15px 15px",
                 boxShadow: "0px 5px 12px #ADE0DD"
@@ -80,7 +78,6 @@ const App = () => {
                 width: `${100}vw`,
                 background: `#fff`,
                 marginTop: `${1.5}em`,
-                marginLeft: `${8}em`,
                 fontFamily: "poppins"
             },
             first: {
@@ -191,7 +188,7 @@ const App = () => {
     },[])
     if (userStatus && gotAuthStatus) {
         return (
-            <>
+            <div style={{display:"flex", flexDirection:"column", justifyContent:"space-between", alignItems:"center"}}>
                 <Helmet>
                     <meta charSet="utf-8" />
                     <link rel="icon" href="../images/cropped-NOVA-logo-1.png" type="image/jpg"/>
@@ -317,8 +314,8 @@ const App = () => {
 
                     </Grid>
                 </Paper>
-                <p style={{ position: "absolute", right: "10px", bottom: "3px", color: "#323865", fontSize: "calc(6px + 0.4vw)"}}>Have a question? Experiencing troubles with completing your application? Email us at <a href="mailto: novaxnetwork@gmail.com">novaxnetwork@gmail.com</a>.</p>
-            </>
+                <p style={{color: "#323865", fontSize: "calc(10px + 0.4vw)"}}>Have a question? Experiencing troubles with completing your application? Email us at <a href="mailto: novaxnetwork@gmail.com">novaxnetwork@gmail.com</a>.</p>
+            </div>
         )
     }
     return(<div></div>)
