@@ -53,55 +53,43 @@ const Description = () => {
                     creative mindset to solve. The research prompts for this year’s fellowship are:
                 </Typography>
                 <ol>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Developing Technologies to Reduce Food Waste in Ontario</li>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Developing Technologies to Reduce Plastic Waste</li>
                     <Typography
                         align="left"
                     >
-                        60% of food waste in Ontario is sent to landfills. 7.1 metric tonnes and 31 billion dollars 
-                        worth of food is wasted in the province each year. Data governance, waste management tools and 
-                        general education have been helping combat this rising source of environmental and economic damage.  
-                        This stream will focus on the creation of a technology to reduce the impact and amount of food  
-                        waste in the community.
+                        Canada throws away over 3 million tonnes of plastic waste every year. Only 9% of that is recycled. 
+                        This group will research what the biggest bottle neck in this issue is, and develop tools for 
+                        everyday households to reduce plastic waste. This may include a cheap household garbage sorter, 
+                        or a campaign to better inform the public.
 
                     </Typography>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Developing technologies to make recreation more accessible for individuals living with a disability</li>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Studying the Impact Meditation has on Memory</li>
                     <Typography
                         align="left"
                     >
-                            Historically, orthopedic technology has had a focus on the rehabilitation of injured or 
-                            disabled people. Basic needs have been addressed to better the quality of life of such 
-                            individuals, and recreational desires have been deemed secondary. However, because of 
-                            technology, participation barriers are being lifted for different vulnerable groups 
-                            around the world. Specifically, technology plays a key role in making recreation more 
-                            accessible for individuals who are living with a disability. This stream explores the 
-                            various existing literature on rehabilitation technology, and explores the ways in which 
-                            this research can be expanded to include modes of recreation for individuals with disabilities. 
+                        Meditation is known to have many scientific benefits, namely improving mental health by 
+                        helping with stress management. One of the more debated claims is whether or not meditation 
+                        alone can improve memory and concentration. This group will conduct experiments and analyze 
+                        the brain using an EEG headset to determine if meditating truly improves one's ability to
+                        recall short term and long term memory. 
                     </Typography>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Examining the impacts of voluntourism in non-Western nations</li>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Studying the different modes of learning, and what part of the brain is active during each one</li>
                     <Typography
                         align="left"
                     >
-                        Volunteer tourism, or voluntourism, is an increasingly popular form of travel that has gained quite a 
-                        bit of attention in the world of academia over the last few years, and the motivations of volunteer 
-                        tourists have been examined. From this, it seems that there are quite a few negative implications of 
-                        volunteer tourism on the communities that are being toured due to gentrification and an overall 
-                        neglect of the desires of locals. This stream analyzes the disruption of local economies and 
-                        lifestyles that occurs when volunteers, who are mainly from the West (USA, Canada, Europe, Australia) 
-                        visit or settle down in the global south. In the end you will launch an information campaign to present 
-                        your findings using a variety of media
+                        People have often been categorized by the type of learner they are, for example, visual, auditory, 
+                        or sensory. This group will study whether there is basis to these claims, and if so, what part of 
+                        the brain is active during each type of learning. They will then study if it is possible to train 
+                        one's brain to be a certain type of learner
                     </Typography>
-                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Studying the effects that technology has on socialization/ the age of digital socialization</li>
+                    <li style={{ color: `#323865`, fontFamily: `poppins`, fontWeight: `bold`}}>Analyzing what Canada is doing to combat climate change</li>
                     <Typography
                         align="left"
                     >
-                        In the last couple of decades, rapidly evolving technology has shifted the way we socialize. 
-                        Digital platforms have allowed people to communicate from anywhere in the world, making our society 
-                        more connected than ever. However, in some cases, the artificial nature of online interactions may 
-                        lead to feeling isolated and overwhelmed. It is important to research how the age of digital 
-                        socialization impacts mental health, cultural norms, and social development in adolescents. 
-                        This becomes more relevant when considering how Covid-19 has limited socialization to digital 
-                        platforms. This stream will design and conduct a qualitative study and use existing research papers 
-                        to develop a research report that will be published on NOVA’s website.
+                        Climate change is probably the most impending global issue we are currently facing. We are already 
+                        seeing climate disasters leading to refugees and loss of habitat. This group will look into how climate 
+                        change has impacted Canada, and what the government is doing to combat it. They will also put together 
+                        suggestions for further improvement, and look at the economic impact of doing so.
                     </Typography>
                 </ol>
                 <Typography
