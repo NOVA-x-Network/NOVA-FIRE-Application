@@ -11,8 +11,8 @@ const IndexPage = () => {
 	const [appStatus, setAppStatus] = useState(false)
 	const [gotAuthStatus, setGotAuthStatus] = useState(false)
 	const [auth, setAuth] = useState('')
-	var cornerImageHeight
-	var cornerImageWidth
+	var cornerImageHeight = "auto"
+	var cornerImageWidth = "8vw"
 	useEffect(() => {
 		const app = import("firebase/app")
 		Promise.all([app]).then(([firebase]) => {
