@@ -20,7 +20,6 @@ class Signup extends React.Component {
         message: null,
         email: "",
         password: "",
-        user: null,
         gotAuthStatus: false,
         user: '',
         firebaseAppAuth: {},

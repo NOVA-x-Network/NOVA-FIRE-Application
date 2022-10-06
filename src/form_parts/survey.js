@@ -3,9 +3,6 @@ import { withFormik } from "formik";
 import { withStyles, Container } from "@material-ui/core";
 import getData from "./dataWrapper.js"
 class SurveyBody extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     componentWillUnmount() {
         const {values} = this.props

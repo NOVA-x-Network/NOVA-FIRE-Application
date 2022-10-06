@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
     Button,
-    Container,
     Typography,
     makeStyles
 } from "@material-ui/core";
@@ -66,7 +65,7 @@ const Upload = () => {
         let counter=0
         filesContent.forEach(() => {
             allFilesTemp.forEach((file) => {
-                if (file.name == filesContent[counter].name) {
+                if (file.name === filesContent[counter].name) {
                     filesContent[counter].name = filesContent[counter].name + " (1)"
                 }
             })

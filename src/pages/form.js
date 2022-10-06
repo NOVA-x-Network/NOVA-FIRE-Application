@@ -143,7 +143,6 @@ const App = () => {
                                         gender: "",
                                         city: "",
                                         grade: "",
-                                        regionalProgram:"",
                                         householdIncome: "",
                                         laptopAndInternetAccess: "",
                                         isFirstNation: "",
@@ -168,7 +167,7 @@ const App = () => {
                                 })
                             }
                             db.collection("submissions").doc(user.email).onSnapshot((snapshot) => {
-                                if (appStatus != snapshot.data().applicationStatus && typeof snapshot.data() !== 'undefined') {
+                                if (appStatus !== snapshot.data().applicationStatus && typeof snapshot.data() !== 'undefined') {
                                     setAppStatus(snapshot.data().applicationStatus)
                                 }
                                 else {

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { TextField, Box, Typography, makeStyles } from "@material-ui/core";
+import React, { useState } from "react";
+import {Typography, makeStyles } from "@material-ui/core";
 import getFirebase from "../components/firebaseConfig.js";
 import "firebase/firestore";
 import "firebase/auth";
@@ -89,7 +89,6 @@ store.append("Sheet1", [
                     
                     let mandatoryFields = [];
                     let section = "";
-                    let verified = true;
                     switch (category) {
                       case "basicInfo":
                         mandatoryFields = [
@@ -118,10 +117,9 @@ store.append("Sheet1", [
                             if (
                               appSection[field].trim().split(/\s+/).length >
                                 500 &&
-                              field == "longQuestion1"
+                              field === "longQuestion1"
                             ) {
-                              verified = false;
-                            
+                                                          
                               errorMsgsCopy.push(
                                 <p>
                                   Error! Your answer for question{" "}
@@ -132,8 +130,7 @@ store.append("Sheet1", [
                             } else if (
                               appSection[field].trim().split(/\s+/).length > 300
                             ) {
-                              verified = false;
-                             
+                                                           
                               errorMsgsCopy.push(
                                 <p>
                                   Error! Your answer for question{" "}
@@ -174,16 +171,14 @@ store.append("Sheet1", [
                           );
                         }
                     }
-                    if (JSON.stringify(appSection) == "{}") {
-                      verified = false;
-                    }
+                    if (JSON.stringify(appSection) === "{}") {
+                                          }
                 
                     mandatoryFields.every((field) => {
                     
-                      if (!appSection[field] || appSection[field].length == 0) {
+                      if (!appSection[field] || appSection[field].length === 0) {
                       
-                        verified = false;
-                        errorMsgsCopy.push(
+                                                errorMsgsCopy.push(
                           <p>
                             Error! You're missing mandatory responses from the{" "}
                             {section} section.
@@ -195,7 +190,7 @@ store.append("Sheet1", [
                     });
                    
                   });
-                  if (errorMsgsCopy.length == 0) {
+                  if (errorMsgsCopy.length === 0) {
                     errorMsgsCopy.push(
                       <p style={{ color: "green" }}>
                         You've successfully completed the application. Your

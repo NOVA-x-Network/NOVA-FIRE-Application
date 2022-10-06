@@ -11,10 +11,6 @@ import { withFormik } from "formik";
 import getData from "./dataWrapper.js"
 
 class BasicInformationBody extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     componentDidMount() {
         const { values, changeHandler } = this.props
    
@@ -39,7 +35,7 @@ class BasicInformationBody extends React.Component {
 
         const setHandleSelect = (target) => {
             for (let i = 0; i < target.length; i++) {
-                if (target[i].innerHTML == values[target[0].id]) {
+                if (target[i].innerHTML === values[target[0].id]) {
                     target[i].style.background = "#1A6F4C";
                     target[i].style.color = "#fff";
                 }
@@ -76,7 +72,7 @@ class BasicInformationBody extends React.Component {
         const formikHandleChange = this.props.handleChange
         return (
             <Container style={{ fontFamily: "poppins", marginLeft:"0vw"}}>
-                <form style={{ overflowY: `scroll`, overflowX: `hidden`, marginLeft: `${2}vw`, overflowY: `scroll`, height: `75vh` }} id="2">
+                <form style={{ overflowY: `scroll`, overflowX: `hidden`, marginLeft: `${2}vw`,height: `75vh` }} id="2">
                     <Typography className={classes.heading}>Basic Information</Typography>
                     <Box style={{ display: `flex`, flexDirection: "row", flexWrap: "wrap", rowGap: "10px", columnGap: "10px"}}>
                                 <TextField

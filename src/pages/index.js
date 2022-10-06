@@ -9,41 +9,12 @@ import "firebase/auth"
 const IndexPage = () => {
 	const [userStatus, setUserStatus] = useState(false)
 	const [appStatus, setAppStatus] = useState(false)
-	const [windowWidth, setWindowWidth] = useState(900)
 	const [gotAuthStatus, setGotAuthStatus] = useState(false)
 	const [auth, setAuth] = useState('')
-	const defaultComputerWidth = 2550
-	var introTextWidth
-	var introTextFont
-	var frontBannerWidth
-	var frontBannerHeight
-	var frontBannerImageWidth
-	var frontBannerImageHeight
 	var cornerImageHeight
 	var cornerImageWidth
-	if (windowWidth >= 900) {
-		introTextFont = "14pt"
-		introTextWidth = "30vw"
-		frontBannerHeight = "auto"
-		frontBannerImageHeight = "30vh"
-		frontBannerWidth = "90vw"
-		frontBannerImageWidth = "22vw"
-		cornerImageHeight = "auto"
-		cornerImageWidth = "8vw"
-	}
-	else {
-		introTextFont = "14pt"
-		introTextWidth = "40vw"
-		frontBannerHeight = "auto"
-		frontBannerImageHeight = "35vw"
-		frontBannerWidth = "90vw"
-		frontBannerImageWidth = "42vw"
-		cornerImageHeight = "auto"
-		cornerImageWidth = "8vw"
-	}
 	useEffect(() => {
 		const app = import("firebase/app")
-		setWindowWidth(window.innerWidth)
 		Promise.all([app]).then(([firebase]) => {
 			const firebaseApp = getFirebase(firebase)
 			//console.log(firebaseApp)
@@ -60,9 +31,6 @@ const IndexPage = () => {
 						})
 				}
 			})
-		})
-		window.addEventListener('resize', () => {
-			setWindowWidth(window.innerWidth)
 		})
 	}, [])
 	if (!gotAuthStatus) {

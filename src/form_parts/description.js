@@ -17,7 +17,7 @@ const Description = () => {
     let classes=descriptionStyles()
     return (
         <>
-            <Container className="descriptionText" style={{ marginLeft: `${2}vw`, width: `${65}vw`, overflowY: `scroll`, height: `75vh` }} className={classes.body}>
+            <Container style={{ marginLeft: `${2}vw`, width: `${65}vw`, overflowY: `scroll`, height: `75vh` }} className={classes.body}>
                 <Typography
                     align="left"
                 >
