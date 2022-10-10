@@ -114,19 +114,16 @@ store.append("Sheet1", [
                         ];
                         mandatoryFields.forEach((field) => {
                           try {
-                            if (
-                              appSection[field].trim().split(/\s+/).length >
-                                500 &&
-                              field === "longQuestion1"
-                            ) {
-                                                          
-                              errorMsgsCopy.push(
-                                <p>
-                                  Error! Your answer for question{" "}
-                                  {field[field.length - 1]} for the Creative
-                                  Responses section was too long
-                                </p>
-                              );
+                            if (field === "longQuestion1") {
+                              if(appSection[field].trim().split(/\s+/).length > 500){
+                                errorMsgsCopy.push(
+                                  <p>
+                                    Error! Your answer for question{" "}
+                                    {field[field.length - 1]} for the Creative
+                                    Responses section was too long
+                                  </p>
+                                );
+                              }
                             } else if (
                               appSection[field].trim().split(/\s+/).length > 300
                             ) {
